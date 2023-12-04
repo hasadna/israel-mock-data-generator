@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "israel-mock-data-generator"
+version = "0.0.0"
+description = ""
+authors = ["Ori Hoch <ori@uumpa.com>"]
+readme = "README.md"
+packages = [{include = "israel_mock_data_generator"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+faker = "^20.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
