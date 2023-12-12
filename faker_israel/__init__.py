@@ -1,4 +1,4 @@
-from collections import OrderedDict
+import datetime
 
 from faker.providers import BaseProvider
 from faker.providers.company import Provider as CompanyProvider
@@ -53,6 +53,21 @@ class Provider(BaseProvider):
     def bank_branch_name(self, bank=None):
         bank = bank or self.bank()
         return bank.get('branch_name_prefix', '') + self.generator.city()
+
+    def bank_branch_number(self, bank=None):
+        return self.generator.numerify('###')
+
+    def bank_account_number(self, bank=None):
+        return self.generator.numerify('######')
+
+    def bank_statement(self, bank=None):
+        return {}
+
+    def bank_statement_print_date(self, bank_statement=None, date_format='%d/%m/%Y'):
+        return self.generator.date_this_year().strftime(date_format)
+
+    def bank_statement_account_creation_date(self, bank_statement=None, date_format='%d/%m/%Y'):
+        return self.generator.date_between_dates(datetime.date(1995, 1, 1), datetime.date(2022, 1, 1)).strftime(date_format)
 
     def teudat_zehut(self):
         return self.generator.numerify('#########')

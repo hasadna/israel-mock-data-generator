@@ -9,7 +9,11 @@ packages = [{include = "israel_mock_data_generator"}]
 [tool.poetry.dependencies]
 python = "^3.8"
 faker = "^20.1.0"
+click = "^8.1.7"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ilmockgen = "israel_mock_data_generator.cli:main"
