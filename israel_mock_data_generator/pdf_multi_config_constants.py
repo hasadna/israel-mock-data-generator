@@ -24,7 +24,7 @@ TYPES = {
                 'old': 'ד4ד'
             },
             '-5': {
-                'new': ('bank_statement_print_date', 'bank_statement', '%d/%m/%Y'),
+                'new': ('bank_statement_print_date', '%d/%m/%Y'),
                 'old': 'א1' + '/' + 'ב1' + '/' + 'ש1ש1'
             },
             '-6': {
@@ -33,7 +33,7 @@ TYPES = {
                 'old': 'ןד ילארשי'
             },
             '-7': {
-                'new': ('bank_statement_account_creation_date', 'bank_statement', '%d/%m/%Y'),
+                'new': ('bank_account_creation_date', '%d/%m/%Y'),
                 'old': 'א2' + '/' + 'ב2' + '/' + 'ש2ש2'
             },
             '-8': {
