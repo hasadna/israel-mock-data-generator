@@ -14,3 +14,7 @@ def main():
 def generate_pdf_multi_config(**kwargs):
     from .generate_pdf_multi_config import main
     main(**kwargs)
+
+
+if __name__ == '__main__':
+    main()

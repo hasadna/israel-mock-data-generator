@@ -1,6 +1,4 @@
-import string
 import datetime
-from typing import Dict
 
 from faker.providers import BaseProvider
 from faker.providers.company import Provider as CompanyProvider
@@ -30,8 +28,36 @@ def tz_control_digit(id_num):
     return str(check_digit)
 
 
+class RelatedNames:
+
+    def __init__(self, provider, relation_type=None, relation_type_elements=('none', 'none', 'family'), name_reverse=False):
+        self.provider = provider
+        relation_type = relation_type or provider.random_element(relation_type_elements)
+        assert relation_type in ('none', 'family')
+        self._last_name = provider.generator.last_name() if relation_type == 'family' else None
+        self._name_reverse = name_reverse
+
+    def faker_var_value_is_valid(self, faker_var_value):
+        if self._last_name:
+            # we verify that last name with additional 5 chars to allow for private name
+            return faker_var_value.is_valid(self._last_name + ' 12345')
+        else:
+            return True
+
+    def last_name(self):
+        return self._last_name or self.provider.generator.last_name()
+
+    def first_name(self):
+        return self.provider.generator.first_name()
+
+    def name(self):
+        if self._name_reverse:
+            return f'{self.last_name()} {self.first_name()}'
+        else:
+            return f'{self.first_name()} {self.last_name()}'
+
+
 class Provider(BaseProvider):
-    ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
 
     def __init__(self, generator):
         super().__init__(generator)
@@ -86,13 +112,9 @@ class Provider(BaseProvider):
         d = self.generator.date_between_dates(datetime.date(1995, 1, 1), datetime.date(2022, 1, 1))
         return d if date_format is None else d.strftime(date_format)
 
-    def bank_iban(self, bank=None):
-        bban = self.generator.bban()
-        check = bban + "IL00"
-        check_ = int("".join(self.ALPHA.get(c, c) for c in check))
-        check_ = 98 - (check_ % 97)
-        check = str(check_).zfill(2)
-        return 'IL' + check + bban
+    def bank_iban(self, bank_or_bank_branch=None, bank_account_number=None):
+        bank_or_bank_branch = bank_or_bank_branch or self.bank()
+        return bank_or_bank_branch.iban(bank_account_number)
 
     def teudat_zehut(self):
         nstr = self.generator.numerify('########')
@@ -100,3 +122,18 @@ class Provider(BaseProvider):
 
     def het_pey(self):
         return self.generator.numerify('5########')
+
+    def related_names(self, **kwargs):
+        return RelatedNames(self, **kwargs)
+
+    def related_names_name(self, related_names=None):
+        related_names = related_names or self.related_names()
+        return related_names.name()
+
+    def related_names_first_name(self, related_names=None):
+        related_names = related_names or self.related_names()
+        return related_names.first_name()
+
+    def related_names_last_name(self, related_names=None):
+        related_names = related_names or self.related_names()
+        return related_names.last_name()

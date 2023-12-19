@@ -1,5 +1,7 @@
 import os
 import json
+import string
+from typing import Dict
 from functools import partial
 
 
@@ -7,6 +9,7 @@ BANK_BRANCHES_CACHE = {}
 
 
 class Bank:
+    ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
 
     def __init__(self, id_, provider):
         self.id = id_
@@ -19,6 +22,14 @@ class Bank:
 
     def account_number(self):
         return self.provider.numerify('#########')
+
+    def iban(self, bank_account_number=None):
+        bban = self.provider.generator.bban()
+        check = bban + "IL00"
+        check_ = int("".join(self.ALPHA.get(c, c) for c in check))
+        check_ = 98 - (check_ % 97)
+        check = str(check_).zfill(2)
+        return 'IL' + check + bban
 
 
 class BankBranch:
@@ -37,6 +48,9 @@ class BankBranch:
             self.address = self.bank.provider.generator.address()
         self.manager_name = manager_name if manager_name else self.bank.provider.generator.name()
         self.manager_phone_number = manager_phone_number if manager_phone_number else self.bank.provider.generator.phone_number()
+
+    def iban(self, bank_account_number=None):
+        return self.bank.iban()
 
     def __str__(self):
         return json.dumps(self.as_dict())
@@ -82,6 +96,13 @@ class BankPoalim(Bank):
                     )
 
 
+class BankBranchLeumi(BankBranch):
+
+    def iban(self, bank_account_number=None):
+        bank_account_number = bank_account_number or self.bank.account_number()
+        return 'IL3601' + self.number.zfill(4) + '000000' + bank_account_number[:-3] + bank_account_number[-2:]
+
+
 class BankLeumi(Bank):
     name = 'לאומי'
 
@@ -94,11 +115,14 @@ class BankLeumi(Bank):
                     item = None
                 if item:
                     branch = list(item.values())[0]
-                    yield BankBranch(
+                    yield BankBranchLeumi(
                         self, branch['name'], branch['number'],
                         phone_number='03-9545522',
                         address=f'{branch["address"]}, {branch["city"]}, {branch["zipCode"]}',
                     )
+
+    def account_number(self):
+        return self.provider.numerify('#####/##')
 
 
 class BankDiscount(Bank):
