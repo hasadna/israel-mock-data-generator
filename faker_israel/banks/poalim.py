@@ -32,3 +32,6 @@ class BankPoalim(Bank):
                         manager_phone_number=branch['branchManagerPhoneNumber'],
                         **kwargs
                     )
+
+    def account_number(self):
+        return self.provider.numerify('######')
