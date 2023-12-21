@@ -88,9 +88,9 @@ class Provider(BaseProvider):
         bank = bank or self.bank()
         return bank.full_name
 
-    def bank_branch(self, bank=None):
+    def bank_branch(self, bank=None, **kwargs):
         bank = bank or self.bank()
-        return bank.branch()
+        return bank.branch(**kwargs)
 
     def bank_branch_name(self, bank_branch=None):
         bank_branch = bank_branch or self.bank_branch()
@@ -99,6 +99,10 @@ class Provider(BaseProvider):
     def bank_branch_number(self, bank_branch=None):
         bank_branch = bank_branch or self.bank_branch()
         return bank_branch.number
+
+    def bank_branch_address(self, bank_branch=None):
+        bank_branch = bank_branch or self.bank_branch()
+        return bank_branch.address
 
     def bank_account_number(self, bank=None):
         bank = bank or self.bank()

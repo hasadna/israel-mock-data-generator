@@ -11,6 +11,8 @@ def main():
 @main.command()
 @click.argument('CONFIG_TYPE', type=click.Choice(pdf_multi_config_constants.TYPES.keys()))
 @click.argument('NUM', type=int, default=1)
+@click.option('--key-prefix')
+@click.option('--doc-name')
 def generate_pdf_multi_config(**kwargs):
     from .generate_pdf_multi_config import main
     main(**kwargs)
