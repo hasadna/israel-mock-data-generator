@@ -82,11 +82,11 @@ class Provider(BaseProvider):
 
     def bank_name(self, bank=None):
         bank = bank or self.bank()
-        return bank.name
+        return str(bank.name)
 
     def bank_full_name(self, bank=None):
         bank = bank or self.bank()
-        return bank.full_name
+        return str(bank.full_name)
 
     def bank_branch(self, bank=None, **kwargs):
         bank = bank or self.bank()
@@ -94,19 +94,19 @@ class Provider(BaseProvider):
 
     def bank_branch_name(self, bank_branch=None):
         bank_branch = bank_branch or self.bank_branch()
-        return bank_branch.name
+        return str(bank_branch.name)
 
     def bank_branch_number(self, bank_branch=None):
         bank_branch = bank_branch or self.bank_branch()
-        return bank_branch.number
+        return str(bank_branch.number)
 
     def bank_branch_address(self, bank_branch=None):
         bank_branch = bank_branch or self.bank_branch()
-        return bank_branch.address
+        return str(bank_branch.address)
 
     def bank_account_number(self, bank=None):
         bank = bank or self.bank()
-        return bank.account_number()
+        return str(bank.account_number())
 
     def bank_statement_print_date(self, date_format=None):
         d = self.generator.date_this_year()
@@ -118,7 +118,7 @@ class Provider(BaseProvider):
 
     def bank_iban(self, bank_or_bank_branch=None, bank_account_number=None):
         bank_or_bank_branch = bank_or_bank_branch or self.bank()
-        return bank_or_bank_branch.iban(bank_account_number)
+        return str(bank_or_bank_branch.iban(bank_account_number))
 
     def teudat_zehut(self):
         nstr = self.generator.numerify('########')
@@ -132,12 +132,12 @@ class Provider(BaseProvider):
 
     def related_names_name(self, related_names=None):
         related_names = related_names or self.related_names()
-        return related_names.name()
+        return str(related_names.name())
 
     def related_names_first_name(self, related_names=None):
         related_names = related_names or self.related_names()
-        return related_names.first_name()
+        return str(related_names.first_name())
 
     def related_names_last_name(self, related_names=None):
         related_names = related_names or self.related_names()
-        return related_names.last_name()
+        return str(related_names.last_name())
