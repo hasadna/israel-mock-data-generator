@@ -4,7 +4,10 @@ version = "0.0.0"
 description = ""
 authors = ["Ori Hoch <ori@uumpa.com>"]
 readme = "README.md"
-packages = [{include = "israel_mock_data_generator"}]
+packages = [
+    {include = "israel_mock_data_generator"},
+    {include = "faker_israel"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

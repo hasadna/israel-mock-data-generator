@@ -30,24 +30,28 @@ def process_var_value(key, value, vars_, fake, with_cache=True):
         raise Exception(f'Error processing var value "{key}" "{value}": {e}') from e
 
 
-def generate(type_config):
+def generate(type_config, with_debug_info=False):
     fake = Faker('he_IL')
     fake.add_provider(IsraelProvider)
     out = deepcopy(type_config)
-    out.pop('_key_prefix')
+    out.pop('_key_prefix', None)
     vars_ = out.pop('_vars', None) or {}
     replacements = out.pop('replacements')
-    out['_fake_vars'] = {}
+    if with_debug_info:
+        out['_fake_vars'] = {}
     for k, v in vars_.items():
         if callable(v) and not isinstance(v, FakerVarValue):
             vars_[k] = v(vars_)
-            out['_fake_vars'][k] = [inspect.getsource(v)]
+            if with_debug_info:
+                out['_fake_vars'][k] = [inspect.getsource(v)]
         else:
-            out['_fake_vars'][k] = v.as_tuple() if isinstance(v, FakerVarValue) else v
+            if with_debug_info:
+                out['_fake_vars'][k] = v.as_tuple() if isinstance(v, FakerVarValue) else v
             process_var_value(k, v, vars_, fake, with_cache=False)
     out['replacements'] = {}
     for repl_key, repl_config in replacements.items():
-        repl_config['_fake'] = repl_config['new'].as_tuple() if isinstance(repl_config['new'], FakerVarValue) else repl_config['new']
+        if with_debug_info:
+            repl_config['_fake'] = repl_config['new'].as_tuple() if isinstance(repl_config['new'], FakerVarValue) else repl_config['new']
         repl_config['new'] = process_var_value(None, repl_config['new'], vars_, fake)
         out['replacements'][repl_key] = repl_config
     return out
@@ -60,7 +64,7 @@ def main(config_type, num=1, key_prefix=None, doc_name=None):
     if doc_name:
         type_config['doc_name'] = doc_name
     output = {
-        (type_config['_key_prefix'] + str(i + 1)): generate(type_config)
+        (type_config['_key_prefix'] + str(i + 1)): generate(type_config, with_debug_info=True)
         for i in range(num)
     }
     print(json.dumps(output, indent=2, ensure_ascii=False))
