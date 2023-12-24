@@ -8,7 +8,7 @@ class BankDiscount(Bank):
     name = 'דיסקונט'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'discount_branches.json')) as f:
+        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'discount_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f):
                 field_branch_street = branch['field_branch_street'].strip()
                 if len(field_branch_street) <= 7:

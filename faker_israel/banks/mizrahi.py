@@ -16,7 +16,7 @@ class BankMizrahi(Bank):
     name = 'מיזרחי טפחות'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'mizrahi_branches.json')) as f:
+        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'mizrahi_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f)["result"]:
                 yield BankBranchMizrahi(
                     self, branch['ShemYeshuv'], branch['MisparSnif'],

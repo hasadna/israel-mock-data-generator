@@ -15,7 +15,7 @@ class BankLeumi(Bank):
     name = 'לאומי'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'leumi_branches.json')) as f:
+        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'leumi_branches.json'), encoding='utf-8') as f:
             for item in f.read().split('"branch')[2:]:
                 try:
                     item = json.loads('{"branch' + item[:-2] + '}}')
