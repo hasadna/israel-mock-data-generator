@@ -1,8 +1,112 @@
+import os
 import json
 import string
 from typing import Dict
 
+from PIL import Image, ImageDraw, ImageFont
+
 BANK_BRANCHES_CACHE = {}
+
+
+class BankStatement:
+
+    def __init__(self, bank, test=False, no_bg=False, mock=False, no_pdf=False, source_image=None, **kwargs):
+        self.provider = bank.provider
+        self.bank = bank
+        self.test = test
+        self.no_bg = no_bg
+        self.mock = mock
+        self.no_pdf = no_pdf
+        self.source_image = source_image
+
+    def get_annotation_labels(self, item_filter):
+        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'label_studio_bank_statements.json'), encoding='utf-8') as f:
+            items = [item for item in json.load(f) if item_filter(item)]
+            assert len(items) == 1
+        item = items[0]
+        original_width, original_height = None, None
+        res = {}
+        for label in item['label']:
+            if not original_width:
+                original_width = label['original_width']
+            else:
+                assert original_width == label['original_width']
+            if not original_height:
+                original_height = label['original_height']
+            else:
+                assert original_height == label['original_height']
+            x = label['x'] * original_width / 100
+            y = label['y'] * original_height / 100
+            width = label['width'] * original_width / 100
+            height = label['height'] * original_height / 100
+            assert label['rotation'] == 0
+            assert len(label['rectanglelabels']) == 1
+            assert label['rectanglelabels'][0] not in res
+            res[label['rectanglelabels'][0]] = {
+                'x': x,
+                'y': y,
+                'width': width,
+                'height': height,
+            }
+        return original_width, original_height, res
+
+    def get_draw_labels(self, annotation_labels_item_filter, labels):
+        original_width, original_height, annotation_labels = self.get_annotation_labels(annotation_labels_item_filter)
+        res_labels = {}
+        for label_id, label in labels.items():
+            label = {**annotation_labels[label_id], **label}
+            label['font_path'] = os.path.join(os.path.dirname(__file__), '..', 'data', 'fonts', f'{label["font"]}.ttf')
+            font = ImageFont.truetype(label['font_path'], label['font_size'])
+            if self.mock:
+                label['text'] = 'ללקקףףזזץץ'
+            left, top, right, bottom = font.getbbox(label['text'], direction=label.get('direction') or 'rtl')
+            label['bg_pos_rect'] = (label['x'], label['y'], label['x'] + label['width'], label['y'] + label['height'])
+            label['text_pos_xy'] = (label['x'] + label['width'] - right + label.get('x_offset', 0), label['y'] + label.get('y_offset', 0))
+            res_labels[label_id] = label
+        return original_width, original_height, res_labels
+
+    def save_init(self, output_path, source_file_name, annotation_labels_item_filter, labels):
+        assert output_path.endswith('.png')
+        original_width, original_height, draw_labels = self.get_draw_labels(annotation_labels_item_filter, labels)
+        source_image = getattr(self, 'source_image', None)
+        if not source_image:
+            source_image = os.path.join(os.path.dirname(__file__), '..', 'data', f'{source_file_name}.png')
+        image = Image.open(source_image)
+        assert original_width == image.width
+        assert original_height == image.height
+        return ImageDraw.Draw(image), draw_labels, image
+
+    def save_save(self, output_path, image):
+        assert output_path.endswith('.png')
+        image.save(output_path)
+        if not self.no_pdf:
+            image.convert('RGB').save(output_path.replace('.png', '.pdf'))
+
+    def draw_textbox(self, draw, font_path=None, font_size=None, text=None, text_pos_xy=None,
+                     bg_pos_rect=None, color=None, direction='rtl', font=None, offset_y=None,
+                     redraw=False, x=None, y=None, width=None, height=None,
+                     x_offset=None, y_offset=None,
+                     **kwargs):
+        if not font or isinstance(font, str):
+            font = ImageFont.truetype(font_path, font_size)
+        if redraw:
+            left, top, right, bottom = font.getbbox(text, direction=direction)
+            bg_pos_rect = (x, y, x + width, y + height)
+            text_pos_xy = (x + width - right + (x_offset or 0), y + (y_offset or 0))
+        if not self.no_bg and bg_pos_rect:
+            if offset_y:
+                bg_pos_rect = (bg_pos_rect[0], bg_pos_rect[1] + offset_y, bg_pos_rect[2], bg_pos_rect[3] + offset_y)
+            draw.rectangle(bg_pos_rect, fill="white")
+        if offset_y:
+            text_pos_xy = (text_pos_xy[0], text_pos_xy[1] + offset_y)
+        draw.text(text_pos_xy, text, fill=color or (0, 0, 0), font=font, direction=direction)
+        return font
+
+    def copy_section(self, image, draw, top_y, bottom_y, offset_y, fill=None):
+        section = image.crop((0, top_y, image.width, bottom_y))
+        image.paste(section, (0, int(top_y + offset_y)))
+        if fill:
+            draw.rectangle((0, top_y, image.width, top_y + offset_y), fill=fill)
 
 
 class BankBranch:
@@ -75,4 +179,7 @@ class Bank:
         return 'IL' + check + bban
 
     def iterate_all_branches(self, **kwargs):
+        raise NotImplementedError()
+
+    def statement(self, **kwargs):
         raise NotImplementedError()

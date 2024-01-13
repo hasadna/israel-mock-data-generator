@@ -1,6 +1,17 @@
 # Israel Faker Data
 
-This directory contains data files which were all publically available on the internet, usually from the Bank websites.
+## Label Studio
+
+We use [Label studio](https://labelstud.io/) to annotate images, there are two type of label studio files here:
+
+* `label_studio_*.json` - the annotations in json-min label studio export format
+* `label_studio_*.xml` - the labeling configuration
+
+The annotations refer to `.png` files in this directory.
+
+## Bank Branches
+
+Data files which were all publically available on the internet, usually from the Bank websites:
 
 * [poalim_branches.json](https://www.bankhapoalim.co.il/he/api/branches/data)
 * [poalim_cities.json](https://www.bankhapoalim.co.il/he/api/branches/cities)

@@ -16,6 +16,8 @@ click = "^8.1.7"
 pytest = "^7.4.3"
 botocore = "^1.33.13"
 dataflows = "^0.4.5"
+pillow = "^10.2.0"
+pdfminer = "^20191125"
 
 [build-system]
 requires = ["poetry-core"]

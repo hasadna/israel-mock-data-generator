@@ -120,6 +120,10 @@ class Provider(BaseProvider):
         bank_or_bank_branch = bank_or_bank_branch or self.bank()
         return str(bank_or_bank_branch.iban(bank_account_number))
 
+    def bank_statement(self, bank=None, **kwargs):
+        bank = bank or self.bank()
+        return bank.statement(**kwargs)
+
     def teudat_zehut(self):
         nstr = self.generator.numerify('########')
         return nstr + tz_control_digit(nstr)
