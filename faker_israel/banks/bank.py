@@ -5,6 +5,8 @@ from typing import Dict
 
 from PIL import Image, ImageDraw, ImageFont
 
+from ..common import PRIVATE_DATA_PATH
+
 BANK_BRANCHES_CACHE = {}
 
 
@@ -20,7 +22,7 @@ class BankStatement:
         self.source_image = source_image
 
     def get_annotation_labels(self, item_filter):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'label_studio_bank_statements.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'label_studio_bank_statements.json'), encoding='utf-8') as f:
             items = [item for item in json.load(f) if item_filter(item)]
             assert len(items) == 1
         item = items[0]
@@ -55,7 +57,7 @@ class BankStatement:
         res_labels = {}
         for label_id, label in labels.items():
             label = {**annotation_labels[label_id], **label}
-            label['font_path'] = os.path.join(os.path.dirname(__file__), '..', 'data', 'fonts', f'{label["font"]}.ttf')
+            label['font_path'] = os.path.join(PRIVATE_DATA_PATH, 'fonts', f'{label["font"]}.ttf')
             if self.mock:
                 label['text'] = 'ללקקףףזזץץ'
             res_labels[label_id] = label
@@ -66,18 +68,22 @@ class BankStatement:
         original_width, original_height, draw_labels = self.get_draw_labels(annotation_labels_item_filter, labels)
         source_image = getattr(self, 'source_image', None)
         if not source_image:
-            source_image = os.path.join(os.path.dirname(__file__), '..', 'data', f'{source_file_name}.png')
+            source_image = os.path.join(PRIVATE_DATA_PATH, f'{source_file_name}.png')
         image = Image.open(source_image)
         assert original_width == image.width
         assert original_height == image.height
         return ImageDraw.Draw(image), draw_labels, image
 
-    def save_save(self, output_path, image):
+    def save_save(self, output_path, image, pdf_output_path=None, **kwargs):
         assert output_path.endswith('.png')
         resized_image = image.resize((image.width // 2, image.height // 2))
         resized_image.save(output_path)
         if not self.no_pdf:
-            resized_image.convert('RGB').save(output_path.replace('.png', '.pdf'))
+            if pdf_output_path:
+                assert pdf_output_path.endswith('.pdf')
+            else:
+                pdf_output_path = output_path.replace('.png', '.pdf')
+            resized_image.convert('RGB').save(pdf_output_path)
 
     def draw_textbox(self, draw, font_path=None, font_size=None, text=None,
                      color=None, direction='rtl', font=None, offset_y=None,

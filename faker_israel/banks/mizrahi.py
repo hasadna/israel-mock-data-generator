@@ -1,7 +1,7 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
 
 
 class BankStatementMizrahi(BankStatement):
@@ -88,7 +88,7 @@ class BankStatementMizrahi(BankStatement):
             },
         }
 
-    def save(self, path):
+    def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
             'mizrahi_bank_statement',
@@ -134,7 +134,7 @@ class BankStatementMizrahi(BankStatement):
                     'text': tz,
                     'offset_y': offset_y
                 })
-        self.save_save(path, image)
+        self.save_save(path, image, **kwargs)
 
 
 class BankBranchMizrahi(BankBranch):
@@ -149,7 +149,7 @@ class BankMizrahi(Bank):
     name = 'מיזרחי טפחות'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'mizrahi_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'mizrahi_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f)["result"]:
                 yield BankBranchMizrahi(
                     self, branch['ShemYeshuv'], branch['MisparSnif'],

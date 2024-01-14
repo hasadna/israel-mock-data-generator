@@ -1,7 +1,7 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
 
 
 class BankStatementLeumi(BankStatement):
@@ -14,6 +14,13 @@ class BankStatementLeumi(BankStatement):
         related_names = fake.related_names()
         owner_name = related_names.name()
         print_date = fake.bank_statement_print_date()
+        num_extra_names = fake.random_int(0, 4)
+        self.extra_names = []
+        for i in range(num_extra_names):
+            self.extra_names.append((
+                related_names.name(),
+                fake.teudat_zehut()
+            ))
         self.labels = {
             "Full Name": {
                 "font": "Arial", "font_size": 50,
@@ -76,7 +83,7 @@ class BankStatementLeumi(BankStatement):
             },
         }
 
-    def save(self, path):
+    def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
             'leumi_bank_statement',
@@ -85,7 +92,38 @@ class BankStatementLeumi(BankStatement):
         )
         for label_id, label in draw_labels.items():
             self.draw_textbox(draw, **label)
-        self.save_save(path, image)
+        if self.extra_names:
+            extra_names_row_offset = 60
+            self.copy_section(
+                image, draw,
+                top_y=1690,
+                bottom_y=2590,
+                offset_y=len(self.extra_names) * extra_names_row_offset,
+                fill='white'
+            )
+            name_label = draw_labels['Extra Name']
+            id_label = draw_labels['Extra ID']
+            offset_y = 0
+            for extra in self.extra_names:
+                offset_y += extra_names_row_offset
+                self.copy_section(
+                    image, draw,
+                    top_y=1498,
+                    bottom_y=1557,
+                    offset_y=offset_y
+                )
+                name, tz = extra
+                self.draw_textbox(draw, **{
+                    **name_label,
+                    'text': name,
+                    'offset_y': offset_y
+                })
+                self.draw_textbox(draw, **{
+                    **id_label,
+                    'text': tz,
+                    'offset_y': offset_y
+                })
+        self.save_save(path, image, **kwargs)
 
 
 class BankBranchLeumi(BankBranch):
@@ -99,7 +137,7 @@ class BankLeumi(Bank):
     name = 'לאומי'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'leumi_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'leumi_branches.json'), encoding='utf-8') as f:
             for item in f.read().split('"branch')[2:]:
                 try:
                     item = json.loads('{"branch' + item[:-2] + '}}')

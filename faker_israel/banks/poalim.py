@@ -2,7 +2,7 @@ import os
 import json
 from collections import OrderedDict
 
-from .bank import Bank, BankBranch, BankStatement
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
 
 
 class BankStatementPoalim(BankStatement):
@@ -113,7 +113,7 @@ class BankStatementPoalim(BankStatement):
             },
         }
 
-    def save(self, path):
+    def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
             'poalim_bank_statement',
@@ -185,14 +185,14 @@ class BankStatementPoalim(BankStatement):
                 0, 1500 + top_offset_y, image.width, 2000 + top_offset_y
             ), fill="white")
 
-        self.save_save(path, image)
+        self.save_save(path, image, **kwargs)
 
 
 class BankPoalim(Bank):
     name = 'הפועלים'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'poalim_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'poalim_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f):
                 if branch['branchTypeCode'] == 'PRV':
                     phone_number = None

@@ -1,7 +1,7 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
 
 
 class BankStatementDiscount(BankStatement):
@@ -105,7 +105,7 @@ class BankStatementDiscount(BankStatement):
             },
         }
 
-    def save(self, path):
+    def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
             'discount_bank_statement',
@@ -123,14 +123,14 @@ class BankStatementDiscount(BankStatement):
                         text = 'ללקקףףזזץץ'
                     left, top, right, bottom = font.getbbox(text, direction="rtl")
                     draw.text((label['x'] + label['width'] - right, label['y'] + label.get('y_offset', 0) + row_offset), text, fill=(0, 0, 0), font=font)
-        self.save_save(path, image)
+        self.save_save(path, image, **kwargs)
 
 
 class BankDiscount(Bank):
     name = 'דיסקונט'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(os.path.dirname(__file__), '..', 'data', 'discount_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'discount_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f):
                 field_branch_street = branch['field_branch_street'].strip()
                 if len(field_branch_street) <= 7:
