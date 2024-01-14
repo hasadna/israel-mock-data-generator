@@ -56,12 +56,8 @@ class BankStatement:
         for label_id, label in labels.items():
             label = {**annotation_labels[label_id], **label}
             label['font_path'] = os.path.join(os.path.dirname(__file__), '..', 'data', 'fonts', f'{label["font"]}.ttf')
-            font = ImageFont.truetype(label['font_path'], label['font_size'])
             if self.mock:
                 label['text'] = 'ללקקףףזזץץ'
-            left, top, right, bottom = font.getbbox(label['text'], direction=label.get('direction') or 'rtl')
-            label['bg_pos_rect'] = (label['x'], label['y'], label['x'] + label['width'], label['y'] + label['height'])
-            label['text_pos_xy'] = (label['x'] + label['width'] - right + label.get('x_offset', 0), label['y'] + label.get('y_offset', 0))
             res_labels[label_id] = label
         return original_width, original_height, res_labels
 
@@ -78,21 +74,30 @@ class BankStatement:
 
     def save_save(self, output_path, image):
         assert output_path.endswith('.png')
-        image.save(output_path)
+        resized_image = image.resize((image.width // 2, image.height // 2))
+        resized_image.save(output_path)
         if not self.no_pdf:
-            image.convert('RGB').save(output_path.replace('.png', '.pdf'))
+            resized_image.convert('RGB').save(output_path.replace('.png', '.pdf'))
 
-    def draw_textbox(self, draw, font_path=None, font_size=None, text=None, text_pos_xy=None,
-                     bg_pos_rect=None, color=None, direction='rtl', font=None, offset_y=None,
-                     redraw=False, x=None, y=None, width=None, height=None,
-                     x_offset=None, y_offset=None,
+    def draw_textbox(self, draw, font_path=None, font_size=None, text=None,
+                     color=None, direction='rtl', font=None, offset_y=None,
+                     x=None, y=None, width=None, height=None,
+                     x_offset=None, y_offset=None, center=None,
                      **kwargs):
         if not font or isinstance(font, str):
             font = ImageFont.truetype(font_path, font_size)
-        if redraw:
-            left, top, right, bottom = font.getbbox(text, direction=direction)
-            bg_pos_rect = (x, y, x + width, y + height)
-            text_pos_xy = (x + width - right + (x_offset or 0), y + (y_offset or 0))
+        left, top, right, bottom = font.getbbox(text, direction=direction)
+        bg_pos_rect = (x, y, x + width, y + height)
+        if center:
+            text_pos_xy = (
+                x + (width - right + left) / 2 + (x_offset or 0),
+                y + (height - bottom + top) / 2 + (y_offset or 0),
+            )
+        else:
+            text_pos_xy = (
+                x + width - right + (x_offset or 0),
+                y + (y_offset or 0)
+            )
         if not self.no_bg and bg_pos_rect:
             if offset_y:
                 bg_pos_rect = (bg_pos_rect[0], bg_pos_rect[1] + offset_y, bg_pos_rect[2], bg_pos_rect[3] + offset_y)
