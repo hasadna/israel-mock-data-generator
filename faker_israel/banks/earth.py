@@ -1,10 +1,10 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH, _
 
 
-class BankStatementYahav(BankStatement):
+class BankStatementEarth(BankStatement):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,7 +23,7 @@ class BankStatementYahav(BankStatement):
         self.labels = {
             "Account Number": {
                 "font": "Arial", "font_size": 42,
-                "text": f"04-{branch.number}-{account_number}",
+                "text": f"25-{branch.number}-{account_number}",
                 'y_offset': 3, 'x_offset': -1,
             },
             "Print Date/Time": {
@@ -72,13 +72,24 @@ class BankStatementYahav(BankStatement):
                 "text": fake.bank_account_creation_date('%d/%m/%Y'),
                 'y_offset': 7, 'x_offset': -1,
             },
+            "Bank Number": {
+                "font": "Arial", "font_size": 42,
+                "text": "25",
+                'y_offset': 7, 'x_offset': -3,
+            },
+            "Bank Name": {
+                "font": "Arial", "font_size": 42,
+                "text": "בנק האדמה",
+                'y_offset': 7, 'x_offset': -10,
+            },
+
         }
 
     def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
-            'yahav_bank_statement',
-            lambda item: item['bank'] == 'Yahav' and item['sttype'] == 'Private',
+            'earth_bank_statement',
+            lambda item: item['bank'] == _('Earth') and item['sttype'] == 'Private',
             self.labels
         )
         for label_id, label in draw_labels.items():
@@ -117,17 +128,17 @@ class BankStatementYahav(BankStatement):
         self.save_save(path, image, **kwargs)
 
 
-class BankBranchYahav(BankBranch):
+class BankBranchEarth(BankBranch):
     pass
 
 
-class BankYahav(Bank):
-    name = 'יהב'
+class BankEarth(Bank):
+    name = 'האדמה'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(PRIVATE_DATA_PATH, 'yahav_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'earth_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f)["branches"]:
-                yield BankBranchYahav(
+                yield BankBranchEarth(
                     self, branch['branchName'], branch['branchNumber'],
                     phone_number=branch['branchPhones'][0],
                     address=f"{branch['branchLocationName']}, {branch['branchCity']}",
@@ -138,4 +149,4 @@ class BankYahav(Bank):
         return self.provider.numerify('######')
 
     def statement(self, **kwargs):
-        return BankStatementYahav(self, **kwargs)
+        return BankStatementEarth(self, **kwargs)

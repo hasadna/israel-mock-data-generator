@@ -1,10 +1,10 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH, _
 
 
-class BankStatementMizrahi(BankStatement):
+class BankStatementMoon(BankStatement):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -86,13 +86,29 @@ class BankStatementMizrahi(BankStatement):
                 "text": print_date,
                 'y_offset': 4,
             },
+            "Bank Name": {
+                "font": "Arial", "font_size": 46,
+                "text": "בבנק הירח:",
+                'y_offset': -8,
+                'x_offset': -4
+            },
+            "Bank Number": {
+                "font": "Arial", "font_size": 46,
+                "text": "בנק הירח: MOONBNK",
+                'y_offset': 4,
+            },
+            "Bank Name 2": {
+                "font": "Arial", "font_size": 46,
+                "text": "בנק הירח בע\"מ",
+                'y_offset': 4,
+            },
         }
 
     def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
-            'mizrahi_bank_statement',
-            lambda item: item['bank'] == 'Mizrahi' and item['sttype'] == 'Private',
+            'moon_bank_statement',
+            lambda item: item['bank'] == _('Moon') and item['sttype'] == 'Private',
             self.labels
         )
         for label_id, label in draw_labels.items():
@@ -137,7 +153,7 @@ class BankStatementMizrahi(BankStatement):
         self.save_save(path, image, **kwargs)
 
 
-class BankBranchMizrahi(BankBranch):
+class BankBranchMoon(BankBranch):
 
     def iban(self, bank_account_number=None):
         branch_number = str(self.number)
@@ -145,13 +161,13 @@ class BankBranchMizrahi(BankBranch):
         return f'IL63 020{branch_number[0]} {branch_number[1:]}00 0000 0{bank_account_number[:3]} {bank_account_number[3:]}'
 
 
-class BankMizrahi(Bank):
-    name = 'מיזרחי טפחות'
+class BankMoon(Bank):
+    name = 'הירח'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(PRIVATE_DATA_PATH, 'mizrahi_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'moon_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f)["result"]:
-                yield BankBranchMizrahi(
+                yield BankBranchMoon(
                     self, branch['ShemYeshuv'], branch['MisparSnif'],
                     phone_number=branch['Tel'],
                     address=f"{branch['Ktovet']}, {branch['ShemYeshuv']}",
@@ -163,4 +179,4 @@ class BankMizrahi(Bank):
         return self.provider.numerify('######')
 
     def statement(self, **kwargs):
-        return BankStatementMizrahi(self, **kwargs)
+        return BankStatementMoon(self, **kwargs)

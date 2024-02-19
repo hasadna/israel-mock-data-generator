@@ -1,18 +1,15 @@
 from functools import partial
 
-from .poalim import BankPoalim
-from .leumi import BankLeumi
-from .discount import BankDiscount
-from .mizrahi import BankMizrahi
-from .fibi import BankFibi
-from .yahav import BankYahav
-
+from .north import BankNorth
+from .south import BankSouth
+from .moon import BankMoon
+from .sun import BankSun
+from .earth import BankEarth
 
 BANKS = {k: partial(v, k) for k, v in {
-    'poalim': BankPoalim,
-    'leumi': BankLeumi,
-    'discount': BankDiscount,
-    'mizrahi': BankMizrahi,
-    'fibi': BankFibi,
-    'yahav': BankYahav,
+    'north': BankNorth,
+    'south': BankSouth,
+    'earth': BankEarth,
+    'moon': BankMoon,
+    'sun': BankSun,
 }.items()}

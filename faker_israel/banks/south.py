@@ -1,10 +1,10 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH, _
 
 
-class BankStatementLeumi(BankStatement):
+class BankStatementSouth(BankStatement):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -37,11 +37,6 @@ class BankStatementLeumi(BankStatement):
                 "font": "Arial", "font_size": 50,
                 "text": print_date.strftime('%d/%m/%Y'),
                 'y_offset': -2,
-            },
-            "Branch Number": {
-                "font": "Arial", "font_size": 50,
-                "text": branch.number,
-                'y_offset': 3,
             },
             "Extra Name": {
                 "font": "Arial", "font_size": 50,
@@ -81,13 +76,24 @@ class BankStatementLeumi(BankStatement):
                 'center': True,
                 'y_offset': -10
             },
+            "Bank Name": {
+                "font": "Arial", "font_size": 50,
+                "text": f'בבנק הדרום בע"מ, בסניף {branch.number}',
+                'y_offset': 3
+            },
+            "Bank Name 2": {
+                "font": "Arial", "font_size": 50,
+                "text": "בנק הדרום בע\"מ",
+                'center': True,
+                'y_offset': -10
+            },
         }
 
     def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
-            'leumi_bank_statement',
-            lambda item: item['bank'] == 'Leumi' and item['sttype'] == 'Private',
+            'south_bank_statement',
+            lambda item: item['bank'] == _('South') and item['sttype'] == 'Private',
             self.labels
         )
         for label_id, label in draw_labels.items():
@@ -126,18 +132,18 @@ class BankStatementLeumi(BankStatement):
         self.save_save(path, image, **kwargs)
 
 
-class BankBranchLeumi(BankBranch):
+class BankBranchSouth(BankBranch):
 
     def iban(self, bank_account_number=None):
         bank_account_number = bank_account_number or self.bank.account_number()
         return 'IL3601' + self.number.zfill(4) + '000000' + bank_account_number[:-3] + bank_account_number[-2:]
 
 
-class BankLeumi(Bank):
+class BankSouth(Bank):
     name = 'לאומי'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(PRIVATE_DATA_PATH, 'leumi_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'south_branches.json'), encoding='utf-8') as f:
             for item in f.read().split('"branch')[2:]:
                 try:
                     item = json.loads('{"branch' + item[:-2] + '}}')
@@ -145,7 +151,7 @@ class BankLeumi(Bank):
                     item = None
                 if item:
                     branch = list(item.values())[0]
-                    yield BankBranchLeumi(
+                    yield BankBranchSouth(
                         self, branch['name'], branch['number'],
                         phone_number='03-9545522',
                         address=f'{branch["address"]}, {branch["city"]}, {branch["zipCode"]}',
@@ -156,4 +162,4 @@ class BankLeumi(Bank):
         return self.provider.numerify('#####/##')
 
     def statement(self, **kwargs):
-        return BankStatementLeumi(self, **kwargs)
+        return BankStatementSouth(self, **kwargs)

@@ -1,6 +1,7 @@
 import os
 import json
 import string
+import functools
 from typing import Dict
 
 from PIL import Image, ImageDraw, ImageFont
@@ -8,6 +9,16 @@ from PIL import Image, ImageDraw, ImageFont
 from ..common import PRIVATE_DATA_PATH
 
 BANK_BRANCHES_CACHE = {}
+
+
+@functools.lru_cache()
+def get_name_translations():
+    with open(os.path.join(PRIVATE_DATA_PATH, 'name_translations.json')) as f:
+        return json.load(f)
+
+
+def _(text):
+    return get_name_translations()[text]
 
 
 class BankStatement:

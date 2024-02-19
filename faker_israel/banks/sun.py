@@ -2,10 +2,10 @@ import os
 import json
 from collections import OrderedDict
 
-from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH, _
 
 
-class BankStatementPoalim(BankStatement):
+class BankStatementSun(BankStatement):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -111,13 +111,35 @@ class BankStatementPoalim(BankStatement):
                 'y_offset': 0,
                 'x_offset': -2
             },
+            "Bank Number": {
+                "font": "Arial", "font_size": 42,
+                "color": "#3f3f3f",
+                "text": '24',
+                'y_offset': 0,
+                'x_offset': -2
+            },
+            "Bank Name": {
+                "font": "Arial", "font_size": 42,
+                "color": "#3f3f3f",
+                "text": "בנק השמש",
+                'center': True,
+                'y_offset': 0,
+                'x_offset': -2
+            },
+            "Bank Name 2": {
+                "font": "Arial_Bold", "font_size": 50,
+                "color": "#3f3f3f",
+                "text": 'בנק השמש בע"מ',
+                'y_offset': 0,
+                'x_offset': -2
+            },
         }
 
     def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
-            'poalim_bank_statement',
-            lambda item: item['bank'] == 'Poalim' and item['sttype'] == 'Private',
+            'sun_bank_statement',
+            lambda item: item['bank'] == _('Sun') and item['sttype'] == 'Private',
             self.labels
         )
         for label_id, label in draw_labels.items():
@@ -188,11 +210,11 @@ class BankStatementPoalim(BankStatement):
         self.save_save(path, image, **kwargs)
 
 
-class BankPoalim(Bank):
-    name = 'הפועלים'
+class BankSun(Bank):
+    name = 'השמש'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(PRIVATE_DATA_PATH, 'poalim_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'sun_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f):
                 if branch['branchTypeCode'] == 'PRV':
                     phone_number = None
@@ -221,4 +243,4 @@ class BankPoalim(Bank):
         return self.provider.numerify('######')
 
     def statement(self, **kwargs):
-        return BankStatementPoalim(self, **kwargs)
+        return BankStatementSun(self, **kwargs)

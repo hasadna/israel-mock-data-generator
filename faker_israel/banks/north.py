@@ -1,10 +1,10 @@
 import os
 import json
 
-from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH
+from .bank import Bank, BankBranch, BankStatement, PRIVATE_DATA_PATH, _
 
 
-class BankStatementDiscount(BankStatement):
+class BankStatementNorth(BankStatement):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -108,8 +108,8 @@ class BankStatementDiscount(BankStatement):
     def save(self, path, **kwargs):
         draw, draw_labels, image = self.save_init(
             path,
-            'discount_bank_statement',
-            lambda item: item['bank'] == 'Discount' and item['sttype'] == 'Private',
+            'north_bank_statement',
+            lambda item: item['bank'] == _('North') and item['sttype'] == 'Private',
             self.labels
         )
         for label_id, label in draw_labels.items():
@@ -126,11 +126,11 @@ class BankStatementDiscount(BankStatement):
         self.save_save(path, image, **kwargs)
 
 
-class BankDiscount(Bank):
-    name = 'דיסקונט'
+class BankNorth(Bank):
+    name = 'הצפון'
 
     def iterate_all_branches(self, **kwargs):
-        with open(os.path.join(PRIVATE_DATA_PATH, 'discount_branches.json'), encoding='utf-8') as f:
+        with open(os.path.join(PRIVATE_DATA_PATH, 'north_branches.json'), encoding='utf-8') as f:
             for branch in json.load(f):
                 field_branch_street = branch['field_branch_street'].strip()
                 if len(field_branch_street) <= 7:
@@ -147,4 +147,4 @@ class BankDiscount(Bank):
         return self.provider.numerify('000#######')
 
     def statement(self, **kwargs):
-        return BankStatementDiscount(self, **kwargs)
+        return BankStatementNorth(self, **kwargs)
