@@ -3,6 +3,7 @@ import datetime
 from faker.providers import BaseProvider
 from faker.providers.company import Provider as CompanyProvider
 from .banks import BANKS
+from .salaries import SALARIES
 
 from .company_he import CompanyHeProvider
 from .address_he import AddressHeProvider
@@ -123,6 +124,15 @@ class Provider(BaseProvider):
     def bank_statement(self, bank=None, **kwargs):
         bank = bank or self.bank()
         return bank.statement(**kwargs)
+
+    def salary_slip(self, salary_slip_type=None, **kwargs):
+        if salary_slip_type is None:
+            salary_slip = self.random_element(SALARIES.values())(self, **kwargs)
+        elif salary_slip_type in SALARIES:
+            salary_slip = SALARIES[salary_slip_type](self, **kwargs)
+        else:
+            raise ValueError(f'Unknown salary_slip_type: {salary_slip_type}')
+        return salary_slip
 
     def teudat_zehut(self):
         nstr = self.generator.numerify('########')

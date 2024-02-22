@@ -18,6 +18,8 @@ botocore = "^1.33.13"
 dataflows = "^0.4.5"
 pillow = "^10.2.0"
 pdfminer = "^20191125"
+playwright = "^1.41.2"
+jupyterlab = "^4.1.2"
 
 [build-system]
 requires = ["poetry-core"]

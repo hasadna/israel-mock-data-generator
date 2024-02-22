@@ -19,15 +19,17 @@ def generate_pdf_multi_config(**kwargs):
 
 
 @main.command()
-@click.argument('BANK')
+@click.argument('TYPE')
+@click.argument('SUBTYPE')
 @click.argument('NUM', type=int, default=1)
 @click.option('--test', is_flag=True)
 @click.option('--no-bg', is_flag=True)
 @click.option('--mock', is_flag=True)
 @click.option('--no-pdf', is_flag=True)
 @click.option('--source-image')
-def generate_bank_statements(**kwargs):
-    from .generate_bank_statements import main
+def generate(**kwargs):
+    from .generate import main
+    kwargs['type_'] = kwargs.pop('type')
     main(**kwargs)
 
 
