@@ -1,6 +1,11 @@
 import os
 import json
+import time
+import signal
+import socket
 import tempfile
+import functools
+import subprocess
 from textwrap import dedent
 from contextlib import contextmanager
 
@@ -74,7 +79,9 @@ def get_annotation_labels(item_filter, json_path, json_format):
     return original_width, original_height, res
 
 
-def init_draw_labels(item_filter, json_path, json_format, labels, default_label, mock=False):
+def init_draw_labels(item_filter, json_path, json_format, labels, default_label=None, mock=False):
+    if not default_label:
+        default_label = {}
     original_width, original_height, annotation_labels = get_annotation_labels(item_filter, json_path, json_format)
     res_labels = {}
     for label_id, label in labels.items():
@@ -105,14 +112,15 @@ def get_bg_pos_rect(x, y, width, height, offset_y):
     return bg_pos_rect
 
 
-def draw_bg(draw, bg_pos_rect):
-    draw.rectangle(bg_pos_rect, fill="white")
+def draw_bg(draw, bg_pos_rect, bg_color):
+    draw.rectangle(bg_pos_rect, fill=bg_color or 'white')
 
 
 def draw_border(draw, bg_pos_rect, border_color, border_width):
     border_color = border_color or "black"
     border_width = border_width or 1
     draw.rectangle(bg_pos_rect, outline=border_color, width=border_width)
+    return border_width
 
 
 def draw_text(draw, text, font, direction, center, x, y, width, height, x_offset, y_offset, offset_y, color, line_height):
@@ -135,52 +143,82 @@ def draw_text(draw, text, font, direction, center, x, y, width, height, x_offset
     return text_pos_xy[0], text_pos_xy[1], right - left, bottom - top
 
 
+def get_html_page_template():
+    return dedent(f'''
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                @font-face {{
+                    font-family: david;
+                    src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/david.ttf') format('truetype');
+                }}
+                @font-face {{
+                    font-family: Arial;
+                    src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/Arial_Bold.ttf') format('truetype');
+                    font-weight: bold;
+                }}
+                @font-face {{
+                    font-family: Arial;
+                    src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/Arial.ttf') format('truetype');
+                }}
+                * {{
+                    margin: 0;
+                    padding: 0;
+                    border-spacing: 0;
+                    background-color: transparent;
+                }}
+            </style>
+        </head>
+        <body>__BODY__</body>
+        </html>
+    ''').strip()
+
+
 @contextmanager
 def init_html_page():
-    with tempfile.TemporaryDirectory() as html_page_tmpdir:
-        style_file_path = os.path.join(html_page_tmpdir, 'style.css')
-        with open(style_file_path, 'w') as f:
-            f.write(dedent(f'''
-                <style>
-                    @font-face {{
-                        font-family: david;
-                        src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/david.ttf') format('truetype');
-                    }}
-                    @font-face {{
-                        font-family: Arial;
-                        src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/Arial_Bold.ttf') format('truetype');
-                        font-weight: bold;
-                    }}
-                    @font-face {{
-                        font-family: Arial;
-                        src: url('file:///home/ori/israel-mock-data-generator-private-data/fonts/Arial.ttf') format('truetype');
-                    }}
-                    * {{
-                        margin: 0;
-                        padding: 0;
-                    }}
-                </style>
-            ''').strip())
-        page_template = dedent('''
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" type="text/css" href="file://{style_file_path}">
-            </head>
-            <body dir="rtl">{body}</body>
-            </html>
-        ''').strip().format(style_file_path=style_file_path, body='{body}')
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=[
-                    '--disable-web-security', '--allow-file-access-from-files', '--no-sandbox'
-                ]
-            )
-            page = browser.new_page()
-            yield {'page': page, 'template': page_template, 'tmpdir': html_page_tmpdir}
-            browser.close()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                '--disable-web-security', '--allow-file-access-from-files', '--no-sandbox'
+            ]
+        )
+        page = browser.new_page()
+        yield page
+        browser.close()
+
+
+def draw_html(draw, image, html_page, html, **draw_kwargs):
+    width, height = draw_kwargs['width'], draw_kwargs['height']
+    x, y = draw_kwargs['x'], draw_kwargs['y']
+    x_offset, y_offset = draw_kwargs['x_offset'] or 0, draw_kwargs['y_offset'] or 0
+    direction = draw_kwargs['direction'] or 'rtl'
+    font, font_size = draw_kwargs['font'], draw_kwargs['font_size']
+    page: Page = html_page['page']
+    template, tmpdir = html_page['template'], html_page['tmpdir']
+    filepath = os.path.join(tmpdir, 'page.html')
+    style = {
+        'font-family': font,
+        'font-size': f'{font_size}px',
+        'direction': direction,
+    }
+    style = '; '.join([f'{k}: {v}' for k, v in style.items()])
+    html = template.replace('__BODY__', dedent(f'''
+        <div style="{style}">{html}</div>
+    ''').strip())
+    with open(filepath, 'w') as f:
+        f.write(html)
+    if draw_kwargs.get('html_debug_file'):
+        with open(draw_kwargs['html_debug_file'], 'w') as f:
+            f.write(html)
+    page.set_viewport_size({'width': int(width), 'height': int(height)})
+    page.goto(f"file://{filepath}")
+    imagepath = os.path.join(tmpdir, 'screenshot.png')
+    page.screenshot(path=imagepath)
+    html_image = Image.open(imagepath)
+    image.paste(html_image, (int(x) + x_offset, int(y) + y_offset))
 
 
 def draw_textbox(draw, font_path=None, font_size=None, text=None,
@@ -188,19 +226,26 @@ def draw_textbox(draw, font_path=None, font_size=None, text=None,
                  x=None, y=None, width=None, height=None,
                  x_offset=None, y_offset=None, center=None, no_bg=False,
                  border_color=None, border_width=None,
-                 multiline_text_segments=None, html=None, html_page=None,
+                 html=None, html_page=None,
                  line_height=None, image=None,
+                 hooks=None, bg_color=None,
                  **kwargs):
-    if not font or isinstance(font, str):
-        font = ImageFont.truetype(font_path, font_size)
+    if not hooks:
+        hooks = {}
+    hooks = {
+        'x_y_width_height': lambda x_, y_, w_, h_: (x_, y_, w_, h_),
+        **hooks
+    }
+    x, y, width, height = hooks['x_y_width_height'](x, y, width, height)
     bg_pos_rect = get_bg_pos_rect(x, y, width, height, offset_y)
     if not no_bg:
-        draw_bg(draw, bg_pos_rect)
+        draw_bg(draw, bg_pos_rect, bg_color)
     if border_color or border_width:
-        draw_border(draw, bg_pos_rect, border_color, border_width)
+        border_width = draw_border(draw, bg_pos_rect, border_color, border_width)
+        x_offset = int(x_offset or 0) + border_width
+        y_offset = int(y_offset or 0) + border_width
     color = color or (0, 0, 0)
     draw_kwargs = {
-        'font': font,
         'direction': direction,
         'color': color,
         'x_offset': x_offset,
@@ -212,92 +257,64 @@ def draw_textbox(draw, font_path=None, font_size=None, text=None,
         'y': y,
         'width': width,
         'height': height,
+        **kwargs
     }
     if html:
+        draw_kwargs.update({
+            'font': font,
+            'font_path': font_path,
+            'font_size': font_size,
+        })
         draw_html(draw, image, html_page, html, **draw_kwargs)
-    elif multiline_text_segments:
-        draw_multiline_text_segments(draw, multiline_text_segments, **draw_kwargs)
     else:
+        if not font or isinstance(font, str):
+            font = ImageFont.truetype(font_path, font_size)
+        draw_kwargs['font'] = font
         draw_text(draw, text, **draw_kwargs)
     return font
 
 
-def draw_html(draw, image, html_page, html, **draw_kwargs):
-    width, height = draw_kwargs['width'], draw_kwargs['height']
-    x, y = draw_kwargs['x'], draw_kwargs['y']
-    page: Page = html_page['page']
-    template, tmpdir = html_page['template'], html_page['tmpdir']
-    filepath = os.path.join(tmpdir, 'page.html')
-    with open(filepath, 'w') as f:
-        f.write(template.format(body=html))
-    page.set_viewport_size({'width': int(width), 'height': int(height)})
-    page.goto(f"file://{filepath}")
-    imagepath = os.path.join(tmpdir, 'screenshot.png')
-    page.screenshot(path=imagepath)
-    html_image = Image.open(imagepath)
-    image.paste(html_image, (int(x), int(y)))
+def wait_for_server_start(port):
+    start_time = time.time()
+    while True:
+        try:
+            with socket.create_connection(("localhost", port), timeout=1):
+                return port
+        except OSError:
+            if time.time() - start_time > 10:
+                raise TimeoutError("Timed out waiting for the server to start")
+            time.sleep(0.1)
 
 
-def draw_multiline_text_segments_segment(draw, segment, **default_kwargs):
-    if isinstance(segment, dict):
-        text = segment.pop('text')
-        kwargs = {
-            **default_kwargs,
-            **segment
-        }
-    else:
-        text = segment
-        kwargs = default_kwargs.copy()
-    if isinstance(kwargs['font'], str):
-        font_size = kwargs.pop('font_size')
-        assert font_size, 'must specify font_size in segments if you change the font'
-        font_path = os.path.join(PRIVATE_DATA_PATH, 'fonts', f'{kwargs["font"]}.ttf')
-        kwargs['font'] = ImageFont.truetype(font_path, font_size)
-    font, x, y, width, height = kwargs['font'], kwargs['x'], kwargs['y'], kwargs['width'], kwargs['height']
-    color, direction = kwargs['color'], kwargs['direction']
-    x_offset, y_offset = kwargs['x_offset'], kwargs['y_offset']
-    line_height = kwargs.get('line_height') or 0
-    left, top, right, bottom = font.getbbox(text, direction=direction)
-    ascent, descent = font.getmetrics()
-    if line_height and line_height > ascent:
-        y_offset += line_height - ascent
-    text_pos_xy = (
-        x + width - right + (x_offset or 0),
-        y + (y_offset or 0)
+@contextmanager
+def start_python_http_server(path):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(('', 0))
+        port = s.getsockname()[1]
+    server = subprocess.Popen(
+        ['python', '-m', 'http.server', str(port)],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        cwd=path
     )
-    if color:
-        draw.text(text_pos_xy, text, fill=color, font=font, direction=direction)
-    return text_pos_xy[0], text_pos_xy[1], font.getlength(text, direction=direction), bottom - top
+    try:
+        yield functools.partial(wait_for_server_start, port)
+    finally:
+        server.send_signal(signal.SIGINT)
+        server.wait()
 
 
-def draw_multiline_text_segments_line(draw, line, **default_kwargs):
-    if isinstance(line, dict):
-        content = line.pop('content')
-        kwargs = {
-            **default_kwargs,
-            **line
-        }
-    else:
-        content = line
-        kwargs = default_kwargs.copy()
-    if isinstance(content, str):
-        if isinstance(kwargs['font'], str):
-            font_size = kwargs.pop('font_size')
-            assert font_size, 'must specify font_size in segments if you change the font'
-            font_path = os.path.join(PRIVATE_DATA_PATH, 'fonts', f'{kwargs["font"]}.ttf')
-            kwargs['font'] = ImageFont.truetype(font_path, font_size)
-        b_x, b_y, b_width, b_height = draw_text(draw, content, **kwargs)
-        return kwargs['line_height'] or b_height
-    elif isinstance(content, list):
-        b_height = 0
-        for i, segment in enumerate(content):
-            b_x, b_y, b_width, b_height = draw_multiline_text_segments_segment(draw, segment, **kwargs)
-            kwargs['x'] -= b_width
-        return kwargs['line_height'] or b_height
-    else:
-        raise Exception(f'Unknown content type: {type(content)}')
-
-
-def draw_multiline_text_segments(draw, multiline_text_segments, **kwargs):
-    for line in multiline_text_segments:
-        kwargs['y'] += draw_multiline_text_segments_line(draw, line, **kwargs)
+def save_render_html(path, template_name, page, http_server_port, context, width, height, output_scale=0.5, y=0):
+    with tempfile.TemporaryDirectory() as tmpdir:
+        page_output_path = os.path.join(tmpdir, 'page.png')
+        page.set_viewport_size({'width': width, 'height': height})
+        page.goto(f"http://localhost:{http_server_port}/israel-mock-data-generator/faker_israel/{template_name}.html")
+        if y:
+            page.evaluate(f"window.scrollTo(0, {y})")
+        for key, value in context.items():
+            value = str(value).replace("'", "\\'")
+            page.evaluate(f"document.getElementById('{key}').innerText = '{value}'")
+        page.screenshot(path=page_output_path)
+        # resize the image to the desired size
+        image = Image.open(page_output_path)
+        image = image.resize((int(width*output_scale), int(height*output_scale)))
+        image.save(path)

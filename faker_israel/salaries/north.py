@@ -1,111 +1,69 @@
-from textwrap import dedent
+from .salary import Salary
 
-from .salary import Salary, _, common_draw
+from .. import common_draw
+
+
+MAHLAKOT = [m.strip() for m in '''
+גזברות, גביה, חשבות, תלונות הציבור, תעבורה, הנדסה, חינוך, חינוך לגיל הרך, תרבות, לוגיסטיקה, לשכה, דיגיטציה של השירות, ביטחון, סייבר, הוראה, פיתוח, תשתיות דיגיטל, תשתיות ענן, שירות לקוחות, שירות שותפים, תחבורה, פיתוח עסקי, עיצוב גרפי.
+'''.split(',') if m.strip()]
 
 
 class SalaryNorth(Salary):
 
-    def __init__(self, *args, **kwargs):
-        kwargs['no_bg'] = False
-        super().__init__(*args, **kwargs)
-        self.default_label = {
-            "font": "Arial", "font_size": 10
-        }
-        fake = self.provider.generator
+    def generate(self):
+        fake = self.fake
         company = fake.company()
         street_address = fake.street_address()
         city = fake.city()
-        header_top_line = f"{company}, {street_address}, {city}"
         rashut = fake.random_element(["58", "42"])
         tik_nikuim = fake.numerify("#########")
         tik_bl = f'{tik_nikuim}00'
-        self.labels = {
-            "HeaderBox": {
-                "border_color": "#cccccc",
-                # "line_height": 14,
-                "x_offset": -6, 'y_offset': -5,
-                'html': dedent(f'''
-                    <b>Hello</b>, World!
-                ''').strip(),
-                # "multiline_text_segments": [
-                #     header_top_line,
-                #     [
-                #         "רשות:",
-                #         {"text": str(rashut), "font": "Arial_Bold", "font_size": 10},
-                #         "   ",
-                #         "תיק ניכויים: ",
-                #         {"text": str(tik_nikuim), "font": "Arial_Bold", "font_size": 10},
-                #     ],
-                #     [
-                #         {"text": "רשות:", "color": ""},
-                #         {"text": str(rashut), "font": "Arial_Bold", "font_size": 10, "color": ""},
-                #         "   ",
-                #         "ח-פ: ",
-                #         {"text": "", "font": "Arial_Bold", "font_size": 10},
-                #     ],
-                #     [
-                #         {"text": "רשות:", "color": ""},
-                #         {"text": str(rashut), "font": "Arial_Bold", "font_size": 10, "color": ""},
-                #         "   ",
-                #         "תיק ב\"ל: ", "    ",
-                #         {"text": str(tik_bl), "font": "Arial_Bold", "font_size": 10},
-                #     ],
-                # ],
-            },
-            "HeaderDepartment": {
-                "text": "FOOBAR"
-            }
-            # HeaderLogo
-            # AddressBoxTop
-            # AddressBottomBox
-            # DataMisraPlusTashlumim
-            # DataNikuimIshiimPlusHova
-            # DataNetoPayment
-            # DataNikuiReshut
-            # DataBoxNetuneiMisra
-            # DataSahachSacharBasis
-            # DataBoxNetunimNosafim
-            # DataBoxTosafotPensionionLabasis
-            # DataSahachSacharKoveaLepensia
-            # DataBoxHehzerHotzaot
-            # DataSahachHezerHotzaot
-            # DataBoxTashlumimNosafim
-            # DataSahachTashlumimNosafim
-            # DataBoxRehiveiAvodaNosefet
-            # DataSahachRehiveiAvodaNosefet
-            # DataBoxPerutVetakimNosafim
-            # DataBoxPirteyHeshbonBank
-            # DataBoxMasHachnasaMonths
-            # DataHodsheiAvoda
-            # DataYehidotMas
-            # DataNekudotZikui
-            # DataAhuzShuli
-            # DataHetMakorHizoni
-            # DataYodMasHizoni
-            # DataBoxTaarifimIshiimVeKlaliim
-            # DataSacharRagil
-            # DataHefreshim
-            # DataHafrashaHayevet
-            # DataPtorMasDmeiTipul
-            # DataErechNekudotZikui
-            # DataBoxShoviLemas
-            # DataSahachShoviLemas
-            # FooterCompanyName
-            # FooterCompanyLogo
-            # FooterCompanyDomain
+        mahlaka_code = fake.numerify('#######').lstrip('0')
+        mahlaka_name = fake.random_element(MAHLAKOT)
+        mahlaka = mahlaka_code + ' ' + mahlaka_name
+        month = fake.date('%m')
+        month_name_heb = fake.month_name_he(month)
+        year = fake.date_between(start_date='-10y').strftime('%Y')
+        siduri = fake.numerify('####')
+        rcpt_first_name = fake.first_name()
+        rcpt_last_name = fake.last_name()
+        rcpt_street = fake.street_address()
+        rcpt_city = fake.city()
+        rcpt_zip = fake.postcode()
+        data_misra_tashlumim = fake.random_int(1000, 50000) + fake.random_int(0, 99) / 100
+        data_nikuim_ishiim_hova = fake.random_int(25, 40) * data_misra_tashlumim / 100
+        data_neto_payment = data_misra_tashlumim - data_nikuim_ishiim_hova
+        html_context = {
+            'topHeader_address': f'{company} , {street_address} {city}',
+            'topHeader_rashut': rashut,
+            'topHeader_tikNikuim': tik_nikuim,
+            'topHeader_hetPey': '',
+            'topHeader_tikBL': tik_bl,
+            'topHeader_mahlaka': mahlaka,
+            'topHeader_month': month_name_heb,
+            'topHeader_year': year,
+            'topHeader_siduri': siduri,
+            'rcpt_lastFirstName': f'{rcpt_last_name} {rcpt_first_name}',
+            'rcpt_streetAddress': rcpt_street,
+            'rcpt_city': rcpt_city,
+            'rcpt_mikud': rcpt_zip,
+            'rcpt_returnAddress': f'{company} , {street_address} {city} - יח\' {mahlaka}',
+            'rikuz_misraTashlumim': f'{data_misra_tashlumim:,.2f}',
+            'rikuz_nikuim_hova': f'{data_nikuim_ishiim_hova:,.2f}',
+            'rikuz_netoPayment': f'{data_neto_payment:,.2f}',
         }
-
-    def save(self, path, **kwargs):
-        draw, draw_labels, image = self.save_init(
-            path,
-            'salaries/north',
-            lambda item: item.get('value', {}).get('choices', [None]).pop() == _('North'),
-            self.labels,
-            self.default_label
+        render_html_kwargs = dict(
+            template_name='salaries/north',
+            page=self.html_page,
+            http_server_port=self.subtype_context.http_server_port,
+            width=2500, height=3508,
+            context=html_context,
         )
-        with common_draw.init_html_page() as html_page:
-            for label_id, label in draw_labels.items():
-                # print(label_id, label)
-                common_draw.draw_textbox(draw, **label, no_bg=self.no_bg, html_page=html_page, image=image)
-        assert path.endswith('.png')
-        image.save(path)
+        common_draw.save_render_html(
+            path=self.item_context.png_output_path.replace('.png', '-p1.png'),
+            **render_html_kwargs,
+        )
+        common_draw.save_render_html(
+            path=self.item_context.png_output_path.replace('.png', '-p2.png'),
+            y=3508, **render_html_kwargs
+        )

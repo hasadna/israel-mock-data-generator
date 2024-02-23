@@ -125,15 +125,6 @@ class Provider(BaseProvider):
         bank = bank or self.bank()
         return bank.statement(**kwargs)
 
-    def salary_slip(self, salary_slip_type=None, **kwargs):
-        if salary_slip_type is None:
-            salary_slip = self.random_element(SALARIES.values())(self, **kwargs)
-        elif salary_slip_type in SALARIES:
-            salary_slip = SALARIES[salary_slip_type](self, **kwargs)
-        else:
-            raise ValueError(f'Unknown salary_slip_type: {salary_slip_type}')
-        return salary_slip
-
     def teudat_zehut(self):
         nstr = self.generator.numerify('########')
         return nstr + tz_control_digit(nstr)
@@ -155,3 +146,10 @@ class Provider(BaseProvider):
     def related_names_last_name(self, related_names=None):
         related_names = related_names or self.related_names()
         return str(related_names.last_name())
+
+    def month_name_he(self, month):
+        months = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
+        if month:
+            return months[int(month)-1]
+        else:
+            return self.random_element(months)

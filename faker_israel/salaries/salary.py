@@ -1,38 +1,80 @@
 import os
-import json
-import functools
+from contextlib import contextmanager
 
-from .. import common_draw
-from ..common import PRIVATE_DATA_PATH
+from ..common_draw import init_html_page, start_python_http_server, PRIVATE_DATA_PATH
 
 
-@functools.lru_cache()
-def get_name_translations():
-    with open(os.path.join(PRIVATE_DATA_PATH, 'salaries', 'name_translations.json')) as f:
-        return json.load(f)
+class SalaryRootContext:
+
+    def __init__(self, fake, **kwargs):
+        self.fake = fake
 
 
-def _(text):
-    return get_name_translations()[text]
+class SalarySubtypeContext:
+
+    def __init__(self, root_context, subtype, subtype_class, test=False, html_page=None, http_server_get_port=None, **kwargs):
+        self.root_context = root_context
+        self.subtype = subtype
+        self.subtype_class = subtype_class
+        self.test = test
+        self.html_page = html_page
+        self.http_server_get_port = http_server_get_port
+        self._http_server_port = None
+
+    @property
+    def http_server_port(self):
+        if self._http_server_port is None:
+            self._http_server_port = self.http_server_get_port()
+        return self._http_server_port
+
+
+class SalaryItemContext:
+
+    def __init__(self, subtype_context, i=None, png_output_path=None, pdf_output_path=None, **kwargs):
+        self.root_context = subtype_context.root_context
+        self.subtype_context = subtype_context
+        if self.subtype_context.test:
+            self.i = 0
+            self.png_output_path = 'test.png'
+            self.pdf_output_path = None
+        else:
+            self.i = i
+            self.png_output_path = png_output_path
+            self.pdf_output_path = pdf_output_path
+        self.salary = self.subtype_context.subtype_class(self)
+
+    def generate(self):
+        self.salary.generate()
+
+
+@contextmanager
+def salaries_generate_context(**kwargs):
+    yield SalaryRootContext(**kwargs)
+
+
+@contextmanager
+def salary_generate_context(root_context, **kwargs):
+    with start_python_http_server(os.path.join(PRIVATE_DATA_PATH, '..')) as get_port:
+        with init_html_page() as html_page:
+            yield SalarySubtypeContext(
+                root_context,
+                html_page=html_page,
+                http_server_get_port=get_port,
+                **kwargs
+            )
+
+
+@contextmanager
+def salary_item_generate_context(subtype_context, **kwargs):
+    yield SalaryItemContext(subtype_context, **kwargs)
 
 
 class Salary:
 
-    def __init__(self, id_, provider, test=False, no_bg=False, mock=False, no_pdf=False, source_image=None, **kwargs):
-        self.id = id_
-        self.provider = provider
-        self.test = test
-        self.no_bg = no_bg
-        self.mock = mock
-        self.no_pdf = no_pdf
-        self.source_image = source_image
-
-    def save_init(self, output_path, source_file_name, annotation_labels_item_filter, labels, default_label):
-        original_width, original_height, res_labels = common_draw.init_draw_labels(
-            annotation_labels_item_filter, 'salaries/label_studio.json', 'full',
-            labels, default_label, mock=self.mock
-        )
-        image_draw, image = common_draw.init_draw_image(
-            output_path, source_file_name, original_width, original_height, getattr(self, 'source_image', None)
-        )
-        return image_draw, res_labels, image
+    def __init__(self, subtype_id, item_context):
+        self.subtype_id = subtype_id
+        self.item_context = item_context
+        self.subtype_context = self.item_context.subtype_context
+        self.root_context = self.subtype_context.root_context
+        self.fake = self.root_context.fake
+        self.html_page = self.subtype_context.html_page
