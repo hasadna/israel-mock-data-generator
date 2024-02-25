@@ -2,31 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>North Salary Template</title>
+    <title>{% block title %}ILMOCKGEN{% endblock %}</title>
     <style>
+        {% block style %}
         @font-face {
-            font-family: Arial;
-            src: url('/israel-mock-data-generator-private-data/fonts/Arial_Bold.ttf') format('truetype');
+            font-family: 'Arial';
+            src: url('/fonts/Arial.ttf');
+        }
+        @font-face {
+            font-family: 'Arial';
+            src: url('/fonts/Arial_Bold.ttf');
             font-weight: bold;
         }
-        @font-face {
-            font-family: Arial;
-            src: url('/israel-mock-data-generator-private-data/fonts/Arial.ttf') format('truetype');
-        }
         * {
+            {% block style_reset %}
             margin: 0;
             padding: 0;
             border-spacing: 0;
             background-color: transparent;
             vertical-align: top;
+            {% endblock %}
         }
-        body {
-            font-family: Arial,serif;
-            font-size: 42px;
-        }
+        {% endblock %}
     </style>
 </head>
 <body dir="rtl">
+{% block body %}
 <div style="background-image: url('/israel-mock-data-generator-private-data/salaries/north_page_1.png');
             width: 2500px;
             height: 3508px;">
@@ -570,5 +571,6 @@
             width: 2500px;
             height: 3508px;">
 </div>
+{% endblock %}
 </body>
 </html>

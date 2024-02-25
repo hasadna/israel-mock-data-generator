@@ -2,7 +2,7 @@ import os
 import click
 
 from . import pdf_multi_config_constants
-from faker_israel.common_draw import start_python_http_server, PRIVATE_DATA_PATH
+from faker_israel import common_draw
 
 
 @click.group()
@@ -44,11 +44,19 @@ def extract_font_names(pdf_path):
 
 @main.command()
 def start_http_server():
-    with start_python_http_server(os.path.join(PRIVATE_DATA_PATH, '..')) as get_port:
+    with common_draw.start_python_http_server(watch=True) as get_port:
         port = get_port()
         print(f'Started HTTP server on port {port}')
-        print(f'http://localhost:{port}/israel-mock-data-generator/faker_israel/')
+        print(f'http://localhost:{port}/')
         input('Press Enter to stop server...')
+
+
+@main.command()
+def render_htmls():
+    html_path, shutil_copy_files, rendered_templates = common_draw.render_htmls()
+    print(html_path)
+    print(shutil_copy_files)
+    print(rendered_templates)
 
 
 if __name__ == '__main__':

@@ -1,16 +1,22 @@
 import os
 import json
 import time
+import shutil
 import signal
 import socket
 import tempfile
 import functools
 import subprocess
+from glob import iglob
 from textwrap import dedent
 from contextlib import contextmanager
 
+import jinja2
+from watchdog.observers import Observer
 from PIL import Image, ImageDraw, ImageFont
+from watchdog.events import FileSystemEventHandler
 from playwright.sync_api import sync_playwright, Page
+
 
 from .common import PRIVATE_DATA_PATH
 
@@ -286,16 +292,63 @@ def wait_for_server_start(port):
             time.sleep(0.1)
 
 
+class JinjaTrackingFilesystemLoader(jinja2.FileSystemLoader):
+
+    def __init__(self, *args, **kwargs):
+        self.rendered_templates = set()
+        super().__init__(*args, **kwargs)
+
+    def get_source(self, environment, template):
+        self.rendered_templates.add(template)
+        return super().get_source(environment, template)
+
+
+def render_htmls(update=False):
+    html_path = os.path.join(os.path.dirname(__file__), '..', '.data', 'html')
+    shutil_copy_files = []
+    if not update:
+        shutil.rmtree(html_path, ignore_errors=True)
+    os.makedirs(os.path.join(html_path, 'fonts'), exist_ok=True)
+    for filename in iglob(os.path.join(PRIVATE_DATA_PATH, 'fonts/*.ttf')):
+        shutil.copy(filename, os.path.join(html_path, 'fonts'))
+        shutil_copy_files.append((filename, os.path.join(html_path, 'fonts')))
+    os.makedirs(os.path.join(html_path, 'salaries'), exist_ok=True)
+    for filename in iglob(os.path.join(PRIVATE_DATA_PATH, 'salaries/*.png')):
+        shutil.copy(filename, os.path.join(html_path, 'salaries'))
+        shutil_copy_files.append((filename, os.path.join(html_path, 'salaries')))
+    loader = JinjaTrackingFilesystemLoader(os.path.join(os.path.dirname(__file__)))
+    env = jinja2.Environment(
+        loader=loader,
+        autoescape=jinja2.select_autoescape()
+    )
+    global_context = {}
+    for template in env.list_templates(filter_func=lambda f: f.endswith('.jinja.html') and not f.split('/')[-1].startswith('_')):
+        context = {}
+        output_filename = os.path.join(html_path, template.replace('.jinja.html', '.html'))
+        os.makedirs(os.path.dirname(output_filename), exist_ok=True)
+        with open(output_filename, 'w') as f:
+            f.write(env.get_template(template).render({**global_context, **context}))
+    return html_path, shutil_copy_files, loader.rendered_templates
+
+
 @contextmanager
-def start_python_http_server(path):
+def start_python_http_server(watch=False):
+    html_path, shutil_copy_files, rendered_templates = render_htmls()
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('', 0))
         port = s.getsockname()[1]
     server = subprocess.Popen(
         ['python', '-m', 'http.server', str(port)],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        cwd=path
+        cwd=html_path
     )
+    if watch:
+        observer = Observer()
+        handler = FileSystemEventHandler()
+        handler.on_modified = lambda event: (render_htmls(update=True), print(f'Updated {event.src_path}')) if event.src_path.endswith('.html') else None
+        observer.schedule(handler, PRIVATE_DATA_PATH, recursive=True)
+        observer.schedule(handler, os.path.dirname(__file__), recursive=True)
+        observer.start()
     try:
         yield functools.partial(wait_for_server_start, port)
     finally:
@@ -303,18 +356,43 @@ def start_python_http_server(path):
         server.wait()
 
 
-def save_render_html(path, template_name, page, http_server_port, context, width, height, output_scale=0.5, y=0):
+def save_render_html(output_path, render_path, page, http_server_port, context, width, height, output_scale=0.5, y=0):
     with tempfile.TemporaryDirectory() as tmpdir:
         page_output_path = os.path.join(tmpdir, 'page.png')
         page.set_viewport_size({'width': width, 'height': height})
-        page.goto(f"http://localhost:{http_server_port}/israel-mock-data-generator/faker_israel/{template_name}.html")
+        page.goto(f"http://localhost:{http_server_port}/{render_path}")
         if y:
             page.evaluate(f"window.scrollTo(0, {y})")
         for key, value in context.items():
-            value = str(value).replace("'", "\\'")
-            page.evaluate(f"document.getElementById('{key}').innerText = '{value}'")
+            try:
+                if isinstance(value, str):
+                    inner_html = str(value).replace("'", "\\'")
+                    if not inner_html:
+                        inner_html = '&nbsp;'
+                    page.evaluate(f"document.getElementById('{key}').innerHTML = '{inner_html}'")
+                elif isinstance(value, dict):
+                    if value.keys() == {'divs'}:
+                        # value['divs'] is a list of strings
+                        # need to use page.evaluate to set the innerText of each child of the key to this value by order
+                        for i, inner_html in enumerate(value['divs']):
+                            inner_html = str(inner_html).replace("'", "\\'")
+                            if not inner_html:
+                                inner_html = '&nbsp;'
+                            page.evaluate(f"document.getElementById('{key}').children[{i}].innerHTML = '{inner_html}'")
+                    elif value.keys() == {'trs_td_div'}:
+                        for i, tr in enumerate(value['trs_td_div']):
+                            for j, inner_html in enumerate(tr):
+                                inner_html = str(inner_html).replace("'", "\\'")
+                                if not inner_html:
+                                    inner_html = '&nbsp;'
+                                page.evaluate(f"document.getElementById('{key}').children[0].children[{i}].children[{j}].children[0].innerHTML = '{inner_html}'")
+                    else:
+                        raise ValueError(f'Unknown context value dict: {value}')
+                else:
+                    raise ValueError(f'Unknown context value type: {type(value)}')
+            except Exception as e:
+                raise Exception(f'Error setting context key {key} to value {value}') from e
         page.screenshot(path=page_output_path)
-        # resize the image to the desired size
         image = Image.open(page_output_path)
         image = image.resize((int(width*output_scale), int(height*output_scale)))
-        image.save(path)
+        image.save(output_path)
