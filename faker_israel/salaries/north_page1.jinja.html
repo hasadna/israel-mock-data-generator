@@ -1,0 +1,327 @@
+{% extends 'salaries/_north_base.jinja.html' %}
+{% block body %}
+<div style="background-image: url('north_page_1.png');
+            width: 2500px;
+            height: 3508px;">
+    <table style="padding-top:57px;height:264px;">
+        <tr>
+            <td style="width:528px;height:100%;"></td>
+            <td style="width:997px;height:100%;line-height:50px;background-color:white;">
+                <span id="topHeader_address">עירית בית שמש , יצחק רבין 2 בית שמש</span>
+                <table style="margin-top:6px;">
+                    <tr>
+                        <td style="width:201px;">רשות: <b id="topHeader_rashut">58</b></td>
+                        <td style="width:200px;">תיק ניכויים:</td>
+                        <td><b id="topHeader_tikNikuim">925018491</b></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>ח-פ:</td>
+                        <td><b id="topHeader_hetPey"></b></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>תיק ב"ל:</td>
+                        <td><b id="topHeader_tikBL">92501849100</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:831px;height:100%;line-height:54px;background-color:white;">
+                מחלקה:
+                &nbsp;&nbsp;&nbsp;<b id="topHeader_mahlaka">84100 ל.רווחה מתוקצב</b>
+                <br/>
+                תלוש משכורת נכון לחודש:
+                &nbsp;&nbsp;&nbsp;<b><u id="topHeader_month">יולי</u></b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b><u id="topHeader_year">2021</u></b>
+                <br/>
+                סידורי:
+                <b id="topHeader_siduri">01234</b>
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top:210px;height:366px;">
+        <tr>
+            <td style="width:511px;"></td>
+            <td style="width:738px;">
+                <div style="width:100%;height:360px;margin-top:12px;">
+                    <table style="width:100%;height:182px;background-color:white;">
+                        <tr>
+                            <td style="width:75%;">
+                                <div style="margin-top:5px;margin-right:5px;line-height:60px;">
+                                    לכבוד:
+                                    <b id="rcpt_lastFirstName">אברהם אברהמי</b>
+                                    <br/>
+                                    <span id="rcpt_streetAddress">האורנים 85</span>
+                                    <br/>
+                                    <span id="rcpt_city">בית שמש</span>
+                                    <span id="rcpt_mikud">1129382</span>
+                                </div>
+                            </td>
+                            <td style="width:25%;">
+                                <div style="text-align:left;font-weight:bold;margin-top:16px;margin-left:14px;">
+                                    07/2021
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="width:720px;height:105px;background-color:white;margin-top:70px;margin-right:7px;line-height:54px;" id="rcpt_returnAddress">
+                        עירית בית שמש , יצחק רבין 2 בית שמש - יח' 84100 ל.רווחה מתוקצב
+                    </div>
+                </div>
+            </td>
+            <td style="width:601px;"></td>
+            <td style="width:513px;">
+                <div style="width:100%;height:311px;margin-top:74px;font-size: 36px;padding-right: 3px;">
+                    <div id="rikuz_misraTashlumim" style="background-color:white;width: 200px;height: 65px;margin-right: 308px;">
+                        21,045.95
+                    </div>
+                    <div id="rikuz_nikuim_hova" style="background-color:white;width: 200px;height: 65px;margin-right: 308px;margin-top: 26px;">
+                        7,085.63
+                    </div>
+                    <div id="rikuz_netoPayment" style="background-color:#ccffcc;width: 200px;height: 42px;margin-right: 308px;margin-top: 107px;">
+                        13,960.32
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 224px;margin-right: 91px;font-size: 34px;">
+        <tr>
+            <td><div style="width:100px;height:50px;background-color:white;padding-right: 7px;" id="perutNetuneyMisra_sugHamarkiv">עבודה</div></td>
+            <td><div style="width:122px;height:50px;margin-right: 7px;background-color:white;" id="perutNetuneyMisra_mahlaka">841000</div></td>
+            <td><div style="width:122px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_derug">עו"ס</div></td>
+            <td><div style="width: 71px;height:50px;margin-right: 26px;background-color:white;" id="perutNetuneyMisra_darga">מ.א</div></td>
+            <td><div style="width: 60px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_rama">ז</div></td>
+            <td><div style="width: 78px;height:50px;margin-right: 8px;background-color:white;" id="perutNetuneyMisra_shautBafoal"></div></td>
+            <td><div style="width: 74px;height:50px;margin-right: 16px;background-color:white;" id="perutNetuneyMisra_basisMisra">100</div></td>
+            <td><div style="width: 109px;height:50px;margin-right: 13px;background-color:white;" id="perutNetuneyMisra_empty">100.00</div></td>
+            <td><div style="width:122px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_zahal">2.01</div></td>
+            <td><div style="width: 119px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_mukar">19.04</div></td>
+            <td><div style="width: 119px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_avoda">2.00</div></td>
+            <td><div style="width:122px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_meyuhedet"></div></td>
+            <td><div style="width:122px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_yoker"></div></td>
+            <td><div style="width:122px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_izun"></div></td>
+            <td><div style="width:122px;height:50px;margin-right: 19px;background-color:white;" id="perutNetuneyMisra_ajuzit">653.2</div></td>
+            <td><div style="width: 94px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_vetek">2,398</div></td>
+            <td><div style="width: 144px;height:50px;margin-right:14px;background-color:white;" id="perutNetuneyMisra_scharYesod">3,045.7</div></td>
+            <td><div style="width: 195px;height: 48px;margin-right: 12px;background-color:white;" id="perutNetuneyMisra_sachar">6,096.60</div></td>
+        </tr>
+    </table>
+    <div id="perutNetuneyMisra_sahach" style="background-color:#cce2ff;height: 42px;width: 190px;margin-right: 2172px;font-weight: bold;margin-top: 8px;font-size: 34px;">6,096.60</div>
+    <div style="margin-top: 94px;">
+        <style>
+            #netunimNosafim div:nth-child(odd) {
+                background-color: white;
+            }
+            #netunimNosafim div:nth-child(even) {
+                background-color: #f3f3f3;
+            }
+        </style>
+        <div style="display:inline-block;margin-right: 359px;font-size: 34px;width: 276px;">
+            <div id="netunimNosafim" style="line-height: 45px;">
+                <div style="margin-top: -1px;">085471523</div>
+                <div style="">23/09/1978</div>
+                <div style="">12/02/1999</div>
+                <div style="
+        margin-top: 2px;
+    ">18/09/2019</div>
+                <div style="">10,049</div>
+                <div style="
+        margin-top: 2px;
+    ">רגיל</div>
+                <div style="">נשוי/אה</div>
+                <div style="
+        margin-top: 1px;
+    ">כן</div>
+                <div style="">רגיל</div>
+                <div style="
+        margin-top: 2px;
+    ">הסתדרות כללית</div>
+                <div style="">כללית</div>
+                <div style="
+        margin-top: 2px;
+    ">1 - יחידה</div>
+                <div style="">חודשי</div>
+            </div>
+            <table id="perutVetakimNosafim" style="margin-right:-259px;margin-top:167px;">
+                <tbody><tr>
+                    <td><div style="background-color: white;width: 109px;margin-left: 20px;">עו"ס</div></td>
+                    <td><div style="background-color: white;width: 151px;margin-left: 20px;">84100</div></td>
+                    <td><div style="background-color: white;width: 96px;margin-left: 20px;">נמרץ</div></td>
+                    <td><div style="background-color: white;width: 115px;">2.00</div></td>
+                </tr>
+                <tr>
+                    <td><div style="background-color: white;width: 109px;margin-left: 20px;">עו"ס</div></td>
+                    <td><div style="background-color: white;width: 151px;margin-left: 20px;">84100</div></td>
+                    <td><div style="background-color: white;width: 96px;margin-left: 20px;">מוכר</div></td>
+                    <td><div style="background-color: white;width: 115px;">17.04</div></td>
+                </tr>
+            </tbody></table>
+            <table id="pirteyHeshbonBank" style="
+                margin-right: -259px;
+                margin-top: 170px;
+            ">
+                            <tbody><tr>
+                                <td><div style="
+                background-color: #f3f3f3;
+                width: 188px;
+                margin-left: 14px;
+            ">1234567</div></td>
+                                <td><div style="
+                background-color: #f3f3f3;
+                width: 74px;
+                margin-left: 15px;
+            ">789</div></td>
+                                <td><div style="
+                background-color: #f3f3f3;
+                width: 242px;
+            ">12 פועלים</div></td>
+                            </tr></tbody>
+            </table>
+        </div>
+        <div style="display:inline-block;margin-right: 52px;margin-top: 44px;font-size: 34px;">
+            <style>
+                .centerTable td div {
+                    padding-right:3px;
+                }
+                .centerTable tr:nth-child(odd) td {
+                    background-color: white;
+                }
+                .centerTable tr:nth-child(even) td {
+                    background-color: #f3f3f3;
+                }
+                .centerTable tr {
+                    height:44px;
+                }
+            </style>
+            <table id="tosafotPensioniot" class="centerTable" style="margin-top: 5px;padding: 0;border-spacing: 10px;">
+                <tbody>
+                    {% for i in range(10) %}
+                        {% include 'salaries/_north_center_table_row.html' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="tosafotPensioniot_total" style="background-color: #cce2ff;width: 193px;margin-right: 1470px;margin-top: 5px;font-weight: bold;">10,049.23</div>
+            <table id="hehzerHozaot" class="centerTable" style="margin-top: 65px;padding: 0;border-spacing: 10px;">
+                <tbody>
+                    {% for i in range(9) %}
+                        {% include 'salaries/_north_center_table_row.html' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="hehzerHozaot_total" style="background-color: #cce2ff;width: 193px;margin-right: 1470px;margin-top: 5px;font-weight: bold;">10,049.23</div>
+            <table id="tashlumimNosafim" class="centerTable" style="margin-top: 79px;padding: 0;border-spacing: 10px;">
+                <tbody>
+                    {% for i in range(3) %}
+                        {% include 'salaries/_north_center_table_row.html' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="tashlumimNosafim_total" style="background-color: #cce2ff;width: 193px;margin-right: 1468px;margin-top: 5px;font-weight: bold;direction:ltr;text-align:right;">10,049.23</div>
+            <table id="rehiveiAvodaNosefet" class="centerTable" style="margin-top: 62px;padding: 0;border-spacing: 10px;">
+                <tbody>
+                    {% for i in range(3) %}
+                        {% include 'salaries/_north_center_table_row.html' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="rehiveiAvodaNosefet_total" style="background-color: #cce2ff;width: 193px;margin-right: 1470px;margin-top: 5px;font-weight: bold;">10,049.23</div>
+            <table id="shoviLemas" class="centerTable" style="margin-top: 79px;padding: 0;border-spacing: 10px;">
+                <tbody>
+                    {% for i in range(2) %}
+                        {% include 'salaries/_north_center_table_row.html' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="shoviLemas_total" style="background-color: #cce2ff;width: 143px;margin-right: 1057px;margin-top: 9px;font-weight: bold;direction:ltr;text-align:right;">1,049.23</div>
+        </div>
+    </div>
+    <div style="position:absolute;top: 2492px;right: 90px;width: 545px;height: 185px;">
+        <style>
+            #masHachnasa_months div {
+                display:inline-block;width:23px;background-color:#f3f3f3;font-size:34px;margin-right:11px;
+            }
+        </style>
+        <div id="masHachnasa_months">
+            {% for i in range(12) %}
+                <div>כ</div>
+            {% endfor %}
+        </div>
+<table id="masHachnasa" style="
+    font-size: 34px;
+    margin-top: 5px;
+">
+            <tbody><tr>
+                <td><div style="width: 189px;height: 46px;"></div></td>
+                <td><div style="
+    width: 88px;background-color:white;
+">7</div></td>
+                <td><div style="
+    width: 158px;
+"></div></td>
+                <td><div style="
+    width: 103px;background-color:white;
+">175</div></td>
+            </tr><tr style="
+">
+                <td><div style="height: 47px;"></div></td>
+                <td><div style="background-color:#f3f3f3;">2.75</div></td>
+                <td><div></div></td>
+                <td><div style="background-color:#f3f3f3;">31</div></td>
+            </tr><tr>
+                <td><div></div></td>
+                <td><div style="background-color:white;">0</div></td>
+                <td><div></div></td>
+                <td><div style="background-color:white;">0</div></td>
+            </tr></tbody>
+        </table>
+    </div>
+    <style>
+        #taarifimIshiimKlalim td div {
+            height: 43px;
+        }
+    </style>
+    <div style="position:absolute;top: 2886px;right: 92px;width: 541px;height: 171px;">
+        <table id="taarifimIshiimKlalim" style="margin-right: 3px;font-size: 34px;margin-top: -2px;">
+            <tbody><tr>
+                <td><div style="width: 217px;background-color: #f3f3f3;margin-left: 16px;">תעריף יום</div></td>
+                <td><div style="width: 147px;background-color: #f3f3f3;margin-left: 13px;padding-right: 8px;">22</div></td>
+                <td><div style="width: 136px;background-color: #f3f3f3;">456.78</div></td>
+            </tr><tr>
+                <td><div style="width: 217px;background-color: white;margin-left: 16px;">תעריף יום</div></td>
+                <td><div style="width: 147px;background-color: white;margin-left: 13px;padding-right: 8px;">22</div></td>
+                <td><div style="width: 136px;background-color: white;">456.78</div></td>
+            </tr><tr>
+                <td><div style="width: 217px;background-color: #f3f3f3;margin-left: 16px;">תעריף יום</div></td>
+                <td><div style="width: 147px;background-color: #f3f3f3;margin-left: 13px;padding-right: 8px;">22</div></td>
+                <td><div style="width: 136px;background-color: #f3f3f3;">456.78</div></td>
+            </tr><tr>
+                <td><div style="width: 217px;background-color: white;margin-left: 16px;">תעריף יום</div></td>
+                <td><div style="width: 147px;background-color: white;margin-left: 13px;padding-right: 8px;">22</div></td>
+                <td><div style="width: 136px;background-color: white;">456.78</div></td>
+            </tr></tbody>
+        </table>
+    </div>
+    <style>
+        #shumimMitzbarim div {
+            height: 44px;
+            font-size: 34px;
+            margin-top:2px;
+        }
+        #shumimMitzbarim div:nth-child(odd) {
+            background-color:white;
+        }
+        #shumimMitzbarim div:nth-child(even) {
+            background-color:#f3f3f3;
+        }
+    </style>
+    <div id="shumimMitzbarim" style="position:absolute;top: 3159px;right: 434px;width: 199px;height: 236px;">
+        <div>109,369</div>
+        <div>8,001</div>
+        <div>8,747</div>
+        <div>702</div>
+        <div>4,197</div>
+    </div>
+</div>
+{% endblock %}
