@@ -1,7 +1,251 @@
 {% extends 'salaries/_north_base.jinja.html' %}
 {% block body %}
+{{ super() }}
+<style>
+    div {
+        position: absolute;
+    }
+    .hidebg {
+        background-color: white;
+        /*background-color: yellow;*/
+        /*opacity: 0.3;*/
+    }
+</style>
+
 <div style="background-image: url('north_page_2.png');
             width: 2500px;
             height: 3508px;">
 </div>
+
+<!-- topheader -->
+
+<div style="
+            top: 76px;
+            right: 126px;
+        ">
+    <div id="topheader_name_tz" class="hidebg" style="width: 564px;height: 56px;">
+        שם משפחה פרטי 012345678
+    </div>
+    <div id="topheader_mahlaka" class="hidebg" style="font-weight:bold;right: 141px;top: 60px;width: 412px;">
+        841000 ל.רווחה
+    </div>
+    <div style="right: 574px;top: 1px;">
+        <div id="topheader_tiknikuim" class="hidebg" style="font-weight:bold;right: 220px;height: 100px;width: 370px;">
+            123456789
+        </div>
+        <div id="topheader_rashut_num" class="hidebg" style="font-weight:bold;right: 1017px;width: 79px;height: 57px;">
+            58
+        </div>
+        <div id="topheader_rashut_text" class="hidebg" style="
+right: 1112px;
+width: 548px;
+height: 56px;
+">
+            עירית בית שמש , יצחק רבין 2
+        </div>
+        <div id="topheader_month_year" class="hidebg" style="font-weight:bold;top: 56px;right: 1387px;width: 275px;height: 54px;">
+            <span id="topheader_month" style="text-decoration:underline;">
+                יולי
+            </span>
+            <span id="topheader_month_spacer">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <span id="topheader_year" style="text-decoration:underline;">
+                2021
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- end topheader -->
+
+<!-- shumim_miztabrim -->
+
+<style>
+    #shumim_miztabrim div {
+        position: relative;
+        font-size: 34px;
+        width: 195px;
+    }
+    #shumim_miztabrim div:nth-child(even) {
+        background-color: white;
+    }
+    #shumim_miztabrim div:nth-child(odd) {
+        background-color: #f3f3f3;
+    }
+</style>
+<div id="shumim_miztabrim" style="line-height: 45px;top: 332px;right: 438px;">
+    <div style="margin-top: -1px;">7,324</div>
+    <div style="">118,116</div>
+    <div style="">8,841</div>
+    <div style="margin-top: 2px;">13,998</div>
+    <div style="">10,409</div>
+    <div style="margin-top: 2px;">5,065</div>
+    <div style="">109,274</div>
+    <div style="margin-top: 1px;">5,582</div>
+</div>
+
+<!-- end shumim_miztabrim -->
+
+<!-- tashlumey_hefreshim -->
+
+<style>
+    .centerTable td div {
+        padding-right:3px;
+    }
+    .centerTable tr:nth-child(odd) td {
+        background-color: white;
+    }
+    .centerTable tr:nth-child(even) td {
+        background-color: #f3f3f3;
+    }
+    .centerTable tr {
+        height:44px;
+    }
+</style>
+<div style="
+    top: 421px;
+    right: 700px;
+    font-size: 34px;
+">
+    <table id="tashlumey_hefreshim" class="centerTable" style="margin-top: 5px;padding: 0;border-spacing: 10px;">
+        <tbody>
+            <tr>
+                <td style="width: 84px;"><div style="padding-right: 0;">18</div></td>
+                <td style="width: 391px;"><div>גילום</div></td>
+                <td style="width: 137px;"><div>0</div></td>
+                <td style="width: 123px;direction:ltr;text-align:right;"><div></div></td>
+                <td style="width: 118px;direction:ltr;text-align:right;"><div></div></td>
+                <td style="width: 128px;direction:ltr;text-align:right;"><div></div></td>
+                <td style="width: 153px;direction:ltr;text-align:right;"><div></div></td>
+                <td style="width: 240px;"><div>הפרש</div></td>
+                <td style="width: 202px;"><div style="text-align:right;direction:ltr;">417.45</div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="tashlumey_hefreshim_saah" style="text-align:right;direction:ltr;top: 502px;right: 2170px;font-size: 34px;background-color: #cce2ff;width: 179px;">
+    417.45
+</div>
+
+<!-- end tashlumey_hefreshim -->
+
+<!-- kranot_kuput -->
+
+<div style="
+    top: 785px;
+    right: 700px;
+    font-size: 34px;
+">
+    <table id="kranot_kuput" class="centerTable" style="margin-top: 11px;padding: 0;border-spacing: 10px;">
+        <tbody>
+            {% for i in range(6) %}
+            <tr>
+                <td style="width: 78px;"><div style="padding-right: 0;">2</div></td>
+                <td style="width: 263px;"><div>דמי חבר</div></td>
+                <td style="width: 139px;"><div style="direction:ltr;text-align:right;">10,049</div></td>
+                <td style="width: 82px;"><div style="direction:ltr;text-align:right;">0.4</div></td>
+                <td style="width: 136px;"><div style="direction:ltr;text-align:right;">535.55</div></td>
+                <td style="width: 82px;"><div style="direction:ltr;text-align:right;">7.5</div></td>
+                <td style="width: 132px;"><div style="direction:ltr;text-align:right;">753.69</div></td>
+                <td style="width: 80px;"><div style="direction:ltr;text-align:right;">6</div></td>
+                <td style="width: 133px;"><div style="text-align:right;direction:ltr;">602.95</div></td>
+                <td style="width: 82px;"><div style="text-align:right;direction:ltr;"></div></td>
+                <td style="width: 132px;"><div style="text-align:right;direction:ltr;"></div></td>
+                <td style="width: 201px;"><div style="text-align:right;direction:ltr;">1,356.64</div></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div id="kranot_kuput_saah_nikuey" style="text-align:right;direction:ltr;top: 1133px;right: 1322px;font-size: 34px;font-weight:bold;background-color: #ffcfc8;width: 179px;">
+    1,930.63
+</div>
+<div id="kranot_kuput_saah_hafrashot" style="text-align:right;direction:ltr;top: 1133px;right: 2161px;font-size: 34px;font-weight:bold;background-color: #ffcfc8;width: 179px;">
+    3,036.26
+</div>
+
+<!-- end kranot_kuput -->
+
+<!-- nikuey_hova -->
+
+<div style="
+    top: 1300px;
+    right: 700px;
+    font-size: 34px;
+">
+    <table id="nikuey_hova" class="centerTable" style="margin-top: 11px;padding: 0;border-spacing: 8px;">
+        <tbody>
+            {% for i in range(5) %}
+            <tr>
+                <td style="width: 558px;"><div style="padding-right: 0;">מס הכנסה</div></td>
+                <td style="width: 289px;"><div style="direction:ltr;text-align:right;">118,116</div></td>
+                <td style="width: 282px;"><div style="direction:ltr;text-align:right;">20,771</div></td>
+                <td style="width: 287px;"><div style="direction:ltr;text-align:right;">985</div></td>
+                <td style="width: 199px;"><div style="direction:ltr;text-align:right;">3,201</div></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div id="nikuey_hova_saah" style="text-align:right;direction:ltr;top: 1585px;right: 2161px;font-size: 34px;font-weight:bold;background-color: #ffcfc8;width: 179px;">
+    5,155.00
+</div>
+
+<!-- end nikuey_hova -->
+
+<!-- headruiot -->
+
+<style>
+    #headruiot td {
+        background-color:white;
+    }
+    #headruiot tr:nth-child(even) td:nth-child(1) {
+        background-color: #f3f3f3;
+    }
+</style>
+<div style="
+    top: 1755px;
+    right: 700px;
+    font-size: 34px;
+">
+    <table id="headruiot" class="centerTable" style="margin-top: 11px;padding: 0;border-spacing: 8px;">
+        <tbody>
+            {% for i in range(2) %}
+            <tr>
+                <td style="width: 277px;"><div style="padding-right: 0;">חופשה</div></td>
+                <td style="width: 264px;"><div style="direction:ltr;text-align:right;"></div></td>
+                <td style="width: 260px;"><div style="direction:ltr;text-align:right;">19.93</div></td>
+                <td style="width: 264px;"><div style="direction:ltr;text-align:right;">1.83</div></td>
+                <td style="width: 265px;"><div style="direction:ltr;text-align:right;">1.00</div></td>
+                <td style="width: 259px;"><div style="direction:ltr;text-align:right;">20.76</div></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- end headruiot -->
+
+<!-- messages -->
+
+<div id="messages" style="
+    top: 1984px;
+    right: 725px;
+    font-size: 35px;
+    line-height: 52px;
+    background-color: white;
+    width: 1625px;
+    height: 204px;
+">
+    התקופה בגינה בוצעה המשכורת מ- 01/07/21 עד 31/07/21.
+    <br>
+    שכר המינימום ברוטו הוא - 29.12 ₪ לשעה, 5,300.00 ₪ לחודש במשרה מלאה.
+    <br>
+    נתוני ההיעדרות הינם בגין חודש קודם.
+    <br>
+    בחודש זה 22 ימי עבודה, 172 שעות עבודה. בפועל נכחת 17 ימי עבודה, 143 שעות עבודה.
+</div>
+<!-- end messages -->
+
 {% endblock %}

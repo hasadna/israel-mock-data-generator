@@ -1,4 +1,5 @@
 import datetime
+from dateutil.relativedelta import relativedelta
 
 from .salary import Salary
 
@@ -52,6 +53,46 @@ HEHZER_HOZAOT_TYPES = [item.strip() for item in '''
 
 
 class SalaryNorth(Salary):
+
+    def get_kranot_kuput_rows(self):
+        fake = self.fake
+        company = fake.random_element([
+            'מיטב',
+            'הראל',
+            'הפניקס',
+            'מגדל',
+            'מנורה',
+        ])
+        names = {
+            'פנסיה מקיפ',
+            'פנסיה 5+5',
+            'פנסיה מניות',
+            'פנסיה פאס',
+            'פנסיה הלכה',
+            'פנסיה אגח',
+            'השתל מניות',
+            'השתל נדל"ן',
+            'עובד מדינה',
+            'השתל כללי',
+            'מבטח יותר',
+        }
+        for i in range(4):
+            name = fake.random_element(names)
+            names.remove(name)
+            yield [
+                fake.random_int(1, 99),
+                f'{company} {name}',
+                fake.random_int(1, 15000),
+                f'{fake.random_int(4, 99)/10:,.1f}',
+                f'{fake.random_int(5000,15000)/100:,.2f}',
+                f'{fake.random_int(4, 99)/10:,.1f}' if fake.random_element([True, False]) else '',
+                f'{fake.random_int(100,100000)/100:,.2f}' if fake.random_element([True, False]) else '',
+                f'{fake.random_int(4, 99)/10:,.1f}' if fake.random_element([True, False]) else '',
+                f'{fake.random_int(100,100000)/100:,.2f}' if fake.random_element([True, False]) else '',
+                '',
+                '',
+                f'{fake.random_int(1000, 300000) / 100:,.2f}',
+            ]
 
     def get_main_table_rows_rows(self, mahlaka_code, type_, min_rows, max_rows):
         fake = self.fake
@@ -135,23 +176,15 @@ class SalaryNorth(Salary):
         mahlaka_code = fake.numerify('#######').lstrip('0')
         mahlaka_name = fake.random_element(MAHLAKOT)
         mahlaka = mahlaka_code + ' ' + mahlaka_name
-        month = fake.date('%m')
-        month_name_heb = fake.month_name_he(month)
-        year = fake.date_between(start_date='-10y').strftime('%Y')
-        siduri = fake.numerify('####')
         rcpt_first_name = fake.first_name()
         rcpt_last_name = fake.last_name()
         rcpt_street = fake.street_address()
         rcpt_city = fake.city()
         rcpt_zip = fake.postcode()
-        data_misra_tashlumim = fake.random_int(1000, 50000) + fake.random_int(0, 99) / 100
-        data_nikuim_ishiim_hova = fake.random_int(25, 40) * data_misra_tashlumim / 100
-        data_neto_payment = data_misra_tashlumim - data_nikuim_ishiim_hova
         mispar_zehut = fake.teudat_zehut()
         date_of_birth = fake.date_between(start_date='-60y', end_date='-25y')
         start_of_work_date = fake.date_between(start_date=date_of_birth + datetime.timedelta(days=365*20), end_date='-2y')
         tokef_misra_1 = fake.date_between(start_date=start_of_work_date, end_date='-1y').strftime('%d/%m/%Y')
-        bruto_pension = fake.random_int(5000, 15000) + fake.random_int(0, 99) / 100
         mas_hachnasa_type = 'רגיל'
         family_state = fake.random_element(['נשוי/אה', 'רווק/ה', 'גרוש/ה', 'אלמן/ה'])
         partner_income = fake.random_element(['כן', 'לא'])
@@ -169,124 +202,218 @@ class SalaryNorth(Salary):
             else:
                 mas_hachnasa_months.append('')
         basis_misra = fake.random_int(10, 100)
-        html_context = {
-            'topHeader_address': f'{company} , {street_address} {city}',
-            'topHeader_rashut': rashut,
-            'topHeader_tikNikuim': tik_nikuim,
-            'topHeader_hetPey': '',
-            'topHeader_tikBL': tik_bl,
-            'topHeader_mahlaka': mahlaka,
-            'topHeader_month': month_name_heb,
-            'topHeader_year': year,
-            'topHeader_siduri': siduri,
-            'rcpt_lastFirstName': f'{rcpt_last_name} {rcpt_first_name}',
-            'rcpt_streetAddress': rcpt_street,
-            'rcpt_city': rcpt_city,
-            'rcpt_mikud': rcpt_zip,
-            'rcpt_returnAddress': f'{company} , {street_address} {city} - יח\' {mahlaka}',
-            'rikuz_misraTashlumim': f'{data_misra_tashlumim:,.2f}',
-            'rikuz_nikuim_hova': f'{data_nikuim_ishiim_hova:,.2f}',
-            'rikuz_netoPayment': f'{data_neto_payment:,.2f}',
-            "perutNetuneyMisra_sugHamarkiv": "עבודה",
-            "perutNetuneyMisra_mahlaka": mahlaka_code,
-            "perutNetuneyMisra_derug": fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']),
-            "perutNetuneyMisra_darga": "מ.א",
-            "perutNetuneyMisra_rama": fake.random_element(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']),
-            "perutNetuneyMisra_shautBafoal": "",
-            "perutNetuneyMisra_basisMisra": str(basis_misra),
-            "perutNetuneyMisra_empty": str(basis_misra) + '.0',
-            "perutNetuneyMisra_zahal": f'{fake.random_int(0, 2000)/10:,.2f}',
-            "perutNetuneyMisra_mukar": f'{fake.random_int(0, 2000)/10:,.2f}',
-            "perutNetuneyMisra_avoda": f'{fake.random_int(0, 2000)/10:,.2f}',
-            "perutNetuneyMisra_meyuhedet": "",
-            "perutNetuneyMisra_yoker": "",
-            "perutNetuneyMisra_izun": "",
-            "perutNetuneyMisra_ajuzit": f'{fake.random_int(1000, 9999)/10:,.2f}',
-            "perutNetuneyMisra_vetek": f'{fake.random_int(100, 9999)/10:,.0f}',
-            "perutNetuneyMisra_scharYesod": f'{fake.random_int(100000, 5000000)/100:,.2f}',
-            "perutNetuneyMisra_sachar": f'{fake.random_int(100000, 5000000)/100:,.2f}',
-            "perutNetuneyMisra_sahach": f'{fake.random_int(100000, 5000000)/100:,.2f}',
-            "netunimNosafim": {
-                'divs': [
-                    mispar_zehut,
-                    date_of_birth.strftime('%d/%m/%Y'),
-                    start_of_work_date.strftime('%d/%m/%Y'),
-                    tokef_misra_1,
-                    f'{bruto_pension:,.2f}',
-                    mas_hachnasa_type,
-                    family_state,
-                    partner_income,
-                    bituah_leumi_type,
-                    workers_association,
-                    medical_association,
-                    misra_type,
-                    maamad,
-                ]
-            },
-            'perutVetakimNosafim': {
-                'trs_td_div': [
-                    [fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']), mahlaka_code, fake.random_element(['חדש', 'נמרץ', 'מוכר', 'וותיק']), f'{fake.random_int(50,2000)/100:,.2f}'],
-                    [fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']), mahlaka_code, fake.random_element(['חדש', 'נמרץ', 'מוכר', 'וותיק']), f'{fake.random_int(50,2000)/100:,.2f}'],
-                ]
-            },
-            'pirteyHeshbonBank': {
-                'trs_td_div': [
-                    [fake.numerify('######'), fake.random_int(10, 999), str(fake.random_int(10, 19)) + ' ' + fake.random_element(['פועלים', 'דיסקונט', 'מזרחי', 'ירושלים', 'יהב'])],
-                ]
-            },
-            'tosafotPensioniot': {
-                'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'tosafot_pensioniot', 3, 10)
-            },
-            'tosafotPensioniot_total': f'{bruto_pension:,.2f}',
-            'hehzerHozaot': {
-                'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'hehzer_hozaot', 1, 9)
-            },
-            'hehzerHozaot_total': f'{fake.random_int(300000,1500000)/100:,.2f}',
-            'tashlumimNosafim': {
-                'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'tashlumim_nosafim', 1, 3)
-            },
-            'tashlumimNosafim_total': f'{fake.random_int(-500000,1500000)/100:,.2f}',
-            'rehiveiAvodaNosefet': {
-                'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'rehivey_avoda_nosefet', 1, 3)
-            },
-            'rehiveiAvodaNosefet_total': f'{fake.random_int(300000,1500000)/100:,.2f}',
-            'shoviLemas': {
-                'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'shovi_lemas', 1, 2)
-            },
-            'shoviLemas_total': f'{fake.random_int(-1000000,1000000)/100:,.2f}',
-            'masHachnasa_months': {
-                'divs': mas_hachnasa_months
-            },
-            'masHachnasa': {
-                'trs_td_div': [
-                    ['', str(mas_hachnasa_month_to-mas_hachnasa_month_from+1), '', str(fake.random_int(100, 300))],
-                    ['', str(fake.random_int(0, 500, step=25)/100), '', str(fake.random_int(0, 60))],
-                    ['', str(fake.random_int(0, 12)), '', str(fake.random_int(0, 30))],
-                ]
-            },
-            'taarifimIshiimKlalim': {
-                'trs_td_div': [
-                    ['תעריף יום', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
-                    ['תעריף שעה', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
-                    ['שעה מורחב', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
-                    ['יום מורחב', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
-                ]
-            },
-            'shumimMitzbarim': {
-                'divs': [
-                    f'{fake.random_int(20000, 15000000)/100:,.2f}',
-                    f'{fake.random_int(20000, 15000000)/100:,.2f}',
-                    f'{fake.random_int(20000, 15000000)/100:,.2f}',
-                    f'{fake.random_int(20000, 15000000)/100:,.2f}',
-                    f'{fake.random_int(20000, 15000000)/100:,.2f}',
-                ]
-            }
-        }
-        common_draw.save_render_html(
-            output_path=self.item_context.png_output_path.replace('.png', '-p1.png'),
-            render_path='salaries/north_page1.html',
-            page=self.html_page,
-            http_server_port=self.subtype_context.http_server_port,
-            width=2500, height=3508,
-            context=html_context,
-        )
+        first_year = fake.random_int(2012, 2022)
+        first_month = fake.random_int(1, 10)
+        first_date = datetime.date(first_year, first_month, 1)
+        for salary_date_num, salary_date in enumerate([
+            first_date,
+            first_date + relativedelta(months=1),
+            first_date + relativedelta(months=2),
+        ]):
+            month = salary_date.strftime('%m')
+            month_name_heb = fake.month_name_he(month)
+            year = salary_date.strftime('%Y')
+            bruto_pension = fake.random_int(5000, 15000) + fake.random_int(0, 99) / 100
+            data_misra_tashlumim = fake.random_int(1000, 50000) + fake.random_int(0, 99) / 100
+            data_nikuim_ishiim_hova = fake.random_int(25, 40) * data_misra_tashlumim / 100
+            if fake.random_element([True, False, False, False]):
+                data_nikuim_ishiim_reshut = 0
+            else:
+                data_nikuim_ishiim_reshut = fake.random_int(5, 15) * data_misra_tashlumim / 100
+            data_neto_payment = data_misra_tashlumim - data_nikuim_ishiim_hova - data_nikuim_ishiim_reshut
+            siduri = fake.numerify('####')
+            common_draw.save_render_html(
+                output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}-p1.png'),
+                pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num + 1}-p1.pdf') if self.item_context.pdf_output_path else None,
+                render_path='salaries/north_page1.html',
+                page=self.html_page,
+                http_server_port=self.subtype_context.http_server_port,
+                width=2500, height=3508,
+                context={
+                    'topHeader_address': f'{company} , {street_address} {city}',
+                    'topHeader_rashut': rashut,
+                    'topHeader_tikNikuim': tik_nikuim,
+                    'topHeader_hetPey': '',
+                    'topHeader_tikBL': tik_bl,
+                    'topHeader_mahlaka': mahlaka,
+                    'topHeader_month': month_name_heb,
+                    'topHeader_year': year,
+                    'topHeader_siduri': siduri,
+                    'rcpt_lastFirstName': f'{rcpt_last_name} {rcpt_first_name}',
+                    'rcpt_streetAddress': rcpt_street,
+                    'rcpt_city': rcpt_city,
+                    'rcpt_mikud': rcpt_zip,
+                    'rcpt_returnAddress': f'{company} , {street_address} {city} - יח\' {mahlaka}',
+                    'rikuz_misraTashlumim': f'{data_misra_tashlumim:,.2f}',
+                    'rikuz_nikuim_hova': f'{data_nikuim_ishiim_hova:,.2f}',
+                    'rikuz_nikuim_reshut': f'{data_nikuim_ishiim_reshut:,.2f}' if data_nikuim_ishiim_reshut else '',
+                    'rikuz_netoPayment': f'{data_neto_payment:,.2f}',
+                    "perutNetuneyMisra_sugHamarkiv": "עבודה",
+                    "perutNetuneyMisra_mahlaka": mahlaka_code,
+                    "perutNetuneyMisra_derug": fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']),
+                    "perutNetuneyMisra_darga": "מ.א",
+                    "perutNetuneyMisra_rama": fake.random_element(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']),
+                    "perutNetuneyMisra_shautBafoal": "",
+                    "perutNetuneyMisra_basisMisra": str(basis_misra),
+                    "perutNetuneyMisra_empty": str(basis_misra) + '.0',
+                    "perutNetuneyMisra_zahal": f'{fake.random_int(0, 2000)/10:,.2f}',
+                    "perutNetuneyMisra_mukar": f'{fake.random_int(0, 2000)/10:,.2f}',
+                    "perutNetuneyMisra_avoda": f'{fake.random_int(0, 2000)/10:,.2f}',
+                    "perutNetuneyMisra_meyuhedet": "",
+                    "perutNetuneyMisra_yoker": "",
+                    "perutNetuneyMisra_izun": "",
+                    "perutNetuneyMisra_ajuzit": f'{fake.random_int(1000, 9999)/10:,.2f}',
+                    "perutNetuneyMisra_vetek": f'{fake.random_int(100, 9999)/10:,.0f}',
+                    "perutNetuneyMisra_scharYesod": f'{fake.random_int(100000, 5000000)/100:,.2f}',
+                    "perutNetuneyMisra_sachar": f'{fake.random_int(100000, 5000000)/100:,.2f}',
+                    "perutNetuneyMisra_sahach": f'{fake.random_int(100000, 5000000)/100:,.2f}',
+                    "netunimNosafim": {
+                        'divs': [
+                            mispar_zehut,
+                            date_of_birth.strftime('%d/%m/%Y'),
+                            start_of_work_date.strftime('%d/%m/%Y'),
+                            tokef_misra_1,
+                            f'{bruto_pension:,.2f}',
+                            mas_hachnasa_type,
+                            family_state,
+                            partner_income,
+                            bituah_leumi_type,
+                            workers_association,
+                            medical_association,
+                            misra_type,
+                            maamad,
+                        ]
+                    },
+                    'perutVetakimNosafim': {
+                        'trs_td_div': [
+                            [fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']), mahlaka_code, fake.random_element(['חדש', 'נמרץ', 'מוכר', 'וותיק']), f'{fake.random_int(50,2000)/100:,.2f}'],
+                            [fake.random_element(['עו"ס', 'מ"ח', 'רו"ח', 'עו"ד', 'מח"ר']), mahlaka_code, fake.random_element(['חדש', 'נמרץ', 'מוכר', 'וותיק']), f'{fake.random_int(50,2000)/100:,.2f}'],
+                        ]
+                    },
+                    'pirteyHeshbonBank': {
+                        'trs_td_div': [
+                            [fake.numerify('######'), fake.random_int(10, 999), str(fake.random_int(10, 19)) + ' ' + fake.random_element(['פועלים', 'דיסקונט', 'מזרחי', 'ירושלים', 'יהב'])],
+                        ]
+                    },
+                    'tosafotPensioniot': {
+                        'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'tosafot_pensioniot', 3, 10)
+                    },
+                    'tosafotPensioniot_total': f'{bruto_pension:,.2f}',
+                    'hehzerHozaot': {
+                        'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'hehzer_hozaot', 1, 9)
+                    },
+                    'hehzerHozaot_total': f'{fake.random_int(300000,1500000)/100:,.2f}',
+                    'tashlumimNosafim': {
+                        'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'tashlumim_nosafim', 1, 3)
+                    },
+                    'tashlumimNosafim_total': f'{fake.random_int(-500000,1500000)/100:,.2f}',
+                    'rehiveiAvodaNosefet': {
+                        'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'rehivey_avoda_nosefet', 1, 3)
+                    },
+                    'rehiveiAvodaNosefet_total': f'{fake.random_int(300000,1500000)/100:,.2f}',
+                    'shoviLemas': {
+                        'trs_td_div': self.get_main_table_rows_rows(mahlaka_code, 'shovi_lemas', 1, 2)
+                    },
+                    'shoviLemas_total': f'{fake.random_int(-1000000,1000000)/100:,.2f}',
+                    'masHachnasa_months': {
+                        'divs': mas_hachnasa_months
+                    },
+                    'masHachnasa': {
+                        'trs_td_div': [
+                            ['', str(mas_hachnasa_month_to-mas_hachnasa_month_from+1), '', str(fake.random_int(100, 300))],
+                            ['', str(fake.random_int(0, 500, step=25)/100), '', str(fake.random_int(0, 60))],
+                            ['', str(fake.random_int(0, 12)), '', str(fake.random_int(0, 30))],
+                        ]
+                    },
+                    'taarifimIshiimKlalim': {
+                        'trs_td_div': [
+                            ['תעריף יום', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
+                            ['תעריף שעה', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
+                            ['שעה מורחב', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
+                            ['יום מורחב', str(fake.random_int(1, 999)), f'{fake.random_int(3100, 60000)/100:,.2f}'],
+                        ]
+                    },
+                    'shumimMitzbarim': {
+                        'divs': [
+                            f'{fake.random_int(20000, 15000000)/100:,.2f}',
+                            f'{fake.random_int(20000, 15000000)/100:,.2f}',
+                            f'{fake.random_int(20000, 15000000)/100:,.2f}',
+                            f'{fake.random_int(20000, 15000000)/100:,.2f}',
+                            f'{fake.random_int(20000, 15000000)/100:,.2f}',
+                        ]
+                    }
+                },
+            )
+            common_draw.save_render_html(
+                output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}-p2.png'),
+                pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}-p2.pdf') if self.item_context.pdf_output_path else None,
+                render_path='salaries/north_page2.html',
+                page=self.html_page,
+                http_server_port=self.subtype_context.http_server_port,
+                width=2500, height=3508,
+                context={
+                    'topheader_name_tz': f'{rcpt_last_name} {rcpt_first_name} {mispar_zehut}',
+                    'topheader_mahlaka': f'{mahlaka_code} {mahlaka_name}',
+                    'topheader_tiknikuim': f'{tik_nikuim}',
+                    'topheader_rashut_num': f'{rashut}',
+                    'topheader_rashut_text': f'{company} , {city}',
+                    'topheader_month': month_name_heb,
+                    'topheader_month_spacer': '&nbsp;' * (7 - len(month_name_heb)),
+                    'topheader_year': year,
+                    'shumim_miztabrim': {
+                        'divs': [
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                            f'{fake.random_int(500000, 15000000) / 100:,.2f}',
+                        ]
+                    },
+                    'tashlumey_hefreshim': {
+                        'trs_td_div': [
+                            [
+                                f'{fake.random_int(1,999)}',
+                                fake.random_element(['מקדמה', 'גילום', 'גילום תשלום שנתי', 'גילום תשלום שנתיים', 'החזר חוב']),
+                                '0', '', '', '', '',
+                                'הפרש',
+                                f'{fake.random_int(-1000000,1000000)/100:,.2f}',
+                            ]
+                        ]
+                    },
+                    'tashlumey_hefreshim_saah': f'{fake.random_int(-1000000,1000000)/100:,.2f}',
+                    'kranot_kuput': {
+                        'trs_td_div': [
+                            ['2', 'דמי חבר', '', '', f'{fake.random_int(10000,30000)/100:,.2f}', '', '', '', '', '', '', ''],
+                            ['20', 'מס ועד כללי', '', f'{fake.random_int(4,99)/10:,.1f}', f'{fake.random_int(5000,15000)/100:,.2f}', '', '', '', '', '', '', ''],
+                            *self.get_kranot_kuput_rows()
+                        ]
+                    },
+                    'kranot_kuput_saah_nikuey': f'{fake.random_int(100,1000000)/100:,.2f}',
+                    'kranot_kuput_saah_hafrashot': f'{fake.random_int(100,1000000)/100:,.2f}',
+                    'nikuey_hova': {
+                        'trs_td_div': [
+                            *[
+                                [
+                                    name,
+                                    f'{fake.random_int(200, 3000000):,.0f}',
+                                    f'{fake.random_int(100, 50000):,.0f}',
+                                    f'{fake.random_int(1, 200):,.0f}' if fake.random_element([True, False]) else '',
+                                    f'{fake.random_int(100, 20000):,.0f}'
+                                ] for name in ['מס הכנסה', 'ביטוח לאומי', 'מס בריאות']
+                            ],
+                            ['', '', '', '', ''],
+                            ['', '', '', '', ''],
+                        ]
+                    },
+                    'nikuey_hova_saah': f'{fake.random_int(100,1000000)/100:,.2f}',
+                    'headruiot': {
+                        'trs_td_div': [
+                            ['חופשה', '', '20.59', '1.83', '', '22.42'],
+                            ['מחלה', '', '49.34', '2.50', '', '51.84'],
+                        ]
+                    }
+                }
+            )

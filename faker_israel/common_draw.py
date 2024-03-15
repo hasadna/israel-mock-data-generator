@@ -356,7 +356,7 @@ def start_python_http_server(watch=False):
         server.wait()
 
 
-def save_render_html(output_path, render_path, page, http_server_port, context, width, height, output_scale=0.5, y=0):
+def save_render_html(output_path, render_path, page, http_server_port, context, width, height, output_scale=0.5, y=0, pdf_output_path=None):
     with tempfile.TemporaryDirectory() as tmpdir:
         page_output_path = os.path.join(tmpdir, 'page.png')
         page.set_viewport_size({'width': width, 'height': height})
@@ -396,3 +396,6 @@ def save_render_html(output_path, render_path, page, http_server_port, context, 
         image = Image.open(page_output_path)
         image = image.resize((int(width*output_scale), int(height*output_scale)))
         image.save(output_path)
+        if pdf_output_path:
+            assert pdf_output_path.endswith('.pdf')
+            image.convert('RGB').save(pdf_output_path)
