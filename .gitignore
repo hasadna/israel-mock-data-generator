@@ -162,3 +162,4 @@ cython_debug/
 /image.png
 /test.png
 /test.pdf
+/test*.png
