@@ -29,6 +29,7 @@ def generate_pdf_multi_config(**kwargs):
 @click.option('--mock', is_flag=True)
 @click.option('--no-pdf', is_flag=True)
 @click.option('--source-image')
+@click.option('--continue')
 def generate(**kwargs):
     from .generate import main
     kwargs['type_'] = kwargs.pop('type')

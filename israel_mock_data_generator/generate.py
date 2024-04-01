@@ -57,6 +57,14 @@ def main(type_, subtype, num, test=False, **kwargs):
         selected_subtypes = list(type_config['subtypes'].keys())
     else:
         selected_subtypes = [s.strip() for s in subtype.split(',') if s.strip()]
+    continue_ = kwargs.pop('continue', None)
+    if continue_:
+        assert not test
+        assert len(selected_subtypes) == 1
+        continue_pathdate, continue_num = continue_.split(',')
+        continue_num = int(continue_num)
+    else:
+        continue_pathdate, continue_num = None, None
     with type_config.get('all_subtypes_context', default_all_subtypes_context)(fake=fake) as all_subtypes_context:
         if test:
             assert len(selected_subtypes) == 1, 'Only one subtype can be specified for test mode'
@@ -69,16 +77,22 @@ def main(type_, subtype, num, test=False, **kwargs):
                 with type_config.get('item_context', default_item_context)(subtype_context, **kwargs) as item_context:
                     type_config.get('test_generate', type_config['generate'])(item_context)
         else:
-            output_path = os.path.join('.data', type_config['output_path'], datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+            output_path = os.path.join('.data', type_config['output_path'], continue_pathdate or datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
             print(f'Generating {num} {type_} items for {len(selected_subtypes)} subtypes to {output_path}')
+            if continue_num:
+                print(f'Continuing from {continue_num}')
             print(kwargs)
             for subtype in selected_subtypes:
                 subtype_class = type_config['subtypes'][subtype]
                 with type_config.get('subtype_context', default_subtype_context)(all_subtypes_context, subtype=subtype, subtype_class=subtype_class) as subtype_context:
-                    os.makedirs(os.path.join(output_path, subtype, 'png'))
-                    os.makedirs(os.path.join(output_path, subtype, 'pdf'))
+                    if continue_:
+                        os.makedirs(os.path.join(output_path, subtype, 'png'), exist_ok=True)
+                        os.makedirs(os.path.join(output_path, subtype, 'pdf'), exist_ok=True)
+                    else:
+                        os.makedirs(os.path.join(output_path, subtype, 'png'))
+                        os.makedirs(os.path.join(output_path, subtype, 'pdf'))
                     print(f'Generating {type_} items for {subtype}')
-                    for i in range(1, num+1):
+                    for i in range(continue_num or 1, num+1):
                         filename_template = '{i:0' + str(len(str(num))) + 'd}'
                         with type_config.get('item_context', default_item_context)(subtype_context, **{
                             'i': i,

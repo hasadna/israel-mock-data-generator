@@ -379,13 +379,16 @@ def save_render_html(output_path, render_path, page, http_server_port, context, 
                             if not inner_html:
                                 inner_html = '&nbsp;'
                             page.evaluate(f"document.getElementById('{key}').children[{i}].innerHTML = '{inner_html}'")
-                    elif value.keys() == {'trs_td_div'}:
-                        for i, tr in enumerate(value['trs_td_div']):
+                    elif value.keys() == {'trs_td_div'} or value.keys() == {'div_trs_td_div'}:
+                        for i, tr in enumerate(value.get('trs_td_div') or value.get('div_trs_td_div')):
                             for j, inner_html in enumerate(tr):
                                 inner_html = str(inner_html).replace("'", "\\'")
                                 if not inner_html:
                                     inner_html = '&nbsp;'
-                                page.evaluate(f"document.getElementById('{key}').children[0].children[{i}].children[{j}].children[0].innerHTML = '{inner_html}'")
+                                if value.keys() == {'trs_td_div'}:
+                                    page.evaluate(f"document.getElementById('{key}').children[0].children[{i}].children[{j}].children[0].innerHTML = '{inner_html}'")
+                                else:
+                                    page.evaluate(f"document.getElementById('{key}').children[0].children[0].children[{i}].children[{j}].children[0].innerHTML = '{inner_html}'")
                     else:
                         raise ValueError(f'Unknown context value dict: {value}')
                 else:

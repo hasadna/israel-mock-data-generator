@@ -1,0 +1,490 @@
+{% extends '_base.jinja.html' %}
+{% block style %}
+    {{ super() }}
+    body {
+        font-family: Arial,serif;
+        font-size: 42px;
+    }
+    div {
+        position: absolute;
+        overflow:hidden;
+    }
+    .hidebg {
+        background-color: white;
+    }
+    .miriam {
+        font-family: Miriam,serif;
+        font-size: 47px;
+    }
+    .david {
+        font-family: David,serif;
+        font-size: 45px;
+    }
+{% endblock %}
+{% block body %}
+<div style="background-image: url('south.png'); width: 2500px; height: 3508px;">
+
+    <!-- start top header -->
+
+    <div id="topheader_company_name" class="hidebg" style="top: 449px;right: 40px;width: 746px;height: 47px;">שם חברה</div>
+    <div id="topheader_company_address" class="hidebg" style="top: 497px;right: 34.1px;width: 749px;height: 54px;">כתובת</div>
+    <div id="topheader_slip_date" class="hidebg" style="top: 398px;right: 1388px;width: 586px;height: 60px;font-size: 60px;font-weight: bold;">9/2023</div>
+    <div id="topheader_address" class="hidebg" style="top: 458px;right: 963px;width: 1097px;height: 53px;">שם רחוב 40, עיר&nbsp;&nbsp;1234567</div>
+    <div class="hidebg" style="top: 441px;right: 2067px;width: 309px;height: 111px;">
+        <div id="topheader_tiknikuim_bl" class="miriam" style="top: 7px;left: 7px;text-align: left;direction: ltr;">93600968700</div>
+        <div id="topheader_tiknikuim_mh" class="miriam" style="top: 43px;left: 7px;text-align: left;direction: ltr;">936009687</div>
+        <div id="topheader_tiknikuim_mispar_taagid" class="miriam" style="top: 80px;right: 24px;font-size: 27px;">מספר תאגיד - 580536878</div>
+    </div>
+
+    <!-- end top header -->
+
+    <!-- start top employee -->
+
+    <div id="top_employee_number" class="hidebg miriam" style="top: 608px;right: 43px;width: 220px;font-size: 44px;height: 48px;">29</div>
+    <div id="top_employee_mahlaka" class="hidebg miriam" style="top: 612px;right: 275px;width: 173px;font-size: 45px;height: 42px;text-align: center;">0</div>
+    <div id="top_employee_last_name" class="hidebg" style="top: 604px;right: 487px;width: 360px;font-size: 45px;height: 52px;">שם משפחה</div>
+    <div id="top_employee_first_name" class="hidebg" style="top: 601px;right: 861px;font-size: 45px;width: 201px;height: 55px;">שם פרטי</div>
+    <div id="top_employee_tz" class="hidebg" style="top: 610px;right: 1118px;font-size: 40px;width: 266px;height: 45px;">123456789</div>
+    <div id="top_employee_tatmahlaka" class="hidebg miriam" style="top: 612px;right: 1415px;width: 173px;font-size: 45px;height: 42px;text-align: center;">999</div>
+    <div id="top_employee_derug" class="hidebg miriam" style="top: 612px;right: 1610px;width: 173px;font-size: 45px;height: 42px;text-align: center;">999</div>
+    <div id="top_employee_darga" class="hidebg miriam" style="top: 612px;right: 1805px;width: 173px;font-size: 45px;height: 42px;text-align: center;">999</div>
+    <div class="hidebg david" style="top: 624px;right: 1989px;width: 163px;font-size: 35px;height: 32px;text-align: center;">
+        <div id="top_employee_vetek_days" style="top: 2px;right: 9px;">0</div>
+        <div id="top_employee_vetek_months" style="top: 2px;right: 62px;">3</div>
+        <div id="top_employee_vetek_years" style="top: 2px;right: 114px;">0</div>
+    </div>
+    <div id="top_employee_workstart" class="hidebg miriam" style="top: 612px;right: 2173px;width: 189px;font-size: 45px;height: 42px;">01/07/23</div>
+
+    <!-- end top employee -->
+
+    <!-- start top salary -->
+
+    <div class="miriam" style="top: 699px;right: 39px;width: 1790px;height: 62px; font-size: 45px;">
+        <div id="top_salary_taarif" class="hidebg" style="top: 4px;right: 13px;width: 173px;height: 42px;text-align: center;">9999</div>
+        <div id="top_salary_taarif_day" class="hidebg" style="top: 4px;right: 245px;width: 173px;height: 42px;text-align: center;">1554</div>
+        <div id="top_salary_taarif_hour" class="hidebg" style="top: 4px;right: 490px;width: 173px;height: 42px;text-align: center;">185</div>
+        <div id="top_salary_workdays" class="hidebg" style="top: 1px;right: 699px;width: 156px;height: 35px;text-align: center;font-size: 40px;">7/7</div>
+        <div id="top_salary_workhours" class="hidebg" style="top: 3px;right: 910px;width: 173px;height: 42px;text-align: center;font-size: 40px;">33</div>
+        <div id="top_salary_bank" class="hidebg" style="top: 4px;right: 1116px;width: 150px;height: 42px;text-align: center;">9999</div>
+        <div id="top_salary_branch" class="hidebg" style="top: 4px;right: 1276px;width: 120px;height: 42px;text-align: center;">9999</div>
+        <div class="hidebg" style="top: -2px;right: 1451px;width: 273px;height: 62px;">
+            <div id="top_salary_account_text" style="top: 29px;width: 273px;height: 56px;text-align: center;font-size: 26px;font-family: 'Arial',serif;">משולם לעובד</div>
+            <div id="top_salary_account_num" style="top: 4px;width: 273px;height: 56px;text-align: center;">9999999</div>
+        </div>
+    </div>
+
+    <!-- end top salary -->
+
+    <!-- start netunim nosafim -->
+
+    <div class="hidebg" style="top: 669px;right: 2161px;width: 213px;height: 348px;font-family: 'Miriam';font-size: 43.5px;">
+        <span id="netunim_nosafim_pizuim_hodshi">1,234.00</span><br>
+        <span id="netunim_nosafim_pizuim_ptor">1,233.00</span><br>
+        <span id="netunim_nosafim_pizuim_vatika">0.00</span><br>
+        <span id="netunim_nosafim_sahar_lepizuim">14,800.00</span><br>
+        <span id="netunim_nosafim_kopag_maasik_hodshi">962.00</span><br>
+        <span id="netunim_nosafim_sahar_lekopag">14,800.00</span><br>
+        <span id="netunim_nosafim_kahal_maasik_hodshi">1,110.00</span><br>
+        <span id="netunim_nosafim_sahar_lekahal">14,800.00</span>
+    </div>
+
+    <div id="netunim_nosafim_mazav_mishpahti" class="hidebg" style="top: 1065px;right: 1841px;width: 79px;height: 49px;">נ</div>
+    <div id="netunim_nosafim_working_partner" class="hidebg" style="top: 1065px;right: 1930px;width: 62px;height: 49px;">כ</div>
+    <div id="netunim_nosafim_n_zikui" class="hidebg" style="top: 1065px;right: 2033px;width: 172px;height: 49px;">2.25</div>
+    <div id="netunim_nosafim_ahuz_misra" class="hidebg" style="top: 1065px;right: 2244px;width: 117px;height: 49px;font-family: 'Miriam',serif;font-size: 50px;">99%</div>
+
+    <div id="netunim_nosafim_mas_shuli" class="hidebg" style="top: 1167px;right: 1851px;width: 132px;height: 49px;font-family: 'Miriam',serif;font-size: 47px;">10.00</div>
+    <div id="netunim_nosafim_mas_kavua" class="hidebg" style="top: 1167px;right: 2007px;width: 156px;height: 49px;font-family: 'Miriam',serif;font-size: 47px;">10.00</div>
+    <div id="netunim_nosafim_zikui_ishi" class="hidebg" style="top: 1167px;right: 2208px;width: 159px;height: 49px;font-family: 'Miriam',serif;font-size: 47px;">528</div>
+
+    <div id="netunim_nosafim_zikui_nosaf" class="hidebg" style="top: 1266px;right: 1849px;width: 159px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">999</div>
+    <div id="netunim_nosafim_zikui_gemel" class="hidebg" style="top: 1266px;right: 2058px;width: 159px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">311</div>
+    <div id="netunim_nosafim_zikui_mishmarot" class="hidebg" style="top: 1266px;right: 2251px;width: 116px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">999</div>
+
+    <div id="netunim_nosafim_ptor_hodshi" class="hidebg" style="top: 1465px;right: 1849px;width: 159px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">999</div>
+    <div id="netunim_nosafim_ptor_s47" class="hidebg" style="top: 1465px;right: 2058px;width: 159px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">311</div>
+    <div id="netunim_nosafim_zikui_hanahat_pituach" class="hidebg" style="top: 1465px;right: 2251px;width: 116px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">999</div>
+
+    <div id="netunim_nosafim_teum_mas" class="hidebg" style="top: 1572px;right: 1849px;width: 57px;height: 45px;">ל</div>
+    <div id="netunim_nosafim_sahar_leteum" class="hidebg" style="top: 1572px;right: 1968px;width: 209px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">311</div>
+    <div id="netunim_nosafim_mh_leteum" class="hidebg" style="top: 1572px;right: 2223px;width: 146px;height: 45px;font-family: 'Miriam',serif;font-size: 47px;">999</div>
+
+    <!-- end netunim nosafim -->
+
+    <!-- start totals -->
+
+    <div id="totals_hayav_mh" class="hidebg" style="top: 1727px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">6,406.00</div>
+    <div id="totals_hayav_bl" class="hidebg" style="top: 1877px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">6,406.00</div>
+    <div id="totals_hayav_sahah_tashlumim" class="hidebg" style="top: 2030px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">6,405.00</div>
+    <div id="totals_hayav_sahah_nikuim" class="hidebg" style="top: 2240px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">1,482.00</div>
+    <div id="totals_hayav_sahar_neto" class="hidebg" style="top: 2441px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">4,923.00</div>
+    <div id="totals_hayav_neto_letashlum" class="hidebg" style="top: 2655px;right: 2136px;width: 229px;height: 47px;font-family: 'Miriam',serif;font-size: 47px;">4,923.00</div>
+
+    <!-- end totals -->
+
+    <!-- start tashlumim table -->
+
+    <style>
+        #tashlumim_table div {
+            position: relative;
+            padding-top: 4px;
+        }
+        #tashlumim_table tr:nth-child(n+2) div {
+            margin-top:8px;
+        }
+        #tashlumim_table tr div:nth-child(n+1) {
+            direction:ltr;text-align:right;
+        }
+        #tashlumim_table tr td:nth-child(1) { width: 438px; }
+        #tashlumim_table tr td:nth-child(1) div { padding-right: 13px;width: 400px; }
+        #tashlumim_table tr td:nth-child(2) { width: 267px; }
+        #tashlumim_table tr td:nth-child(2) div { padding-right: 34px;width: 208px; }
+        #tashlumim_table tr td:nth-child(3) { width: 302px; }
+        #tashlumim_table tr td:nth-child(3) div { padding-right: 16px;width: 239px; }
+        #tashlumim_table tr td:nth-child(4) { width: 195px; }
+        #tashlumim_table tr td:nth-child(4) div { padding-right: 11px;width: 166px; }
+        #tashlumim_table tr td:nth-child(5) { width: 295px; }
+        #tashlumim_table tr td:nth-child(5) div { padding-right: 11px;width: 208px; }
+        #tashlumim_table tr td:nth-child(6) { width: 259px; }
+        #tashlumim_table tr td:nth-child(6) div { padding-right: 30px;width: 208px; }
+    </style>
+    <div id="tashlumim_table" class="miriam" style="top: 818px;right: 37px;width: 1793px;height: 1166px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div class="hidebg">שכר יסוד</div></td>
+                    <td><div class="hidebg">33.00</div></td>
+                    <td><div class="hidebg">185.00</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">6,105.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">שי לחג</div></td>
+                    <td><div class="hidebg">1.00</div></td>
+                    <td><div class="hidebg">300.00</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">300.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">שווי פיצויים</div></td>
+                    <td><div class="hidebg">1.00</div></td>
+                    <td><div class="hidebg">1.00</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">300.00</div></td>
+                </tr>
+                {% for i in range(9) %}
+                <tr>
+                    <td><div class="hidebg">שווי פיצויים</div></td>
+                    <td><div class="hidebg">1.00</div></td>
+                    <td><div class="hidebg">1.00</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">9,999.99</div></td>
+                    <td><div class="hidebg">300.00</div></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end tashlumim table -->
+
+    <!-- start nikuy hova table -->
+
+    <style>
+        #nikuy_hova_table div {
+            position: relative;
+            padding-top: 4px;
+            height: 48px;
+        }
+        #nikuy_hova_table tr td:nth-child(1) { width: 438px; }
+        #nikuy_hova_table tr td:nth-child(1) div { direction:ltr;text-align:right; padding-right: 13px;width: 400px; }
+        #nikuy_hova_table tr td:nth-child(2) { width: 267px; }
+        #nikuy_hova_table tr td:nth-child(2) div { padding-right: 25px;width: 208px; }
+    </style>
+    <div id="nikuy_hova_table" class="miriam" style="top: 2140px;right: 37px;width: 1793px;height: 1166px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div class="hidebg">ביטוח לאומי</div></td>
+                    <td><div class="hidebg">25.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">דמי בריאות</div></td>
+                    <td><div class="hidebg">199.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל חברה לביטוח</div></td>
+                    <td><div class="hidebg">888.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">370.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">370.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">370.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">370.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">370.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">סה"כ</div></td>
+                    <td><div class="hidebg">1,482.00</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end nikuy hova table -->
+
+    <!-- start nikuy reshut table -->
+
+    <style>
+        #nikuy_reshut_table div {
+            position: relative;
+            padding-top: 4px;
+            height: 48px;
+        }
+        #nikuy_reshut_table tr td:nth-child(n+2) div {
+            direction:ltr;text-align:right;
+        }
+        #nikuy_reshut_table tr td:nth-child(1) { width: 438px; }
+        #nikuy_reshut_table tr td:nth-child(1) div { padding-right: 13px;width: 400px; }
+        #nikuy_reshut_table tr td:nth-child(2) { width: 250px; }
+        #nikuy_reshut_table tr td:nth-child(2) div { padding-right: 25px;width: 195px; }
+        #nikuy_reshut_table tr td:nth-child(3) { width: 123px; }
+        #nikuy_reshut_table tr td:nth-child(3) div { padding-right: 13px;width: 80px; }
+        #nikuy_reshut_table tr td:nth-child(4) { width: 267px; }
+        #nikuy_reshut_table tr td:nth-child(4) div { padding-right: 25px;width: 208px; }
+    </style>
+    <div id="nikuy_reshut_table" class="miriam" style="top: 2140px;right: 789px;width: 1793px;height: 1166px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div class="hidebg">קו הבריאות</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">תשלומים לעירייה</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">ביטוח שיניים</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">החזרי הלוואות</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">השתתפות בקורס</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">כלל השתלמות</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">סה"כ</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                    <td><div class="hidebg">-999</div></td>
+                    <td><div class="hidebg">-9999.99</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end nikuy reshut table -->
+
+    <!-- start headruit  -->
+
+    <style>
+        #headruiot_table div {
+            position: relative;
+            padding-top: 4px;
+        }
+        #headruiot_table tr td div {
+            direction:ltr;text-align:right;
+        }
+        #headruiot_table tr:nth-child(3) div {
+            margin-top:41px;
+        }
+        #headruiot_table tr td:nth-child(1) { width: 173px; }
+        #headruiot_table tr td:nth-child(1) div { padding-right: 13px;width: 138px; }
+        #headruiot_table tr td:nth-child(2) { width: 212px; }
+        #headruiot_table tr td:nth-child(2) div { padding-right: 50px;width: 125px; }
+        #headruiot_table tr td:nth-child(3) { width: 225px; }
+        #headruiot_table tr td:nth-child(3) div { padding-right: 90px;width: 135px; }
+    </style>
+    <div id="headruiot_table" class="miriam" style="top: 2857px;right: 263px;width: 615px;height: 236px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div class="hidebg">0.85</div></td>
+                    <td><div class="hidebg">0</div></td>
+                    <td><div class="hidebg">1.2</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">1.25</div></td>
+                    <td><div class="hidebg">0</div></td>
+                    <td><div class="hidebg">1.67</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">1.89</div></td>
+                    <td><div class="hidebg">0</div></td>
+                    <td><div class="hidebg">2.16</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="hidebg miriam" style="top: 3102px;right: 303px;width: 151px;height: 113px;">
+        <div id="headruiot_zvira_hofesh" style="top:0;right: 5px;">0.35</div>
+        <div id="headruiot_zvira_mahala" style="top: 38px;right: 5px;">0.272</div>
+        <div id="headruiot_zvira_havraa" style="top: 80px;right: 5px;">0.42</div>
+    </div>
+
+    <style>
+        #headruiot_hodashim_table div {
+            position: relative;
+            width:30px;
+            font-weight: bold;
+            font-size: 35px;
+            padding-right: 2px;
+        }
+    </style>
+    <div id="headruiot_hodashim_table" class="hidebg" style="top: 3160px;right: 470px;width: 400px;height: 50px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div style="padding-right:9px;">ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>כ</div></td>
+                    <td><div>כ</div></td>
+                    <td><div>כ</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                    <td><div>ל</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end headruit -->
+
+    <!-- start netunim miztabrim table -->
+
+    <style>
+        #netunim_miztabrim_table div {
+            position: relative;
+            padding-top: 4px;
+        }
+        #netunim_miztabrim_table tr td div {
+            direction:ltr;text-align:right;
+        }
+        #netunim_miztabrim_table tr td:nth-child(1) { width: 426px; }
+        #netunim_miztabrim_table tr td:nth-child(1) div { padding-right: 13px;width: 200px; }
+        #netunim_miztabrim_table tr td:nth-child(2) { width: 441px; }
+        #netunim_miztabrim_table tr td:nth-child(2) div { padding-right: 25px;width: 200px; }
+        #netunim_miztabrim_table tr td:nth-child(3) { width: 123px; }
+        #netunim_miztabrim_table tr td:nth-child(3) div { padding-right: 5px;width: 200px; }
+    </style>
+    <div id="netunim_miztabrim_table" class="miriam" style="top: 2793px;right: 1081px;width: 1793px;height: 1166px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td><div class="hidebg">15,100</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">1</div></td>
+                    <td><div class="hidebg">1,586</div></td>
+                    <td><div class="hidebg">15,101</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">15,101</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">962.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">311</div></td>
+                    <td><div class="hidebg">1,110.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">529</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">1,234.00</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">888</div></td>
+                    <td><div class="hidebg">0</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td><div class="hidebg">370</div></td>
+                    <td><div class="hidebg">0</div></td>
+                    <td><div class="hidebg">&nbsp;</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end netunim miztabrim table -->
+
+    <!-- start footer -->
+
+    <div class="hidebg" id="footer_production_date" style="top: 3254px;right: 1507px;font-size: 42px;font-family: 'DAVID';width: 440px;height: 50px;">11/10/2023</div>
+    <div class="hidebg" id="footer_made_by" style="top: 3249px;right: 217px;width: 660px;height: 120px;">א.א.א.&nbsp;&nbsp;בע"מ</div>
+    <div class="hidebg" id="footer_made_with" style="top: 3329px;right: 1282px;width: 1140px;height: 90px;">באמצעות אאא מבית גגג - תוכנת השכר מספר שלוש בישראל</div>
+
+    <!-- end footer -->
+
+</div>
+{% endblock %}
