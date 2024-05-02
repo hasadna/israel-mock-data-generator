@@ -1,0 +1,28 @@
+{% extends '_base.jinja.html' %}
+{% block style %}
+    {{ super() }}
+    body {
+        font-family: Arial,serif;
+        font-size: 42px;
+    }
+    div {
+        position: absolute;
+        overflow:hidden;
+    }
+    .hidebg {
+        background-color: white;
+    }
+    .miriam {
+        font-family: Miriam,serif;
+        font-size: 47px;
+    }
+    .david {
+        font-family: David,serif;
+        font-size: 45px;
+    }
+{% endblock %}
+{% block body %}
+<div style="background-image: url('east.png'); width: 2480px; height: 3507px;">
+
+</div>
+{% endblock %}
