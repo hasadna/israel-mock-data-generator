@@ -309,9 +309,10 @@ def render_htmls(update=False):
     if not update:
         shutil.rmtree(html_path, ignore_errors=True)
     os.makedirs(os.path.join(html_path, 'fonts'), exist_ok=True)
-    for filename in iglob(os.path.join(PRIVATE_DATA_PATH, 'fonts/*.ttf')):
-        shutil.copy(filename, os.path.join(html_path, 'fonts'))
-        shutil_copy_files.append((filename, os.path.join(html_path, 'fonts')))
+    for ext in ['ttf', 'woff']:
+        for filename in iglob(os.path.join(PRIVATE_DATA_PATH, f'fonts/*.{ext}')):
+            shutil.copy(filename, os.path.join(html_path, 'fonts'))
+            shutil_copy_files.append((filename, os.path.join(html_path, 'fonts')))
     os.makedirs(os.path.join(html_path, 'salaries'), exist_ok=True)
     for filename in iglob(os.path.join(PRIVATE_DATA_PATH, 'salaries/*.png')):
         shutil.copy(filename, os.path.join(html_path, 'salaries'))
@@ -364,6 +365,10 @@ def save_render_html(output_path, render_path, page, http_server_port, context, 
         if y:
             page.evaluate(f"window.scrollTo(0, {y})")
         for key, value in context.items():
+            if isinstance(value, int):
+                value = str(value)
+            elif isinstance(value, float):
+                value = f'{value:.2f}'
             try:
                 if isinstance(value, str):
                     inner_html = str(value).replace("'", "\\'")
