@@ -1,0 +1,499 @@
+{% extends '_base.jinja.html' %}
+{% block style %}
+    {{ super() }}
+    body {
+        font-family: tahoma;
+        font-size: 30px;
+    }
+    div {
+        position: absolute;
+        overflow:hidden;
+    }
+    .hidebg {
+        background-color: white;
+    }
+    .gradient-backgrounds {
+        position: unset;
+    }
+    .gradient-backgrounds div {
+        opacity: 1;
+    }
+{% endblock %}
+{% block body %}
+<div style="background-image: url('center.png'); width: 2480px; height: 3600px;">
+    <div class="hidebg" style="width: 590px;height:500px;top: 310px;right: 143px;font-family: klr;font-size: 36px;">
+        <div style="top: 9px;" id="top_name">שם פרטי שם משפחה</div>
+        <div style="top: 72px;" id="top_address">שם רחוב 123</div>
+        <div style="top: 135px;" id="top_city_zip">כפר סבא 1234567</div>
+    </div>
+    <div class="hidebg" style="width:500px;height:500px;top: 240px;right: 916px;font-family: klr;font-size: 36px;">
+        <div style="top: 15px;" id="top_semel_mosad">123456</div>
+        <div style="top: 83px;" id="top_mosad_name">ממלכתי דתי נצחים</div>
+    </div>
+    <div style="width: 280px;height: 86px;right: 1706px;top: 170px;background-image: url('center_top_month_gradient.png');"></div>
+    <div id="top_salary_month" style="height: 86px;right: 1706px;top: 180px;font-size: 45px;">מאי 2019</div>
+    <div style="width: 229px;height: 101px;right: 1772px;top: 289px;background-image: url('center_top_tik_nikuim_gradient.png');">
+        <div id="top_tiknikuim_mashachnasa" style="top: 14px;">941941941</div>
+        <div id="top_tiknikuim_bituah_leumi" style="top: 56px;">94194194100</div>
+    </div>
+    <div style="width: 479px;height: 173px;right: 1742px;top: 418px;background-image: url('center_top_hashav_sahar_gradient.png');">
+        <div id="top_hashav_sahar" style="top: -3px;">אשר המר</div>
+        <div id="top_pakid" style="top: 44px;">רבקה שלמוב</div>
+        <div id="top_hashav_phone" style="top: 90px;">0733983960</div>
+        <div id="top_hashav_url" style="top: 131px;">www.edu.gov.il/horaa</div>
+        <div id="top_hashav_city" style="top: -3px;right: 340px;">ירושלים</div>
+    </div>
+    <div style="width: 709px;height: 49px;right: 1503px;top: 661px;background-image: url('center_top_employee_address_gradient.png');">
+        <div id="top_employee_address" style="top: 4px;right: 5px;">כנפי נשרים 22 ירושלים</div>
+    </div>
+    <div class="gradient-backgrounds">
+        <div style="width: 542px;height: 612px;right: 106px;top: 998px;background-image: url('center_personal_details_gradient.png');">
+        </div>
+        <div style="width: 542px;height: 730px;right: 106px;top: 1681px;background-image: url('center_netuney_mas_gradient.png');">
+        </div>
+        <div style="width: 542px;height: 646px;right: 106px;top: 2691px;background-image: url('center_mekadmim_shaot_gradient.png');">
+        </div>
+        <div style="width: 1528px;height: 790px;right: 719px;top: 1044px;background-image: url('center_tashlumim_gradient.png');">
+        </div>
+        <div style="width: 335px;height: 46px;right: 1893px;top: 1841px;background-image: url('center_tashlumim_sahah_gradient.png');">
+        </div>
+        <div style="width: 1515px;height: 76px;right: 711px;top: 1928px;background-image: url('center_nikuyey_hova_gradient.png');">
+        </div>
+        <div style="width: 1551px;height: 503px;right: 705px;top: 2158px;background-image: url('center_mgemel_gradient.png');border-radius: 20px;">
+        </div>
+        <div style="width: 1551px;height: 539px;right: 705px;top: 2792px;background-image: url('center_nikuyim_aherim_gradient.png');border-radius: 17px;">
+        </div>
+        <div style="width: 161px;height: 40px;right: 2086px;top: 2010px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 215px;height: 40px;right: 2028px;top: 2669px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 290px;height: 40px;right: 1959px;top: 3337px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 169px;height: 39px;right: 1604px;top: 3410px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 169px;height: 41px;right: 1124px;top: 3413px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 169px;height: 43px;right: 688px;top: 3411px;background-image: url('center_smallbox_pink_gradient.png');">
+        </div>
+        <div style="width: 182px;height: 43px;right: 251px;top: 3411px;background-image: url('center_bottom_tashlumim_gradient.png');">
+        </div>
+        <div style="width: 191px;height: 64px;right: 2032px;top: 3486px;background-image: url('center_bottom_tashlumim_babank_gradient.png');">
+        </div>
+    </div>
+    <style>
+        #personal_details_table div {
+            position: unset;
+        }
+        #personal_details_table tr td:first-child div {
+            width: 236px;
+            height: 44px;
+        }
+    </style>
+    <div id="personal_details_table" style="width: 542px;height: 612px;right: 103px;top: 1002px;">
+        <table>
+            <tr>
+                <td><div>מספר זהות</div></td>
+                <td><div id="personal_details_teudat_zehut">23456789</div></td>
+            </tr>
+            <tr>
+                <td><div>שם פרטי</div></td>
+                <td><div id="personal_details_first_name">--שם פרטי--</div></td>
+            </tr>
+            <tr>
+                <td><div>שם משפחה</div></td>
+                <td><div id="personal_details_last_name">--שם משפחה--</div></td>
+            </tr>
+            <tr>
+                <td><div>בנק</div></td>
+                <td><div id="personal_details_bank">12 - הפועלים</div></td>
+            </tr>
+            <tr>
+                <td><div>סניף</div></td>
+                <td><div id="personal_details_snif">333 - כפר סבא</div></td>
+            </tr>
+            <tr>
+                <td><div>מספר חשבון</div></td>
+                <td><div id="personal_details_heshbon">123456</div></td>
+            </tr>
+            <tr>
+                <td><div>דרגה</div></td>
+                <td><div id="personal_details_darga">תואר שני</div></td>
+            </tr>
+            <tr>
+                <td><div>דרוג באופק</div></td>
+                <td><div id="personal_Details_derug_ofek">תואר שני</div></td>
+            </tr>
+            <tr>
+                <td><div>דרגה באופק</div></td>
+                <td><div id="personal_details_darga_ofek">4</div></td>
+            </tr>
+            <tr>
+                <td><div>ותק בהוראה <span id="personal_details_vetek_horaa">17</span></div></td>
+                <td><div>ותק בניהול <span id="personal_details_vetek_benihul">17</span></div></td>
+            </tr>
+            <tr>
+                <td><div>ותק בייעוץ <span id="personal_details_vetek_beyeutz">17</span></div></td>
+                <td><div>ותק בהדרכה <span id="personal_details_vetek_behadracha">17</span></div></td>
+            </tr>
+            <tr>
+                <td><div>ותק צה"ל <span id="personal_details_vetek_bezahal">17</span></div></td>
+                <td><div>ותק באופק <span id="personal_details_vetek_beofek">17</span></div></td>
+            </tr>
+            <tr>
+                <td><div>ת. תחילת עבודה</div></td>
+                <td><div id="personal_Details_work_start_date">02/02/2020</div></td>
+            </tr>
+        </table>
+    </div>
+    <style>
+        #netuney_mas_table div {
+            position: unset;
+        }
+        #netuney_mas_table tr td:first-child div {
+            width: 321px;
+            height: 48px;
+        }
+    </style>
+    <div id="netuney_mas_table" style="width: 542px;height: 612px;right: 103px;top: 1692px;">
+        <table>
+            <tr>
+                <td><div>מצב משפחתי</div></td>
+                <td><div id="netuney_mas_marstatus">נשואה</div></td>
+            </tr>
+            <tr>
+                <td><div>נקודות בגין ילדים</div></td>
+                <td><div id="netuney_mas_points_kids">1.00</div></td>
+            </tr>
+            <tr>
+                <td><div>נקודות זיכוי</div></td>
+                <td><div id="netuney_mas_points">3.75</div></td>
+            </tr>
+            <tr>
+                <td><div>ערך נקודות זיכוי</div></td>
+                <td><div id="netuney_mas_points_value">10,035.00</div></td>
+            </tr>
+            <tr>
+                <td><div>אחוז מס שולי</div></td>
+                <td><div id="netuney_mas_percent_mas">20.00</div></td>
+            </tr>
+            <tr>
+                <td><div>שכר מינימום למשרה</div></td>
+                <td><div id="netuney_mas_sahar_min">5,300.00</div></td>
+            </tr>
+            <tr>
+                <td><div>שכר מינימום לשעה</div></td>
+                <td><div id="netuney_mas_sahar_min_shaa">29.12</div></td>
+            </tr>
+            <tr>
+                <td><div>עבודה יחידה</div></td>
+                <td><div id="netuney_mas_">כן</div></td>
+            </tr>
+            <tr>
+                <td><div>ביטוח לאומי</div></td>
+                <td><div id="netuney_mas_">חייב</div></td>
+            </tr>
+        </table>
+    </div>
+    <style>
+        #medakmim_shaot_table div {
+            position: unset;
+        }
+        #medakmim_shaot_table tr td:first-child div {
+            width: 373px;
+            height: 49px;
+        }
+    </style>
+    <div id="medakmim_shaot_table" style="width: 542px;height: 612px;right: 103px;top: 2702px;">
+        <table>
+            <tr>
+                <td><div>מקדם משרה כללי</div></td>
+                <td><div id="mekadmim_shaot_mekadem_misra_klali">1.00000</div></td>
+            </tr>
+            <tr>
+                <td><div>מקדם משרה באופק</div></td>
+                <td><div id="mekadmim_shaot_mekadem_misra_ofek">1.00000</div></td>
+            </tr>
+            <tr>
+                <td><div>מקדם הבראה</div></td>
+                <td><div id="mekadmim_shaot_mekadem_havraa">0.69833</div></td>
+            </tr>
+            <tr>
+                <td><div>שעות עבודה</div></td>
+                <td><div id="mekadmim_shaot_shot_avoda">156</div></td>
+            </tr>
+            <tr>
+                <td><div>שעות עבודה בפועל</div></td>
+                <td><div id="mekadmim_shaot_shot_avoda_bafoal">156</div></td>
+            </tr>
+            <tr>
+                <td><div>ש. השלמה למורה אם</div></td>
+                <td><div id="mekadmim_shaot_hashlama_mora_em">2.00</div></td>
+            </tr>
+        </table>
+    </div>
+    <style>
+        #tashlumim_table div {position: unset;direction: ltr;text-align:right;}
+        #tashlumim_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
+        #tashlumim_table td {border-left: 1px solid black;overflow:hidden;height: 48px;}
+        #tashlumim_table tr:nth-child(n+5) td {height: 47px;}
+        #tashlumim_table tr:nth-child(4) td {border: 0;color: #0066cc;font-weight: bold;}
+        #tashlumim_table tr td:last-child {border-left: 0;}
+        #tashlumim_table tr td:nth-child(6) div, #tashlumim_table tr td:nth-child(7) div {direction:rtl;}
+        #tashlumim_table tr td:nth-child(1) {width: 156px;}
+        #tashlumim_table tr td:nth-child(1) div {padding-right:16px;}
+        #tashlumim_table tr td:nth-child(2) {width: 179px;}
+        #tashlumim_table tr td:nth-child(2) div {padding-right:5px;}
+        #tashlumim_table tr td:nth-child(3) {width: 128px;}
+        #tashlumim_table tr td:nth-child(3) div {padding-right:8px;}
+        #tashlumim_table tr td:nth-child(4) {width: 128px;}
+        #tashlumim_table tr td:nth-child(4) div {padding-right:8px;}
+        #tashlumim_table tr td:nth-child(5) {width: 69px;}
+        #tashlumim_table tr td:nth-child(5) div {padding-right:1px;text-align: center;}
+        #tashlumim_table tr td:nth-child(6) {width: 111px;}
+        #tashlumim_table tr td:nth-child(6) div {padding-right:5px;}
+        #tashlumim_table tr td:nth-child(7) {width: 402px;}
+        #tashlumim_table tr td:nth-child(7) div {padding-right:5px;}
+        #tashlumim_table tr td:nth-child(8) {width: 194px;}
+        #tashlumim_table tr td:nth-child(8) div {padding-right:5px;}
+        #tashlumim_table tr td:nth-child(9) {width: 185px;}
+        #tashlumim_table tr td:nth-child(9) div {padding-right:5px;}
+    </style>
+    <div id="tashlumim_table" style="width: 1568px;height: 792px;right: 699px;top: 1043px;">
+        <table>
+            <tbody><tr>
+                <td><div>425.00</div></td>
+                <td><div>199.00</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>10</div></td>
+                <td><div>9.0%</div></td>
+                <td><div>משולב אופק חדש</div></td>
+                <td><div>-14.00</div></td>
+                <td><div>9,610.15</div></td>
+            </tr>
+            <tr>
+                <td><div>425.00</div></td>
+                <td><div>199.00</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>5616</div></td>
+                <td><div>9.0%</div></td>
+                <td><div>שקלית אחידה 2016 א</div></td>
+                <td><div>-14.00</div></td>
+                <td><div>9,610.15</div></td>
+            </tr>
+            <tr>
+                <td><div>425.00</div></td>
+                <td><div>199.00</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>135</div></td>
+                <td><div>9.0%</div></td>
+                <td><div>ג.חינוך מיוחד 9%</div></td>
+                <td><div>-14.00</div></td>
+                <td><div>9,610.15</div></td>
+            </tr>
+            <tr>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>סה"כ אופק חדש</div></td>
+                <td><div></div></td>
+                <td><div>12,012.03</div></td>
+            </tr>
+            {% for i in range(13) %}
+            <tr>
+                <td><div>425.00</div></td>
+                <td><div>199.00</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>135</div></td>
+                <td><div>9.0%</div></td>
+                <td><div>ג.חינוך מיוחד 9%</div></td>
+                <td><div>-14.00</div></td>
+                <td><div>9,610.15</div></td>
+            </tr>
+            {% endfor %}
+        </tbody></table>
+    </div>
+    <div id="sahah_tashlumim_hefreshim" style="direction:ltr;text-align:right;top: 1843px;right: 1900px;border-left: 1px solid black;width: 180px;height: 44px;">-17.50</div>
+    <div id="sahah_tashlumim_hodshi" style="direction:ltr;text-align:right;top: 1843px;right: 2097px;width: 180px;height: 44px;">11,483.95</div>
+    <style>
+        #nikuey_hova_table div {position: unset;direction: ltr;text-align:right;}
+        #nikuey_hova_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
+        #nikuey_hova_table tr td div {height: 42px;}
+        #nikuey_hova_table tr td:nth-child(1) {width: 76px;}
+        #nikuey_hova_table tr td:nth-child(1) div {padding-right:8px;}
+        #nikuey_hova_table tr td:nth-child(2) {width: 125px;border-left: 1px solid #b158b3;}
+        #nikuey_hova_table tr td:nth-child(2) div {padding-right: 0px;}
+        #nikuey_hova_table tr td:nth-child(3) {width: 130px;}
+        #nikuey_hova_table tr td:nth-child(3) div {padding-right: 30px;}
+        #nikuey_hova_table tr td:nth-child(4) {width: 70px;border-left: 1px solid #b158b3;}
+        #nikuey_hova_table tr td:nth-child(4) div {padding-right:16px;}
+        #nikuey_hova_table tr td:nth-child(5) {width: 131px;}
+        #nikuey_hova_table tr td:nth-child(5) div {padding-right: 19px;}
+        #nikuey_hova_table tr td:nth-child(6) {width: 69px;}
+        #nikuey_hova_table tr td:nth-child(6) div {padding-right: 14px;}
+    </style>
+    <div id="nikuey_hova_table" style="width: 1568px;height: 77px;right: 700px;top: 1927px;">
+        <table>
+            <tbody><tr>
+                <td><div>מס הכנסה</div></td>
+                <td><div id="nikuey_hova_mas_hachnasa">501.00</div></td>
+                <td><div>ביטוח לאומי</div></td>
+                <td><div id="nikuey_hova_bituah_leumi">415.78</div></td>
+                <td><div>ביטוח בריאות</div></td>
+                <td><div id="nikuey_hova_bituach_briut">475.16</div></td>
+            </tr>
+            <tr>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>הפרשי ביטוח לאומי</div></td>
+                <td><div id="nikuey_hova_hefreshey_bituach_leumi">-1.23</div></td>
+                <td><div>הפרשי ב.בריאות</div></td>
+                <td><div id="nikuey_hova_hefreshey_briut">-0.87</div></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="sahah_nikuy_hova" style="direction:ltr;text-align:right;top: 2014px;right: 2100px;width: 180px;height: 44px;">1,389.84</div>
+    <style>
+        #nikuey_gemel_table div {position: unset;direction: ltr;text-align:right;}
+        #nikuey_gemel_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
+        #nikuey_gemel_table tr td div {height: 47px;}
+        #nikuey_gemel_table tr td:nth-last-child(n+2) {border-left: 1px solid #b158b3;}
+        #nikuey_gemel_table tr td:nth-child(1) {width: 303px;}
+        #nikuey_gemel_table tr td:nth-child(1) div {padding-right:8px;}
+        #nikuey_gemel_table tr td:nth-child(2) {width: 123px;}
+        #nikuey_gemel_table tr td:nth-child(2) div {padding-right: 4px;}
+        #nikuey_gemel_table tr td:nth-child(3) {width: 136px;}
+        #nikuey_gemel_table tr td:nth-child(3) div {padding-right: 11px;}
+        #nikuey_gemel_table tr td:nth-child(4) {width: 181px;}
+        #nikuey_gemel_table tr td:nth-child(4) div {padding-right: 12px;}
+        #nikuey_gemel_table tr td:nth-child(5) {width: 164px;}
+        #nikuey_gemel_table tr td:nth-child(5) div {padding-right: 8px;}
+        #nikuey_gemel_table tr td:nth-child(6) {width: 200px;}
+        #nikuey_gemel_table tr td:nth-child(6) div {padding-right: 14px;}
+        #nikuey_gemel_table tr td:nth-child(7) {width: 203px;}
+        #nikuey_gemel_table tr td:nth-child(7) div {padding-right: 18px;}
+        #nikuey_gemel_table tr td:nth-child(8) {width: 100%;}
+        #nikuey_gemel_table tr td:nth-child(8) div {padding-right: 16px;}
+    </style>
+    <div id="nikuey_gemel_table" style="width: 1568px;height: 505px;right: 701px;top: 2158px;">
+        <table>
+            <tbody>
+            <tr>
+                <td><div>אלטשולר</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>12,012.03</div></td>
+                <td><div></div></td>
+                <td><div>942.19</div></td>
+                <td><div>471.10</div></td>
+            </tr>
+            <tr>
+                <td><div>מבטחים חדשה</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>12,012.03</div></td>
+                <td><div>698.12</div></td>
+                <td><div>841.25</div></td>
+                <td><div>673.00</div></td>
+            </tr>
+            <tr>
+                <td><div>חרב גמל</div></td>
+                <td><div>04/2019</div></td>
+                <td><div>04/2019</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>-0.87</div></td>
+                <td><div>-0.87</div></td>
+            </tr>
+            <tr>
+                <td><div>חרב גמל</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>267.35</div></td>
+                <td><div></div></td>
+                <td><div>13.37</div></td>
+                <td><div>13.37</div></td>
+            </tr>
+            <tr>
+                <td><div>הסתדרות המורים</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>11,483.95</div></td>
+                <td><div></div></td>
+                <td><div></div></td>
+                <td><div>59.00</div></td>
+            </tr>
+            {% for i in range(6) %}
+                <tr>
+                    <td><div>הסתדרות המורים</div></td>
+                    <td><div>04/2019</div></td>
+                    <td><div>04/2019</div></td>
+                    <td><div>1234567</div></td>
+                    <td><div>11,483.95</div></td>
+                    <td><div>698.12</div></td>
+                    <td><div>-0.87</div></td>
+                    <td><div>59.00</div></td>
+                </tr>
+            {% endfor %}
+        </tbody></table>
+    </div>
+    <div id="sahah_nikuy_gemel" style="direction:ltr;text-align:right;top: 2672px;right: 2046px;width: 201px;height: 44px;">1,215.60</div>
+    <style>
+        #nikuyim_aherim_table div {position: unset;direction: ltr;text-align:right;}
+        #nikuyim_aherim_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
+        #nikuyim_aherim_table tr td div {height: 45px;}
+        #nikuyim_aherim_table tr td:nth-last-child(n+2) {border-left: 1px solid #b158b3;}
+        #nikuyim_aherim_table tr td:nth-child(1) {width: 80px;}
+        #nikuyim_aherim_table tr td:nth-child(1) div {padding-right: 6px;}
+        #nikuyim_aherim_table tr td:nth-child(2) {width: 530px;}
+        #nikuyim_aherim_table tr td:nth-child(2) div {padding-right: 24px;}
+        #nikuyim_aherim_table tr td:nth-child(3) {width: 316px;}
+        #nikuyim_aherim_table tr td:nth-child(3) div {padding-right: 14px;}
+        #nikuyim_aherim_table tr td:nth-child(4) {width: 317px;}
+        #nikuyim_aherim_table tr td:nth-child(4) div {padding-right: 12px;}
+        #nikuyim_aherim_table tr td:nth-child(5) {width: 100%;}
+        #nikuyim_aherim_table tr td:nth-child(5) div {padding-right: 8px;}
+    </style>
+    <div id="nikuyim_aherim_table" style="width: 1568px;height: 539px;right: 701px;top: 2792px;">
+        <table>
+            <tbody>
+            <tr>
+                <td><div>616</div></td>
+                <td><div>ביטוח חיים ונכות</div></td>
+                <td><div>186.00</div></td>
+                <td><div></div></td>
+                <td><div>62.00</div></td>
+            </tr>
+            {% for i in range(11) %}
+                <tr>
+                    <td><div>616</div></td>
+                    <td><div>ביטוח חיים ונכות</div></td>
+                    <td><div>186.00</div></td>
+                    <td><div>-12,345.67</div></td>
+                    <td><div>62.00</div></td>
+                </tr>
+            {% endfor %}
+        </tbody></table>
+    </div>
+    <div id="sahah_nikyim_aherim" style="direction:ltr;text-align:right;top: 3341px;right: 1987px;width: 256px;height: 44px;">62.00</div>
+    <div id="neto_shlili" style="direction:ltr;text-align:right;top: 3415px;right: 2076px;width: 256px;height: 44px;">-12,345.67</div>
+    <div id="sahah_nikuim_aherim_bottom" style="direction:ltr;text-align:right;top: 3405px;right: 1609px;width: 256px;height: 44px;font-size: 41px;">-12,345.67</div>
+    <div id="sahah_nikuy_gemel_bottom" style="direction:ltr;text-align:right;top: 3405px;right: 1124px;width: 256px;height: 44px;font-size: 41px;">-12,345.67</div>
+    <div id="sahah_nikuy_hova_bottom" style="direction:ltr;text-align:right;top: 3405px;right: 690px;width: 256px;height: 44px;font-size: 41px;">-12,345.67</div>
+    <div id="sahah_tashlumim_bottom" style="direction:ltr;text-align:right;top: 3405px;right: 251px;width: 256px;height: 44px;font-size: 41px;">-12,345.67</div>
+    <div id="shum_babank" style="direction:ltr;text-align:right;top: 3488px;right: 2036px;width: 256px;height: 60px;font-size: 47px;">99,999.02</div>
+    <div id="bitzua" style="top: 3493px;right: 82px;width: 966px;height: 60px;font-size: 25px;background-color: white;">ביצוע: תעשיות תוכנה מרכז בע"מ</div>
+    <div id="hideside" style="top: 2833px;right: 32px;width: 47px;height: 470px;font-size: 25px;background-color: white;"></div>
+</div>
+{% endblock %}
