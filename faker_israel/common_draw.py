@@ -333,11 +333,12 @@ def render_htmls(update=False):
 
 
 @contextmanager
-def start_python_http_server(watch=False):
+def start_python_http_server(watch=False, port=None):
     html_path, shutil_copy_files, rendered_templates = render_htmls()
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(('', 0))
-        port = s.getsockname()[1]
+    if not port:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind(('', 0))
+            port = s.getsockname()[1]
     print(f'Starting server on port {port}')
     server = subprocess.Popen(
         ['python', '-m', 'http.server', str(port)],

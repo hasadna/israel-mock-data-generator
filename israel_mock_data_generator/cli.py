@@ -45,8 +45,9 @@ def extract_font_names(pdf_path):
 
 
 @main.command()
-def start_http_server():
-    with common_draw.start_python_http_server(watch=True) as get_port:
+@click.option('--port', type=int)
+def start_http_server(**kwargs):
+    with common_draw.start_python_http_server(watch=True, **kwargs) as get_port:
         port = get_port()
         print(f'Started HTTP server on port {port}')
         print(f'http://localhost:{port}/')

@@ -1,0 +1,78 @@
+{% extends '_base.jinja.html' %}
+{% block style %}
+    {{ super() }}
+    body {
+        font-family: tahoma;
+        font-size: 30px;
+    }
+    div {
+        position: absolute;
+        overflow:hidden;
+    }
+    .hidebg {
+        background-color: white;
+    }
+    .gradient-backgrounds {
+        position: unset;
+    }
+    .gradient-backgrounds div {
+        opacity: 1;
+    }
+    p {
+        font-family: 'Courier New';
+        font-size: 43px;
+        transform: scalex(0.7);
+        transform-origin: right;
+        display: inline-block;
+        line-height: 41px;
+        font-weight: bold;
+        color: #37474e;
+        width: max-content;
+    }
+{% endblock %}
+{% block body %}
+<div style="background-image: url('moon.png'); width: 2705px; height: 3600px;">
+    <div class="gradient-backgrounds">
+        <div style="width: 835px;height: 3156px;right: 65px;top: 162px;background-image: url('moon_personal_details_gradient.png');">
+        </div>
+    </div>
+    <div style="top: 294px;right: 80px;width: 828px;height: 420px;"><p>
+        משרד :
+        <span id="personal_details_office">025</span>
+        <br><br>
+        כתובת:
+        <span id="personal_details_address">אאאאא 46 רמתת גן 000700</span>
+        <br>
+        מצב משפחתי:
+        &nbsp;
+        <span id="personal_details_marital_status">רווקה</span>
+        <br>
+        %מס שולי :
+        &nbsp;
+        <span id="personal_details_tax_percentage" style="direction: ltr;">19.00</span>
+        <br>
+        תפוצה:
+        <span id="personal_details_distribution">16</span>
+        &nbsp;&nbsp;
+        <span id="personal_details_distribution_name">תולדות ישראל</span>
+        <br>
+        מעמד:
+        <span id="personal_details_status">עובד</span>
+        <br>
+        קוד ב.לאומי:
+        <span id="personal_details_blcode">9</span>
+        <br>
+        בנק:
+        <span id="personal_details_bank">12 - הפועלים</span>
+        <br>
+        סניף:
+        <span id="personal_details_branch">700 - סניף נווה חמציצים מערב החדש</span>
+    </p></div>
+    <div style="top: 294px;right: 434px;width: 474px;height: 80px;"><p>
+        אוניברסיטת נווח חמציצים מערב החדש מאודואודואוד!
+    </p></div>
+    <div style="top: 620px;right: 596px;width: 312px;height: 42px;"><p>
+        חשבון: 1234567
+    </p></div>
+</div>
+{% endblock %}
