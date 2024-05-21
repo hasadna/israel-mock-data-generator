@@ -34,6 +34,7 @@ def generate(**kwargs):
     from .generate import main
     kwargs['type_'] = kwargs.pop('type')
     main(**kwargs)
+    print("Done, generate completed successfully")
 
 
 @main.command()

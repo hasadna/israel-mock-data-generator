@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 
 from .salary import Salary
 
-from .. import common_draw, common
+from .. import common_draw, common, educational_institues
 
 
 BANKS = {
@@ -154,7 +154,7 @@ class SalaryCenter(Salary):
             'top_address': f'{fake.street_address()}',
             'top_city_zip': f'{fake.city()}, {fake.postcode()}',
             'top_semel_mosad': fake.numerify('######'),
-            'top_mosad_name': 'ממלכתי דתי נצחים',
+            'top_mosad_name': fake.random_element(educational_institues.get_education_institues_set()),
             'top_tiknikuim_mashachnasa': tik_nikuim,
             'top_tiknikuim_bituah_leumi': f'{tik_nikuim}00',
             'top_hashav_sahar': fake.name(),
