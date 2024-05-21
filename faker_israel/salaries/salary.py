@@ -42,6 +42,7 @@ class SalaryItemContext:
             self.png_output_path = png_output_path
             self.pdf_output_path = pdf_output_path
         self.salary = self.subtype_context.subtype_class(self)
+        print(f'Initialized SalaryItemContext {i}')
 
     def generate(self):
         self.salary.generate()
@@ -54,7 +55,7 @@ def salaries_generate_context(**kwargs):
 
 @contextmanager
 def salary_generate_context(root_context, **kwargs):
-    with start_python_http_server(os.path.join(PRIVATE_DATA_PATH, '..')) as get_port:
+    with start_python_http_server() as get_port:
         with init_html_page() as html_page:
             yield SalarySubtypeContext(
                 root_context,

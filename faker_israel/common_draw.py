@@ -338,9 +338,10 @@ def start_python_http_server(watch=False):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('', 0))
         port = s.getsockname()[1]
+    print(f'Starting server on port {port}')
     server = subprocess.Popen(
         ['python', '-m', 'http.server', str(port)],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        # stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         cwd=html_path
     )
     if watch:
