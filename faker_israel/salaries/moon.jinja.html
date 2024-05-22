@@ -33,8 +33,12 @@
 {% block body %}
 <div style="background-image: url('moon.png'); width: 2705px; height: 3600px;">
     <div class="gradient-backgrounds">
-        <div style="width: 835px;height: 3156px;right: 65px;top: 162px;background-image: url('moon_personal_details_gradient.png');">
-        </div>
+        <div style="width: 835px;height: 3156px;right: 65px;top: 162px;background-image: url('moon_personal_details_gradient.png');"></div>
+        <div style="width: 145px;height: 1201px;right: 2372px;top: 626px;background-image: url('moon_left_gradient.png');"></div>
+        <div style="width: 1365px;height: 96px;right: 945px;top: 1872px;background-image: url('moon_netuney_mas_miztabrim_gradient.png');"></div>
+        <div style="width: 1385px;height: 141px;right: 948px;top: 1042px;background-image: url('moon_nikuy_hova_gradient.png');"></div>
+        <div style="width: 1395px;height: 134px;right: 935px;top: 1388px;background-image: url('moon_nikuy_mutavim_gradient.png');"></div>
+        <div style="width: 1395px;height: 169px;right: 945px;top: 492px;background-image: url('moon_tashlumim_gradient.png');"></div>
     </div>
     <div style="top: 294px;right: 80px;width: 828px;height: 420px;"><p>
         משרד :
@@ -74,5 +78,61 @@
     <div style="top: 620px;right: 596px;width: 312px;height: 42px;"><p>
         חשבון: 1234567
     </p></div>
+        <style>
+        #nikuy_mutavim_table div {position: unset;direction: ltr;text-align:right;width: max-content;}
+        #nikuy_mutavim_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
+        #nikuy_mutavim_table td {height: 44px;}
+        #nikuy_mutavim_table tr td:nth-child(6) div, #nikuy_mutavim_table tr td:nth-child(7) div {direction:rtl;}
+        #nikuy_mutavim_table tr td:nth-child(1) {width: 156px;}
+        #nikuy_mutavim_table tr td:nth-child(1) div {padding-right: 15px;}
+        #nikuy_mutavim_table tr td:nth-child(2) {width: 264px;}
+        #nikuy_mutavim_table tr td:nth-child(2) div {padding-right: 20px;margin-top: -2px;}
+        #nikuy_mutavim_table tr td:nth-child(3) {width: 228px;}
+        #nikuy_mutavim_table tr td:nth-child(3) div {padding-right: 3px;}
+        #nikuy_mutavim_table tr td:nth-child(4) {width: 157px;}
+        #nikuy_mutavim_table tr td:nth-child(4) div {padding-right: 6px;}
+        #nikuy_mutavim_table tr td:nth-child(5) {width: 181px;}
+        #nikuy_mutavim_table tr td:nth-child(5) div {padding-right: 0;}
+        #nikuy_mutavim_table tr td:nth-child(6) {width: 123px;}
+        #nikuy_mutavim_table tr td:nth-child(6) div {padding-right: 6px;}
+        #nikuy_mutavim_table tr td:nth-child(7) {width: 128px;}
+        #nikuy_mutavim_table tr td:nth-child(7) div {padding-right:5px;}
+        #nikuy_mutavim_table tr td:nth-child(8) {width: 100%;}
+        #nikuy_mutavim_table tr td:nth-child(8) div {padding-right:5px;}
+    </style>
+    <div id="nikuy_mutavim_table" style="width: 1421px;height: 132px;right: 934px;top: 1390px;">
+        <table>
+            <tbody><tr>
+                <td><div><p>7-006701</p></div></td>
+                <td><div><p>ועד סגל זוטר</p></div></td>
+                <td><div><p>4390954</p></div></td>
+                <td><div><p>0.90</p></div></td>
+                <td><div><p>-12,345.00</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>46.20</p></div></td>
+            </tr>
+            <tr>
+                <td><div><p>8-024701</p></div></td>
+                <td><div><p>מגדל קה"ש</p></div></td>
+                <td><div><p>4390954</p></div></td>
+                <td><div><p>2.50</p></div></td>
+                <td><div><p>-12,345.00</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>128.34</p></div></td>
+            </tr>
+            <tr>
+                <td><div><p>7-043701</p></div></td>
+                <td><div><p>איילון מיטב</p></div></td>
+                <td><div><p></p></div></td>
+                <td><div><p>6.50</p></div></td>
+                <td><div><p>-12,345.00</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>08/20</p></div></td>
+                <td><div><p>333.67</p></div></td>
+            </tr>
+        </tbody></table>
+    </div>
 </div>
 {% endblock %}
