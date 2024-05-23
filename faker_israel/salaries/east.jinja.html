@@ -20,9 +20,533 @@
         font-family: David,serif;
         font-size: 45px;
     }
+    #place {
+        font-weight: 900;
+        top: 179px;
+        right: 101px;
+        font-size: 54px
+    }
+    #address {
+        top: 179px;
+        right: 700px;
+        font-size: 54px
+    }
+    #tik_nikuyim {
+        top: 225px;
+        right: 364px;
+        font-size: 54px
+    }
+    #organization {
+        top: 225px;
+        right: 782px;
+        font-size: 54px
+    }
+    #department {
+        top: 273px;
+        right: 279px;
+        font-size: 54px
+    }
+    #month_year {
+        top: 321px;
+        right: 485px;
+        font-size: 54px;
+        font-weight: 900;
+    }
+    #full_name_number {
+        font-size: 54px;
+        top: 525px;
+        right: 266px;
+        font-weight: 900;
+    }
+    #address1 {
+        font-size: 54px;
+        top: 575px;
+        right: 266px;
+        font-weight: 900;
+    }
+    #city_zip {
+        font-size: 54px;
+        top: 620px;
+        right: 266px;
+        font-weight: 900;
+    }
+    #number_number_department {
+        font-size: 54px;
+        top: 714px;
+        right: 266px;
+    }
+    #sum_talshlumim {
+        top: 303px;
+        right: 2199px;
+        font-size: 42px;
+        width: 251px;
+    }
+    #tax_mandatory_nikuy {
+        top: 349px;
+        right: 2199px;
+        font-size: 37px;
+        width: 251px;
+        background-color: lightgray;
+        height: 31px;
+    }
+    #kupot_gemel_agreed {
+        top: 386px;
+        right: 2199px;
+        font-size: 42px;
+        width: 251px;
+    }
+    #neto_salary {
+        top: 432px;
+        right: 2202px;
+        font-size: 37px;
+        width: 240px;
+        background-color: lightgray;
+        height: 31px;
+    }
+    #neto {
+        top: 484px;
+        right: 2200px;
+        font-size: 42px;
+        color: blue;
+        font-weight: 900;
+        width: 240px;
+    }
+
 {% endblock %}
 {% block body %}
-<div style="background-image: url('east.png'); width: 2480px; height: 3507px;">
-
+<div class="david" style="background-image: url('east.png'); width: 2480px; height: 3507px;">
+    <div id="place">אוניברסיטת אריאל בשומרון</div>
+    <div id="address">קריית המדע אריאל ת.ד. 3 40700</div>
+    <div id="tik_nikuyim">924296775</div>
+    <div id="organization">580367290</div>
+    <div id="department">15020419 עו"ס-תוא"ר-אחר</div>
+    <div id="month_year">מאי 2018</div>
+    <div id="full_name_number">גוטקין ילנה 151749</div>
+    <div id="address1">הנשיא 40 דירה 1</div>
+    <div id="city_zip">בית שמש 9903740</div>
+    <div id="number_number_department">2007 15020419 עו"ס-תוא"ר-אחר</div>
+    <div class="hidebg" id="sum_talshlumim">1,146.59</div>
+    <div class="hidebg" id="tax_mandatory_nikuy">398.59</div>
+    <div class="hidebg" id="kupot_gemel_agreed">66.00</div>
+    <div class="hidebg" id="neto_salary">682.00</div>
+    <div class="hidebg" id="neto">682.00</div>
+<!--        <section class="end-table">-->
+<!--            <span>נטו לתשלום</span><span class="box-neto" id="neto">682.00</span>-->
+<!--        </section>-->
+<!--    </section>-->
+<!--    <section class="receiver">-->
+<!--    </section>-->
+<!--    <section class="bank-details">-->
+<!--        <h3>פרטי חשבון הבנק</h3>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <th>מספר חשבון</th>-->
+<!--                <th>סניף</th>-->
+<!--                <th>בנק</th>-->
+<!--            </tr>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>203489</td>-->
+<!--                <td>303</td>-->
+<!--                <td>12</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </section>-->
+<!--    <section class="row">-->
+<!--        <section class="column-right">-->
+<!--            <section class="perut_tashlumim">-->
+<!--                <h5>פרוט התשלומים</h5>-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <th>סמל</th>-->
+<!--                        <th>תיאור</th>-->
+<!--                        <th></th>-->
+<!--                        <th>למידע</th>-->
+<!--                        <th>תעריף</th>-->
+<!--                        <th>אחוז</th>-->
+<!--                        <th>כמות</th>-->
+<!--                        <th>סכום לתשלום</th>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>תשלומים אחרים</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td id="other_tashlumim_semel">255</td>-->
+<!--                        <td id="other_tashlumim_description">'שכ"ע הדרכה בעב</td>-->
+<!--                        <td></td>-->
+<!--                        <td id="other_tashlumim_info">06/18</td>-->
+<!--                        <td id="other_tashlumim_taarif">1,100.00</td>-->
+<!--                        <td></td>-->
+<!--                        <td id="other_tashlumim_kamut">1.00</td>-->
+<!--                        <td id="other_tashlumim_sum">1,100.00</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td>סה"כ תשלומים אחרים בשוטף</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td id="other_tashlumim_sum2">1,100.00</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>זקיפות שכר</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>סמל</td>-->
+<!--                        <td>תיאור</td>-->
+<!--                        <td></td>-->
+<!--                        <td>תעריף</td>-->
+<!--                        <td>אחוז</td>-->
+<!--                        <td>כמות</td>-->
+<!--                        <td>סכום הזקיפה</td>-->
+<!--                        <td>סכיום הגילום</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td id="zkifut_semel">333</td>-->
+<!--                        <td id="zkifut_description">שווי מתנות נטו</td>-->
+<!--                        <td>גילום</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td id="sum_zkifut">100.00</td>-->
+<!--                        <td id="sum_zkifut_gilum">46.59</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td>סה"כ זקיפות שכר שוטף</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td>100.00</td>-->
+<!--                        <td>46.59</td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--                <section class="end-table">-->
+<!--                    <span>סה"כ תשלומים שוטף</span><span class="box" id="shotef">1,146.59</span>-->
+<!--                </section>-->
+<!--            </section>-->
+<!--            <section class="nekuyey_hova_misim">-->
+<!--                <h5>ניכויי חובה - מיסים</h5>-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <th>מס הכנסה</th>-->
+<!--                        <th>ביטוח לאומי</th>-->
+<!--                        <th>הפרשי ב. לאומי</th>-->
+<!--                        <th>ביטוח בריאות</th>-->
+<!--                        <th>הפרשי בריאות</th>-->
+<!--                        <th></th>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>249.00</td>-->
+<!--                        <td>87.26</td>-->
+<!--                        <td></td>-->
+<!--                        <td>62.33</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <td>סה"כ ניכויי חובה</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td id="sum_tax">398.59</td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </section>-->
+<!--        </section>-->
+<!--        <section class="column-left">-->
+<!--            <h5>נתונים נוספים</h5>-->
+<!--            <table>-->
+<!--                <tr></tr>-->
+<!--                <tr>-->
+<!--                    <th>נתונים אישיים</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מספר זהות</td>-->
+<!--                    <td>30479031</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מצב משפחתי</td>-->
+<!--                    <td>נשואה</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>הכנסה לבן זוג</td>-->
+<!--                    <td>כן</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>תאריך לידה</td>-->
+<!--                    <td>06/11/1965</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>ביטוח לאומי</td>-->
+<!--                    <td>רגיל</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מס הכנסה</td>-->
+<!--                    <td>מתואם פקיד שומה</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>נתוני העסקה</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>התחלת עבודה</td>-->
+<!--                    <td>01/11/2017</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>הסכם</td>-->
+<!--                    <td>999</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מעמד</td>-->
+<!--                    <td>שעתיים</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>דרוג</td>-->
+<!--                    <td>98</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>נתונים חודשיים</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>ברוטו למס הכנסה</td>-->
+<!--                    <td>1,247</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>אחוז מס שולי</td>-->
+<!--                    <td>20%</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>ברוטו לביטוח לאומי</td>-->
+<!--                    <td>1,247</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--    </section>-->
+<!--    <section class="column-right">-->
+<!--        <h5>ניכויים והפרשות לקופות גמל</h5>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <th>קופה</th>-->
+<!--                <th>שם</th>-->
+<!--                <th>סוג הקופה</th>-->
+<!--                <th></th>-->
+<!--                <th>מספר חשבון</th>-->
+<!--                <th>סכום בסיס</th>-->
+<!--                <th>אחוז הפרשה</th>-->
+<!--                <th>הפרשת מעסיק</th>-->
+<!--                <th>אחוז הניכוי</th>-->
+<!--                <th>סכום הניכוי</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>קופות גמל בהסכם</td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>075</td>-->
+<!--                <td>הלמן אלד' פנסיה</td>-->
+<!--                <td>קצבה שכיר-תג.</td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td>1,100.00</td>-->
+<!--                <td>6.50</td>-->
+<!--                <td>71.50</td>-->
+<!--                <td>6.00</td>-->
+<!--                <td>66.00</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>075</td>-->
+<!--                <td>הלמן אלד' פנסיה</td>-->
+<!--                <td>פיצויים</td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td>1,100.00</td>-->
+<!--                <td>8.33</td>-->
+<!--                <td>91.63</td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <section class="table-end">-->
+<!--            <span>סה"כ ניכויים והפרשות לקופות גמל</span><span id="nikui_maasik_gemel">163.13</span><span id="sum_nikui_gemel">66.00</span>-->
+<!--        </section>-->
+<!--        <section class="aggregate_data_gemel">-->
+<!--            <h5>נתונים מצטברים של קופות גמל וקרן השתלמות</h5>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>פרטים</th>-->
+<!--                    <th>שכר בסיס</th>-->
+<!--                    <th>הפרשה</th>-->
+<!--                    <th>שווי</th>-->
+<!--                    <th>אחוז הפרשה</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>תגמולים לקצבה</td>-->
+<!--                    <td>5,500.00</td>-->
+<!--                    <td>357.50</td>-->
+<!--                    <td></td>-->
+<!--                    <td>6.50</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--        <section class="missing">-->
+<!--            <h5></h5>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>פרטים</th>-->
+<!--                    <th>מכסה שנתית</th>-->
+<!--                    <th>יתרה קודמת</th>-->
+<!--                    <th>זיכוי החודש</th>-->
+<!--                    <th>ניצול החודש</th>-->
+<!--                    <th>זיכוי מצטבר</th>-->
+<!--                    <th>ניצול מצטבר</th>-->
+<!--                    <th>יתרה חדשה</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מחלה</td>-->
+<!--                    <td>18.00</td>-->
+<!--                    <td>9.00</td>-->
+<!--                    <td>1.50</td>-->
+<!--                    <td></td>-->
+<!--                    <td></td>-->
+<!--                    <td></td>-->
+<!--                    <td>10.50</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--        <section class="shuma_ishur">-->
+<!--            <h5>אישורי פקיד שומה</h5>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>מ-</th>-->
+<!--                    <th>עד</th>-->
+<!--                    <th>תיאור</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>01/2018</td>-->
+<!--                    <td>12/2018</td>-->
+<!--                    <td>שיעור מס נתון 20% עד ל-14,520 ש"ח ושיעור מס 31% מעליו</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>01/2018</td>-->
+<!--                    <td>12/2018</td>-->
+<!--                    <td>זכאי לתקרות לקופות גמל על פי חוק</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--        <section class="extra_data_law_salary_protection">-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>ותק אצל המעביד <span id="time_at_employer">7 חודשים</span></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>שכר לקצבה <span id="kizva_salary">1,100</span></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>סך כל הניכויים: <span id="sum_all_nikuyim">464.59</span></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>שכר מינימום: לחודש <span id="minimal_wage">5300.00</span> לשעה <span id="minimal_wage_hour">28.49</span></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--    </section>-->
+<!--    <section class="column-left">-->
+<!--        <section class="mas_year">-->
+<!--            <h5>סכומים מצטברים לשנת המס</h5>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>ברוטו רגיל</td>-->
+<!--                    <td>5,500</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>שווי כסף נטו</td>-->
+<!--                    <td>100</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>גילום מס</td>-->
+<!--                    <td>29</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>גילום ב.ל.</td>-->
+<!--                    <td>18</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מס רגיל</td>-->
+<!--                    <td>1,100</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>הכנסה לא מבוטחת</td>-->
+<!--                    <td>147</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>ניכוי לסעיף 45א 35%</td>-->
+<!--                    <td>330</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>משכורת (סה"כ שנתי)</td>-->
+<!--                    <td>5,647</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>מס הכנסה (סה"כ שנתי)</td>-->
+<!--                    <td>1,129</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>הכנסה חייבת במס</td>-->
+<!--                    <td>5,647</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>שכר חייב ב.ל.</td>-->
+<!--                    <td>5,647</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--        <section class="yehidot_mas">-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>01</td>-->
+<!--                    <td>02</td>-->
+<!--                    <td>03</td>-->
+<!--                    <td>04</td>-->
+<!--                    <td>05</td>-->
+<!--                    <td>סה"כ</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>25</td>-->
+<!--                    <td>25</td>-->
+<!--                    <td>25</td>-->
+<!--                    <td>25</td>-->
+<!--                    <td>25</td>-->
+<!--                    <td>125</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--    </section>-->
 </div>
 {% endblock %}
