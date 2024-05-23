@@ -5,6 +5,7 @@ from .south import SalarySouth
 from .east import SalaryEast
 from .west import SalaryWest
 from .center import SalaryCenter
+from .sun import SalarySun
 
 SALARIES = {k: partial(v, k) for k, v in {
     'north': SalaryNorth,
@@ -12,4 +13,5 @@ SALARIES = {k: partial(v, k) for k, v in {
     'east': SalaryEast,
     'west': SalaryWest,
     'center': SalaryCenter,
+    'sun': SalarySun,
 }.items()}
