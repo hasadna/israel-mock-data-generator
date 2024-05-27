@@ -1,4 +1,5 @@
 import datetime
+import random
 from dateutil.relativedelta import relativedelta
 
 from .salary import Salary
@@ -14,7 +15,7 @@ BANKS = {
     '16': 'פאגי',
 }
 
-MAR_STATUS = [
+MAR_STATUS = [  # <== it seems that this is the ONLY place in tlush where we have the gender! so the value here does not have to match any other field
     'נשוי',
     'נשואה',
     'רווק',
@@ -25,21 +26,21 @@ MAR_STATUS = [
     'אלמנה',
 ]
 
-PENSIA = [
+PENSIA = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
     'מיטב כללית',
     'הראל גילעד',
     'הפניקס',
     'מגדל מקפת',
     'מבטחים חדשה',
 ]
-GEMEL = [
+GEMEL = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
     'אלטשולר שחם',
     'אנליסט גמל',
     'הפניקס גמל',
     'מגדל לתגמולים ולפיצ',
     'מור מנורה',
 ]
-HISHTALMUT = [
+HISHTALMUT = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
     'קחצ"ק_מניות',
     'קחצ"ק_הראל',
     'ילין לפידות',
@@ -50,6 +51,20 @@ HISHTALMUT = [
 def fake_date(fake):
     return fake.date_between(start_date='-3y', end_date='-1y').strftime('%d%m%y')
 
+def random_float(fake, start, end):
+    return f'{fake.random_int(100*start, 100*end)/100:,.2f}'
+
+def empty_or(value):
+    if random.choice([True, False]):
+        return value;
+    else:
+        return ''
+
+def empty_percent_or(percent, value):
+    if random.randint(0, 100) < percent:
+        return ''
+    else:
+        return value
 
 def get_netunim_golmiyim_table(fake, darga_without_tiks):
     res = []
@@ -78,23 +93,56 @@ def get_netunim_golmiyim_table(fake, darga_without_tiks):
     res.append(['ברוטו לביטוח לאומי', f'{fake.random_int(1, 3000000)/100:,.2f}', fake_date(fake)])
     res.append(['ברוטו לקופת גמל', f'{fake.random_int(1, 3000000)/100:,.2f}', fake_date(fake)])
     res.append(['ברוטו לפנסיה', f'{fake.random_int(1, 3000000)/100:,.2f}', fake_date(fake)])
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
     return res
 
 def get_tashlumim_shotfim_table(fake):
     res = []
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
+    res.append(['שכר משולב', empty_percent_or(30, random_float(fake, 1, 3000)), random_float(fake, 1, 3000)])
+    descs = set([
+        'תוספת הסכם',
+        'השלמת משולב',
+        'תוספת דריכות',
+        'תוספת צבא קבע',
+        'תשלום שיחות טלפון',
+        'תן ביס',
+        'קורס/לימודים',
+        'השתלמות',
+        'נופש',
+        'מקדמות שכר',
+        'החזר נסיעות חול',
+        'החזר נסיעות דלק',
+        'מוניות',
+        'ביגוד',
+        'הוצאות אחרות',
+    ])
+    for i in range(fake.random_int(2, 11)):
+        if len(descs)==0:
+            break
+        desc = fake.random_element(list(descs))
+        descs.remove(desc)
+        res.append([
+            desc,
+            empty_percent_or(30, random_float(fake, -1000, 3000)),
+            empty_percent_or(10, random_float(fake, 1, 3000))
+        ])
+    for i in range(12-len(res)):
+        res.append(['&nbsp;', '&nbsp;', '&nbsp;'])  # <==== ToDo: for some reason the HTML result is not empty (the first field has one blank underlined with blue)
     return res
+
 
 def get_nikuyim_shotfim_table(fake):
     res = []
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
-    # res.append(['', '', ''])
+    # schum kodem is 30% empty, schum Nochechi 90% has a value
+    res.append(['בטוח לאומי', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['מס הכנסה', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['ביטוח בריאות ממלכתי', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['ניכוי לקרן פנסיה', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['נכוי לקרן השתלמות', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['ביטוח חיים', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['השתתפות במצב המשק', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['חבר משרתי הקבע והגמלאים', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['כלכלה ביחידה', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
+    res.append(['ביטוח חיים', empty_percent_or(30, random_float(fake, 1, 3000)), empty_percent_or(10, random_float(fake, 1, 3000))])
     return res
 
 
@@ -131,9 +179,9 @@ class SalarySun(Salary):
             'mas_hahnasa': fake.random_int(1, 30000),
             'ahuz_mas_shuli': fake.random_int(10, 50),
 
-            'sahah_tashlumim_shotfim_value': fake.random_int(1, 30000),
-            'sahah_nikuim_shotfim_value': fake.random_int(1, 30000),
-            'sahar_hodshi_neto_value': fake.random_int(1, 30000),
+            'sahah_tashlumim_shotfim_value': random_float(fake, 1, 30000),
+            'sahah_nikuim_shotfim_value': random_float(fake, 1, 30000),
+            'sahar_hodshi_neto_value': random_float(fake, 1, 30000),
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
