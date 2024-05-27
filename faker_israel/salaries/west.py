@@ -6,6 +6,29 @@ from .salary import Salary
 
 from .. import common_draw, common
 
+PENSIA = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
+    'מיטב כללית',
+    'כלל פנסיה',
+    'הפניקס',
+    'מגדל מקפת',
+    'מבטחים חדשה',
+]
+GEMEL = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
+    'אלטשולר שחם',
+    'אנליסט גמל',
+    'הפניקס גמל',
+    'מגדל לתגמולים ולפיצ',
+    'מור מנורה',
+]
+HISHTALMUT = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
+    'כלל השתלמות',
+    'אלטשולר שחם השתלמות',
+    'ילין לפידות',
+    'הפניקס השתלמות כללי',
+    'אינפיניטי',
+]
+
+
 def pad_with_zeros(value, total_char_num):
     val = str(value)
     if len(val) < total_char_num:
@@ -23,6 +46,120 @@ def empty_or(value):
 def random_float(fake, start, end):
     return f'{fake.random_int(100*start, 100*end)/100:,.2f}'
 
+def a_3_digits_code(fake):
+    return pad_with_zeros(fake.random_int(1, 999),3)
+
+def truncate(str_val, max_char_num):
+    if len(str_val) <= max_char_num:
+        return str_val
+    else:
+        return str_val[:max_char_num]
+
+
+def get_tashlumim_table(fake):
+    res = []
+    descs = set([
+        'שכר חודשי',
+        'שעות חסר',
+        'נסיעות מדווח',
+        'נסיעות החזר חודשי',
+        'טלפון',
+        'תשלום שיחות טלפון',
+        'תן ביס',
+        'קורס/לימודים',
+        'השתלמות',
+        'נופש',
+        'מקדמות שכר',
+        'החזר נסיעות חול',
+        'החזר נסיעות דלק',
+        'מוניות',
+        'ביגוד',
+        'הוצאות אחרות',
+    ])
+    for i in range(fake.random_int(3, 12)):
+        if len(descs)==0:
+            break
+        desc = fake.random_element(list(descs))
+        descs.remove(desc)
+        res.append([a_3_digits_code(fake), 
+                desc, # from list
+                empty_or(random_float(fake, -1, 10)),   # range not specified in IFYUN, I made up the numbers
+                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
+                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
+                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
+                empty_or(random_float(fake, 0, 3000))   # range not specified in IFYUN, I made up the numbers # Ifyun says it could be empty!
+                ])
+    for i in range(12-len(res)):
+        res.append(['&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;'])
+    return res
+
+
+def get_nikuyim_table(fake):
+    res = []
+    res.append(['&nbsp;', 'ב. לאומי',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['&nbsp;', 'מס הכנסה',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['&nbsp;', 'מס בריאות',  random_float(fake, 1, 3000)])   # range not specified in IFYUN, I made up the numbers
+    res.append([a_3_digits_code(fake), truncate(fake.random_element(PENSIA), 13), random_float(fake, 1, 3000)])   # range not specified in IFYUN, I made up the numbers
+    if fake.random_int(0, 100) < 10:
+        res.append([a_3_digits_code(fake), truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([a_3_digits_code(fake), truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([a_3_digits_code(fake), truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([a_3_digits_code(fake), truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
+    for i in range(8-len(res)):
+        res.append(['&nbsp;', '&nbsp;', '&nbsp;'])
+    return res
+
+
+def get_nikuyim_optional_table(fake):
+    res = []
+    res.append(['1', '2', '3'])
+    res.append(['1', '2', '3'])
+    res.append(['1', '2', '3'])
+    return res
+
+
+def get_aggregate_table(fake):
+    res = []
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    return res
+
+
+def get_vacation_table(fake):
+    res = []
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    return res
+
+
+def get_sick_table(fake):
+    res = []
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    return res
+
+
+def get_other_data_table1(fake):
+    res = []
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    return res
+
+
+def get_other_data_table2(fake):
+    res = []
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    res.append(['1', '2'])
+    return res
+
 
 class SalaryWest(Salary):
 
@@ -31,8 +168,8 @@ class SalaryWest(Salary):
 
         tik_nikuyim_value = fake.numerify("#########")
         tik_bil_value = tik_nikuyim_value + '00'
-        bank_num = fake.random_element(common.BANKS_NUMBERS.keys())
-        bank_name = common.BANKS_NUMBERS[bank_num]
+        bank_name = fake.random_element(common.BANKS_NUMBERS.keys())
+        bank_num = common.BANKS_NUMBERS[bank_name]
 
         fixed_context = {
             'company_name': fake.company(),
@@ -43,9 +180,9 @@ class SalaryWest(Salary):
             'tik_bil': tik_bil_value,
 
             'employee_name': fake.first_name() + ' ' + fake.last_name(),
-            'employee_address': f'{fake.street_address()}',   #  f'{fake.city()}, {fake.postcode()}' ??
-            # <=== ToDo: add element for city name and post code, currently hard-coded in the template
-            #'employee_address': f'{fake.city()}, {fake.postcode()}',
+            'employee_address': f'{fake.street_address()}',   
+            'employee_address_city': f'{fake.city()}, {fake.postcode()}',
+
             'id_number': fake.teudat_zehut(),
             'employee_number': fake.random_int(1, 9999),
             #'misra_sameh': '', # use default that is in template
@@ -71,14 +208,7 @@ class SalaryWest(Salary):
             'nikuyim_total': random_float(fake, -1000, 3000),    # <=== IFYUN did not specify the range, I made up -1000 - 3000,
 
             'salary_neto': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000,
-
-            # 'bank': '',
-            # 'bank': '',
-            # 'bank': '',
-            # 'bank': '',
-            # 'bank': '',
-            # 'bank': '',
-
+            'tashlum': random_float(fake, 0, 30000),  # <=== IFYUN did not specify this field AT ALL, I added and made up 0-30000,
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
@@ -98,7 +228,31 @@ class SalaryWest(Salary):
                 context={
                     **fixed_context,
                     'salary_month': f'{salary_date.month}/{salary_date.year}',
-                    'printed_at': f'10/{1+salary_date.month}/{salary_date.year}'
+                    'printed_at': f'10/{1+salary_date.month}/{salary_date.year}',
 
+                    'tashlumim_table': {
+                        'div_trs_td_div': get_tashlumim_table(fake)
+                    },
+                    'nikuyim_table': {
+                        'div_trs_td_div': get_nikuyim_table(fake)
+                    },
+                    'nikuyim_optional_table': {
+                        'div_trs_td_div': get_nikuyim_optional_table(fake)
+                    },
+                    'aggregate_table': {
+                        'div_trs_td_div': get_aggregate_table(fake)
+                    },
+                    'vacation_table': {
+                        'div_trs_td_div': get_vacation_table(fake)
+                    },
+                    'sick_table': {
+                        'div_trs_td_div': get_sick_table(fake)
+                    },
+                    'other_data_table1': {
+                        'div_trs_td_div': get_other_data_table1(fake)
+                    },
+                    'other_data_table2': {
+                        'div_trs_td_div': get_other_data_table2(fake)
+                    },
                 },
             )
