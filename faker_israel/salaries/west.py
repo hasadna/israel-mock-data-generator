@@ -5,27 +5,34 @@ from dateutil.relativedelta import relativedelta
 from .salary import Salary
 
 from .. import common_draw, common
+from . import north
 
-PENSIA = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
+
+GEMEL = [
     'מיטב כללית',
     'כלל פנסיה',
     'הפניקס',
     'מגדל מקפת',
     'מבטחים חדשה',
-]
-GEMEL = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
     'אלטשולר שחם',
     'אנליסט גמל',
     'הפניקס גמל',
     'מגדל לתגמולים ולפיצ',
     'מור מנורה',
-]
-HISHTALMUT = [  # <===== ToDo: improve this list. The Ifyun document does not give any list, so I made this up myself
     'כלל השתלמות',
     'אלטשולר שחם השתלמות',
     'ילין לפידות',
     'הפניקס השתלמות כללי',
     'אינפיניטי',
+]
+
+
+NIKUYIM_RESHUT = [
+    'קו הבריאות',
+    'תשלומים לעירייה',
+    'ביטוח שיניים',
+    'החזרי הלוואות',
+    'השתתפות בקורס',
 ]
 
 
@@ -39,9 +46,12 @@ def pad_with_zeros(value, total_char_num):
 
 def empty_or(value):
     if random.choice([True, False]):
-        return value;
+        if not value:
+            return '&nbsp;'
+        else:
+            return value
     else:
-        return ''
+        return '&nbsp;'
 
 def random_float(fake, start, end):
     return f'{fake.random_int(100*start, 100*end)/100:,.2f}'
@@ -83,11 +93,11 @@ def get_tashlumim_table(fake):
         descs.remove(desc)
         res.append([a_3_digits_code(fake), 
                 desc, # from list
-                empty_or(random_float(fake, -1, 10)),   # range not specified in IFYUN, I made up the numbers
-                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
-                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
-                empty_or(random_float(fake, 0, 1000)),  # range not specified in IFYUN, I made up the numbers
-                empty_or(random_float(fake, 0, 3000))   # range not specified in IFYUN, I made up the numbers # Ifyun says it could be empty!
+                empty_or(random_float(fake, -1, 10)),
+                empty_or(random_float(fake, 0, 30000)),
+                empty_or(random_float(fake, 0, 1000)),
+                empty_or(random_float(fake, 0, 1500)),
+                empty_or(random_float(fake, 0, 10000))
                 ])
     for i in range(12-len(res)):
         res.append(['&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;'])
@@ -95,70 +105,59 @@ def get_tashlumim_table(fake):
 
 
 def get_nikuyim_table(fake):
-    res = []
-    res.append(['&nbsp;', 'ב. לאומי',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
-    res.append(['&nbsp;', 'מס הכנסה',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
-    res.append(['&nbsp;', 'מס בריאות',  random_float(fake, 1, 3000)])   # range not specified in IFYUN, I made up the numbers
-    res.append([a_3_digits_code(fake), truncate(fake.random_element(PENSIA), 13), random_float(fake, 1, 3000)])   # range not specified in IFYUN, I made up the numbers
-    if fake.random_int(0, 100) < 10:
-        res.append([a_3_digits_code(fake), truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
-    if fake.random_int(0, 100) < 10:
-        res.append([a_3_digits_code(fake), truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
-    if fake.random_int(0, 100) < 10:
-        res.append([a_3_digits_code(fake), truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
-    if fake.random_int(0, 100) < 10:
-        res.append([a_3_digits_code(fake), truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
+    res = [
+        ['&nbsp;', 'ב. לאומי', random_float(fake, 1, 3000)],
+        ['&nbsp;', 'מס הכנסה', random_float(fake, 1, 3000)],
+        ['&nbsp;', 'מס בריאות', random_float(fake, 1, 3000)]
+    ]
+    gemel = set(GEMEL)
+    for i in range(fake.random_int(1, 5)):
+        g = fake.random_element(list(gemel))
+        gemel.remove(g)
+        res.append([a_3_digits_code(fake), g, empty_or(random_float(fake, 1, 3000))])
     for i in range(8-len(res)):
         res.append(['&nbsp;', '&nbsp;', '&nbsp;'])
     return res
 
 
 def get_nikuyim_optional_table(fake):
+    nikuyim = set(NIKUYIM_RESHUT)
     res = []
-    res.append(['1', '2', '3'])
-    res.append(['1', '2', '3'])
-    res.append(['1', '2', '3'])
+    for i in range(fake.random_int(0, 3)):
+        nikuy = fake.random_element(list(nikuyim))
+        nikuyim.remove(nikuy)
+        res.append([a_3_digits_code(fake), nikuy, empty_or(random_float(fake, 1, 3000))])
+    for i in range(5-len(res)):
+        res.append(['&nbsp;', '&nbsp;', '&nbsp;'])
     return res
 
 
 def get_aggregate_table(fake):
-    res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    res = [
+        ['שכר חייב מס', random_float(fake, 1000, 5000)],
+        ['שווי למס', random_float(fake, 1000, 5000)],
+        ['שכ.ב.לאומי', random_float(fake, 1000, 5000)],
+        ['בט.לאומי', random_float(fake, 1000, 5000)],
+        ['מס הכנסה', random_float(fake, 1000, 5000)],
+        ['מס בריאות', random_float(fake, 1000, 5000)],
+    ]
+    gemels = set(GEMEL)
+    for i in range(fake.random_int(1, 5)):
+        gemel = fake.random_element(list(gemels))
+        gemels.remove(gemel)
+        res.append([gemel, random_float(fake, 1000, 5000)])
+    for i in range(11-len(res)):
+        res.append(['&nbsp;', '&nbsp;'])
     return res
 
 
-def get_vacation_table(fake):
-    res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    return res
-
-
-def get_sick_table(fake):
-    res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    return res
-
-
-def get_other_data_table1(fake):
-    res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    return res
-
-
-def get_other_data_table2(fake):
-    res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    return res
+def get_family_status(fake):
+    status = fake.random_element(['נ', 'ר', 'ג', 'א'])
+    kids = 0
+    if fake.random_int(0, 2) == 2:
+        kids = fake.random_int(0, 19)
+    status += '+' + str(kids)
+    return status
 
 
 class SalaryWest(Salary):
@@ -191,24 +190,24 @@ class SalaryWest(Salary):
             'salary_base': fake.random_element(['חודשי','שעתי']),
             'part_job': f'{fake.random_int(10, 100, step=10) / 100:,.1f}' + '000',
             'vetek': fake.date_between(start_date='-30y', end_date='-5y').strftime('%d.%m.%y'),
-            #'department': '',  # <========= ToDo: implement this
+            'department': fake.random_element(north.MAHLAKOT) + f' 0{fake.random_int(1, 99):02d}',
             'job_start': fake.date_between(start_date='-30y', end_date='-5y').strftime('%d/%m/%Y'), # <=== %Y is 4 digit year
-            #'family_status': '',   # <========= ToDo: implement this
+            'family_status': get_family_status(fake),
             'derug': pad_with_zeros(fake.random_int(0, 999),3),
             'darga': pad_with_zeros(fake.random_int(0, 999),3),
             'vetek_from': empty_or(fake.date_between(start_date='-30y', end_date='-5y').strftime('%d/%m/%Y')),
             'bank': str(bank_num) + '/' + str(fake.random_int(90, 999)),
             'account': fake.numerify('#######'),    
 
-            'shovi_mas': random_float(fake, 0, 1000),       # <=== IFYUN did not specify the range, I made up 0-1000
-            'tashlum_total': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000
+            'shovi_mas': random_float(fake, 500, 1500),
+            'tashlum_total': random_float(fake, 1000, 30000),
             
-            'mandatory_nikuy': random_float(fake, 0, 3000),    # <=== IFYUN did not specify the range, I made up 0-3000
+            'mandatory_nikuy': random_float(fake, 1000, 3000),
 
-            'nikuyim_total': random_float(fake, -1000, 3000),    # <=== IFYUN did not specify the range, I made up -1000 - 3000,
+            'nikuyim_total': random_float(fake, -1000, 3000),
 
-            'salary_neto': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000,
-            'tashlum': random_float(fake, 0, 30000),  # <=== IFYUN did not specify this field AT ALL, I added and made up 0-30000,
+            'salary_neto': random_float(fake, 1000, 30000),
+            'tashlum': random_float(fake, 500, 30000),
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
@@ -218,6 +217,7 @@ class SalaryWest(Salary):
             first_date + relativedelta(months=1),
             first_date + relativedelta(months=2),
         ]):
+            printer_at_date = salary_date + relativedelta(months=1)
             common_draw.save_render_html(
                 output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}.png'),
                 pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}.pdf') if self.item_context.pdf_output_path else None,
@@ -228,7 +228,7 @@ class SalaryWest(Salary):
                 context={
                     **fixed_context,
                     'salary_month': f'{salary_date.month}/{salary_date.year}',
-                    'printed_at': f'10/{1+salary_date.month}/{salary_date.year}',
+                    'printed_at': f'10/{printer_at_date.month}/{printer_at_date.year}',
 
                     'tashlumim_table': {
                         'div_trs_td_div': get_tashlumim_table(fake)
@@ -242,17 +242,34 @@ class SalaryWest(Salary):
                     'aggregate_table': {
                         'div_trs_td_div': get_aggregate_table(fake)
                     },
-                    'vacation_table': {
-                        'div_trs_td_div': get_vacation_table(fake)
-                    },
-                    'sick_table': {
-                        'div_trs_td_div': get_sick_table(fake)
-                    },
-                    'other_data_table1': {
-                        'div_trs_td_div': get_other_data_table1(fake)
-                    },
-                    'other_data_table2': {
-                        'div_trs_td_div': get_other_data_table2(fake)
-                    },
+                    'vacation_kodemet': random_float(fake, 0, 99),
+                    'vacation_zvira': random_float(fake, 0, 99),
+                    'vacation_nizul': random_float(fake, 0, 99),
+                    'vacation_hadasha': random_float(fake, 0, 99),
+                    'sick_kodemet': random_float(fake, 0, 99),
+                    'sick_zvira': random_float(fake, 0, 99),
+                    'sick_nizul': random_float(fake, 0, 99),
+                    'sick_hadasha': random_float(fake, 0, 99),
+                    'od_yemey_avoda': fake.random_int(0, 31),
+                    'od_shot_avoda': f'{fake.random_int(0, 2500)/10:,.1f}',
+                    'od_headrut': fake.random_int(0, 200),
+                    'od_shot_leyom': f'{fake.random_int(50, 1500)/100:,.2f}',
+                    'od_nekudot_regilot': f'{fake.random_int(200, 1200)/100:,.2f}',
+                    # 'od_mas_shuli': '',
+                    # 'od_kod_mahadora': '',
+                    # 'od_hishuv_miztaber': '',
+                    # 'od_ofen_tashlum': '',
+                    'od2_yaa_bahevra': fake.random_int(0, 31),
+                    'od2_yasha_bahevra': f'{fake.random_int(0, 2500)/10:,.1f}',
+                    'od2_sahar_hayav_mas': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_sahar_bituach_leumi': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_sahar_mevutach': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_basis_karhash': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_gemel_maasik': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_karhash_maasik': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'os2_lafiz': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    'od2_bituach_leumi_maasik': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    # 'od2_sahar_min_hodshi': f'{fake.random_int(50000, 500000)/100:,.2f}',
+                    # 'od2_sahar_min_shaa': f'{fake.random_int(50000, 500000)/100:,.2f}',
                 },
             )

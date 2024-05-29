@@ -68,7 +68,7 @@
         #tashlumim_table tr td:nth-child(2) {width: 436px;}
         #tashlumim_table tr td:nth-child(2) div {margin-right: 10px;}
         #tashlumim_table tr td:nth-child(3) {width: 150px;}
-        #tashlumim_table tr td:nth-child(3) div {margin-right: 12px;}
+        #tashlumim_table tr td:nth-child(3) div {margin-right: 10px;}
         #tashlumim_table tr td:nth-child(4) {width: 216px;}
         #tashlumim_table tr td:nth-child(4) div {margin-right: 16px;}
         #tashlumim_table tr td:nth-child(5) {width: 232px;}
@@ -129,7 +129,7 @@
         #nikuyim_table td {overflow:hidden;height: 47px;}
         #nikuyim_table div {overflow:hidden;height: 47px;background:white;}
         #nikuyim_table tr td:nth-child(1) {width: 59px;}
-        #nikuyim_table tr td:nth-child(1) div {margin-right: -2px;}
+        #nikuyim_table tr td:nth-child(1) div {margin-right: -2px;width: 59px;font-size:36px;text-align:center;}
         #nikuyim_table tr td:nth-child(2) {width: 276px;}
         #nikuyim_table tr td:nth-child(2) div {margin-right: 5px;padding-right: 5px;width: 268px;}
         #nikuyim_table tr td:nth-child(3) {width: 100%;}
@@ -156,8 +156,8 @@
             </tr>
             {% for i in range(5) %}
             <tr>
-                <td><div>001</div></td>
-                <td><div>כלל</div></td>
+                <td><div>060</div></td>
+                <td><div>אנציקלופדיה בריטניקה החדשה</div></td>
                 <td><div>945.32</div></td>
             </tr>
             {% endfor %}
@@ -172,7 +172,7 @@
         #nikuyim_optional_table td {border-left: 5px solid lightgray;overflow:hidden;height: 47px;}
         #nikuyim_optional_table tr td:last-child {border-left: 0;}
         #nikuyim_optional_table tr td:nth-child(1) {width: 58px;}
-        #nikuyim_optional_table tr td:nth-child(1) div {padding-right: 3px; padding-top: -2px;}
+        #nikuyim_optional_table tr td:nth-child(1) div {margin-right: -2px;width: 59px;font-size:36px;text-align:center;}
         #nikuyim_optional_table tr td:nth-child(2) {width: 280px;}
         #nikuyim_optional_table tr td:nth-child(2) div {padding-right: 8px;}
         #nikuyim_optional_table tr td:nth-child(3) {width: 100%;}
@@ -201,7 +201,7 @@
         #aggregate_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
         #aggregate_table td {overflow:hidden;height: 47px;}
         #aggregate_table tr td:nth-child(1) {width: 204px;}
-        #aggregate_table tr td:nth-child(1) div {padding-right: 3px;background: white;width: 198px;}
+        #aggregate_table tr td:nth-child(1) div {padding-right: 3px;background: white;width: 198px;height:43px;}
         #aggregate_table tr td:nth-child(2) {width: 100%;}
         #aggregate_table tr td:nth-child(2) div {direction: ltr;padding-right:9px;font-size: 30px;width: 183px;text-align: right;background-color: white;margin-right: 6px;}
     </style>
@@ -235,7 +235,7 @@
             </tr>
             {% for i in range(5) %}
             <tr>
-                <td><div>קו הבריאות</div></td>
+                <td><div>אנציקלופדיה בריטניקה החדשה</div></td>
                 <td><div>-4565.52</div></td>
             </tr>
             {% endfor %}
@@ -258,19 +258,19 @@
             <tbody>
             <tr>
                 <td><div></div></td>
-                <td><div>24.15</div></td>
+                <td><div id="vacation_kodemet">24.15</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>1.20</div></td>
+                <td><div id="vacation_zvira">1.20</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>4.00</div></td>
+                <td><div id="vacation_nizul">4.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>21.35</div></td>
+                <td><div id="vacation_hadasha">21.35</div></td>
             </tr>
             </tbody>
         </table>
@@ -291,19 +291,19 @@
             <tbody>
             <tr>
                 <td><div></div></td>
-                <td><div>18.30</div></td>
+                <td><div id="sick_kodemet">18.30</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>1.20</div></td>
+                <td><div id="sick_zvira">1.20</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>.00</div></td>
+                <td><div id="sick_nizul">.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>19.50</div></td>
+                <td><div id="sick_hadasha">19.50</div></td>
             </tr>
             </tbody>
         </table>
@@ -323,39 +323,39 @@
             <tbody>
             <tr>
                 <td><div></div></td>
-                <td><div>7</div></td>
+                <td><div id="od_yemey_avoda">7</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>99.0</div></td>
+                <td><div id="od_shot_avoda">99.0</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>0.00</div></td>
+                <td><div id="od_headrut">0.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>8.58</div></td>
+                <td><div id="od_shot_leyom">8.58</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>2.25</div></td>
+                <td><div id="od_nekudot_regilot">2.25</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>35%</div></td>
+                <td><div id="od_mas_shuli">35%</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>ל9.128</div></td>
+                <td><div id="od_kod_mahadora">ל9.128</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>כן/1</div></td>
+                <td><div id="od_hishuv_miztaber">כן/1</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>ישירות</div></td>
+                <td><div id="od_ofen_tashlum">ישירות</div></td>
             </tr>
             </tbody>
         </table>
@@ -376,51 +376,51 @@
             <tbody>
             <tr>
                 <td><div></div></td>
-                <td><div>10</div></td>
+                <td><div id="od2_yaa_bahevra">10</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>92.0</div></td>
+                <td><div id="od2_yasha_bahevra">92.0</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>24889.00</div></td>
+                <td><div id="od2_sahar_hayav_mas">24889.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>24889.00</div></td>
+                <td><div id="od2_sahar_bituach_leumi">24889.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>19200.00</div></td>
+                <td><div id="od2_sahar_mevutach">19200.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>15712.00</div></td>
+                <td><div id="od2_basis_karhash">15712.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>2847.36</div></td>
+                <td><div id="od2_gemel_maasik">2847.36</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>1178.40</div></td>
+                <td><div id="od2_karhash_maasik">1178.40</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>1599.36</div></td>
+                <td><div id="os2_lafiz">1599.36</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>1634.70</div></td>
+                <td><div id="od2_bituach_leumi_maasik">1634.70</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>5300.00</div></td>
+                <td><div id="od2_sahar_min_hodshi">5300.00</div></td>
             </tr>
             <tr>
                 <td><div></div></td>
-                <td><div>29.12</div></td>
+                <td><div id="od2_sahar_min_shaa">29.12</div></td>
             </tr>
             </tbody>
         </table>
