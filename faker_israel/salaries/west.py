@@ -115,33 +115,66 @@ def get_nikuyim_table(fake):
 
 def get_nikuyim_optional_table(fake):
     res = []
-    res.append(['1', '2', '3'])
-    res.append(['1', '2', '3'])
-    res.append(['1', '2', '3'])
+    descs = set([
+        'קו הבריאות',
+        'תשלומים לעיריה',
+        'ביטוח שיניים',
+        'החזרי הלוואות',
+        'השתתפות בקורס',
+    ])
+    for i in range(fake.random_int(0, 5)): # IFYUN does not say how many lines should be in table. I decided 0-5
+        if len(descs)==0:
+            break
+        desc = fake.random_element(list(descs))
+        descs.remove(desc)
+        res.append([a_3_digits_code(fake), 
+                desc, # from list
+                empty_or(random_float(fake, -1000, 3000))])   # IFYUN does not say the sum of nikuy. I decided -1000 to 3000 
+                                                            # IFYUN specifically says sum could be empty
+    for i in range(5-len(res)):     # IFYUN does not say how many lines should be in table. I decided 5
+        res.append(['&nbsp;', '&nbsp;', '&nbsp;'])
     return res
 
 
 def get_aggregate_table(fake):
     res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    res.append(['שכר חייב מס',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['שווי למס',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['שכ.ב.לאומי',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['בט. לאומי',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['מס הכנסה',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['מס בריאות',  random_float(fake, 1, 3000)])    # range not specified in IFYUN, I made up the numbers
+    res.append([truncate(fake.random_element(PENSIA), 13), random_float(fake, 1, 3000)])   # range not specified in IFYUN, I made up the numbers
+    if fake.random_int(0, 100) < 50:
+        res.append([truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([truncate(fake.random_element(HISHTALMUT), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
+    if fake.random_int(0, 100) < 10:
+        res.append([truncate(fake.random_element(GEMEL), 13), random_float(fake, 1, 3000)])
+    for i in range(11-len(res)):
+        res.append(['&nbsp;', '&nbsp;'])
     return res
 
 
 def get_vacation_table(fake):
     res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    # Note - we don't generate a value for the first column because it is already displayed in the template and is always the same!
+    res.append(['',  random_float(fake, 0, 30)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 1, 3)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 0, 10)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 0, 30)])    # range not specified in IFYUN, I made up the numbers
     return res
 
 
 def get_sick_table(fake):
     res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    # Note - we don't generate a value for the first column because it is already displayed in the template and is always the same!
+    res.append(['',  random_float(fake, 0, 30)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 1, 3)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 0, 10)])    # range not specified in IFYUN, I made up the numbers
+    res.append(['',  random_float(fake, 0, 30)])    # range not specified in IFYUN, I made up the numbers
     return res
 
 
@@ -203,11 +236,7 @@ class SalaryWest(Salary):
             'shovi_mas': random_float(fake, 0, 1000),       # <=== IFYUN did not specify the range, I made up 0-1000
             'tashlum_total': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000
             
-            'mandatory_nikuy': random_float(fake, 0, 3000),    # <=== IFYUN did not specify the range, I made up 0-3000
 
-            'nikuyim_total': random_float(fake, -1000, 3000),    # <=== IFYUN did not specify the range, I made up -1000 - 3000,
-
-            'salary_neto': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000,
             'tashlum': random_float(fake, 0, 30000),  # <=== IFYUN did not specify this field AT ALL, I added and made up 0-30000,
         }
         first_year = fake.random_int(2012, 2022)
@@ -236,9 +265,13 @@ class SalaryWest(Salary):
                     'nikuyim_table': {
                         'div_trs_td_div': get_nikuyim_table(fake)
                     },
+                    'mandatory_nikuy': random_float(fake, 0, 3000),    # <=== IFYUN did not specify the range, I made up 0-3000
                     'nikuyim_optional_table': {
                         'div_trs_td_div': get_nikuyim_optional_table(fake)
                     },
+                    'nikuyim_total': random_float(fake, -1000, 3000),    # <=== IFYUN did not specify the range, I made up -1000 - 3000,
+
+                    'salary_neto': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000,
                     'aggregate_table': {
                         'div_trs_td_div': get_aggregate_table(fake)
                     },
