@@ -28,6 +28,10 @@ HISHTALMUT = [  # <===== ToDo: improve this list. The Ifyun document does not gi
     'אינפיניטי',
 ]
 
+MAHLAKOT = [m.strip() for m in '''
+גזברות, גביה, חשבות, תלונות הציבור, תעבורה, הנדסה, חינוך, חינוך לגיל הרך, תרבות, לוגיסטיקה, לשכה, דיגיטציה של השירות, ביטחון, סייבר, הוראה, פיתוח, תשתיות דיגיטל, תשתיות ענן, שירות לקוחות, שירות שותפים, תחבורה, פיתוח עסקי, עיצוב גרפי.
+'''.split(',') if m.strip()]
+
 
 def pad_with_zeros(value, total_char_num):
     val = str(value)
@@ -57,6 +61,12 @@ def truncate(str_val, max_char_num):
         return str_val
     else:
         return str_val[:max_char_num]
+
+def mahlaka_name_and_code(fake):
+    mahlaka_code = fake.numerify('#######').lstrip('0')
+    mahlaka_name = fake.random_element(MAHLAKOT)
+    mahlaka = mahlaka_code + ' ' + mahlaka_name
+    return mahlaka
 
 
 def get_tashlumim_table(fake):
@@ -221,6 +231,7 @@ class SalaryWest(Salary):
         tik_bil_value = tik_nikuyim_value + '00'
         bank_name = fake.random_element(common.BANKS_NUMBERS.keys())
         bank_num = common.BANKS_NUMBERS[bank_name]
+        num_kids = fake.random_int(0, 9)    # IFYUN says 0-19 but I think 0-9 is better
 
         fixed_context = {
             'company_name': fake.company(),
@@ -242,9 +253,9 @@ class SalaryWest(Salary):
             'salary_base': fake.random_element(['חודשי','שעתי']),
             'part_job': f'{fake.random_int(10, 100, step=10) / 100:,.1f}' + '000',
             'vetek': fake.date_between(start_date='-30y', end_date='-5y').strftime('%d.%m.%y'),
-            #'department': '',  # <========= ToDo: implement this
+            'department': mahlaka_name_and_code(fake),
             'job_start': fake.date_between(start_date='-30y', end_date='-5y').strftime('%d/%m/%Y'), # <=== %Y is 4 digit year
-            #'family_status': '',   # <========= ToDo: implement this
+            'family_status': fake.random_element(['נ', 'ג', 'א', 'ר']) + ('' if num_kids == 0 else f'+{num_kids}'),
             'derug': pad_with_zeros(fake.random_int(0, 999),3),
             'darga': pad_with_zeros(fake.random_int(0, 999),3),
             'vetek_from': empty_or(fake.date_between(start_date='-30y', end_date='-5y').strftime('%d/%m/%Y')),

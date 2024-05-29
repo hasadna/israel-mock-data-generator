@@ -162,26 +162,9 @@ class SalarySun(Salary):
             'bank_branch_code': fake.random_int(90, 999),
             'bank_branch_name': '',
             'bank_account_number': fake.numerify('########'),
-            
-            'zakaut_shnatit': fake.random_int(1, 30),
-            'nizul': fake.random_int(0, 31),
-            'yitra_lenizul': fake.random_int(0, 100),
-            'yemei_hufsha_zvura': fake.random_int(0, 100),
-            'ereh_yom_zvura_bruto': fake.random_int(1, 1000),
-            
-            'tik_nikuim': fake.numerify("#########"),
-            'hahnasa_shnatit_lamas': fake.random_int(1, 300000),
-            'hahnasa_zkufa': fake.random_int(1, 300000),
-            'hahnasot_lo_socialiot': fake.random_int(1, 300000),
-            'hahnasot_had_peamiot': fake.random_int(1, 10000),
-            'zikui_shnati_bemas': fake.random_int(1, 10000),
-            'ptor_shnati_bemas': fake.random_int(1, 10000),
-            'mas_hahnasa': fake.random_int(1, 30000),
-            'ahuz_mas_shuli': fake.random_int(10, 50),
 
-            'sahah_tashlumim_shotfim_value': random_float(fake, 1, 30000),
-            'sahah_nikuim_shotfim_value': random_float(fake, 1, 30000),
-            'sahar_hodshi_neto_value': random_float(fake, 1, 30000),
+            'tik_nikuim': fake.numerify("#########"),
+            
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
@@ -201,6 +184,26 @@ class SalarySun(Salary):
                 context={
                     **fixed_context,
                     'salary_date': f'{salary_date.month} / {salary_date.year}',
+
+                    'zakaut_shnatit': fake.random_int(1, 30),
+                    'nizul': fake.random_int(0, 31),
+                    'yitra_lenizul': fake.random_int(0, 100),
+                    'yemei_hufsha_zvura': fake.random_int(0, 100),
+                    'ereh_yom_zvura_bruto': fake.random_int(1, 1000),
+                    
+                    'hahnasa_shnatit_lamas': fake.random_int(1, 300000),
+                    'hahnasa_zkufa': fake.random_int(1, 300000),
+                    'hahnasot_lo_socialiot': fake.random_int(1, 300000),
+                    'hahnasot_had_peamiot': fake.random_int(1, 10000),
+                    'zikui_shnati_bemas': fake.random_int(1, 10000),
+                    'ptor_shnati_bemas': fake.random_int(1, 10000),
+                    'mas_hahnasa': fake.random_int(1, 30000),
+                    'ahuz_mas_shuli': fake.random_int(10, 50),
+
+                    'sahah_tashlumim_shotfim_value': random_float(fake, 1, 30000),
+                    'sahah_nikuim_shotfim_value': random_float(fake, 1, 30000),
+                    'sahar_hodshi_neto_value': random_float(fake, 1, 30000),
+
                     'netunim_golmyim_table': {
                         'div_trs_td_div': get_netunim_golmiyim_table(fake, darga_without_tiks)
                     },
