@@ -46,6 +46,9 @@ def empty_or(value):
 def random_float(fake, start, end):
     return f'{fake.random_int(100*start, 100*end)/100:,.2f}'
 
+def random_float1(fake, start, end):
+    return f'{fake.random_int(10*start, 10*end)/10:,.1f}'
+
 def a_3_digits_code(fake):
     return pad_with_zeros(fake.random_int(1, 999),3)
 
@@ -180,17 +183,32 @@ def get_sick_table(fake):
 
 def get_other_data_table1(fake):
     res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    # Note - we don't generate a value for the first column because it is already displayed in the template and is always the same!
+    res.append(['',  fake.random_int(0, 31)]) 
+    res.append(['', random_float1(fake, 0, 250)])
+    res.append(['',  fake.random_int(0, 200)]) 
+    res.append(['', random_float(fake, 0.5, 15)])
+    res.append(['', random_float(fake, 2, 12)])
+    # <=== אחוז מס שולי - IFYUN says nothing about that line
+    # <=== next 3 lines, IFYUN says קבוע - I don't know what it means, currently these lines always as in template (same values in all generated slips)
     return res
 
 
 def get_other_data_table2(fake):
     res = []
-    res.append(['1', '2'])
-    res.append(['1', '2'])
-    res.append(['1', '2'])
+    res.append(['',  fake.random_int(0, 31)]) 
+    res.append(['', random_float1(fake, 0, 250)])
+    # <=== following fields IFYUN says לרנדר מספר כפי שבוצע בתלושים קודמים I don't know exactly what values they mean by that
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
+    res.append(['', random_float(fake, 1, 3000)]) # I made up the values because IFYUN doesn't specify
     return res
 
 
@@ -233,11 +251,6 @@ class SalaryWest(Salary):
             'bank': str(bank_num) + '/' + str(fake.random_int(90, 999)),
             'account': fake.numerify('#######'),    
 
-            'shovi_mas': random_float(fake, 0, 1000),       # <=== IFYUN did not specify the range, I made up 0-1000
-            'tashlum_total': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000
-            
-
-            'tashlum': random_float(fake, 0, 30000),  # <=== IFYUN did not specify this field AT ALL, I added and made up 0-30000,
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
@@ -262,10 +275,14 @@ class SalaryWest(Salary):
                     'tashlumim_table': {
                         'div_trs_td_div': get_tashlumim_table(fake)
                     },
+                    'shovi_mas': random_float(fake, 0, 1000),       # <=== IFYUN did not specify the range, I made up 0-1000
+                    'tashlum_total': random_float(fake, 0, 30000),  # <=== IFYUN did not specify the range, I made up 0-30000
+
                     'nikuyim_table': {
                         'div_trs_td_div': get_nikuyim_table(fake)
                     },
                     'mandatory_nikuy': random_float(fake, 0, 3000),    # <=== IFYUN did not specify the range, I made up 0-3000
+
                     'nikuyim_optional_table': {
                         'div_trs_td_div': get_nikuyim_optional_table(fake)
                     },
@@ -287,5 +304,6 @@ class SalaryWest(Salary):
                     'other_data_table2': {
                         'div_trs_td_div': get_other_data_table2(fake)
                     },
+                    'tashlum': random_float(fake, 0, 30000),  # <=== IFYUN did not specify this field AT ALL, I added and made up 0-30000,
                 },
             )
