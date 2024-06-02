@@ -378,20 +378,29 @@ def save_render_html(output_path, render_path, page, http_server_port, context, 
                         inner_html = '&nbsp;'
                     page.evaluate(f"document.getElementById('{key}').innerHTML = '{inner_html}'")
                 elif isinstance(value, dict):
+                    dict_config = {}
+                    for k in list(value):
+                        if k.startswith('_'):
+                            dict_config[k[1:]] = value[k]
+                            del value[k]
+                    if 'empty_value' in dict_config:
+                        empty_value = dict_config['empty_value']
+                    else:
+                        empty_value = '&nbsp;'
                     if value.keys() == {'divs'}:
                         # value['divs'] is a list of strings
                         # need to use page.evaluate to set the innerText of each child of the key to this value by order
                         for i, inner_html in enumerate(value['divs']):
                             inner_html = str(inner_html).replace("'", "\\'")
                             if not inner_html:
-                                inner_html = '&nbsp;'
+                                inner_html = empty_value
                             page.evaluate(f"document.getElementById('{key}').children[{i}].innerHTML = '{inner_html}'")
                     elif value.keys() == {'trs_td_div'} or value.keys() == {'div_trs_td_div'}:
                         for i, tr in enumerate(value.get('trs_td_div') or value.get('div_trs_td_div')):
                             for j, inner_html in enumerate(tr):
                                 inner_html = str(inner_html).replace("'", "\\'")
                                 if not inner_html:
-                                    inner_html = '&nbsp;'
+                                    inner_html = empty_value
                                 if value.keys() == {'trs_td_div'}:
                                     page.evaluate(f"document.getElementById('{key}').children[0].children[{i}].children[{j}].children[0].innerHTML = '{inner_html}'")
                                 else:

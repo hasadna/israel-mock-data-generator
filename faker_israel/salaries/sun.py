@@ -126,7 +126,7 @@ def get_tashlumim_shotfim_table(fake):
             empty_percent_or(10, random_float(fake, 1, 3000))
         ])
     for i in range(12-len(res)):
-        res.append(['&nbsp;', '&nbsp;', '&nbsp;'])  # <==== ToDo: for some reason the HTML result is not empty (the first field has one blank underlined with blue)
+        res.append(['', '', ''])
     return res
 
 
@@ -160,7 +160,7 @@ class SalarySun(Salary):
             
             'bank': BANKS[fake.random_element(list(BANKS.keys()))],
             'bank_branch_code': fake.random_int(90, 999),
-            'bank_branch_name': '',
+            'bank_branch_name': fake.city(),
             'bank_account_number': fake.numerify('########'),
 
             'tik_nikuim': fake.numerify("#########"),
@@ -208,10 +208,12 @@ class SalarySun(Salary):
                         'div_trs_td_div': get_netunim_golmiyim_table(fake, darga_without_tiks)
                     },
                     'tashlumim_table': {
-                        'div_trs_td_div': get_tashlumim_shotfim_table(fake)
+                        'div_trs_td_div': get_tashlumim_shotfim_table(fake),
+                        '_empty_value': '',
                     },
                     'nikuyim_table': {
-                        'div_trs_td_div': get_nikuyim_shotfim_table(fake)
+                        'div_trs_td_div': get_nikuyim_shotfim_table(fake),
+                        '_empty_value': '',
                     },
                 },
             )
