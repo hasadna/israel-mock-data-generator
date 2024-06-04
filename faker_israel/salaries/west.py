@@ -120,10 +120,10 @@ def get_nikuyim_table(fake):
     return res
 
 
-def get_nikuyim_optional_table(fake):
+def get_nikuyim_optional_table(fake, num_nikuyim_optional_rows):
     nikuyim = set(NIKUYIM_RESHUT)
     res = []
-    for i in range(fake.random_int(0, 3)):
+    for i in range(num_nikuyim_optional_rows):
         nikuy = fake.random_element(list(nikuyim))
         nikuyim.remove(nikuy)
         res.append([a_3_digits_code(fake), nikuy, empty_or(random_float(fake, 1, 3000))])
@@ -197,27 +197,18 @@ class SalaryWest(Salary):
             'darga': pad_with_zeros(fake.random_int(0, 999),3),
             'vetek_from': empty_or(fake.date_between(start_date='-30y', end_date='-5y').strftime('%d/%m/%Y')),
             'bank': str(bank_num) + '/' + str(fake.random_int(90, 999)),
-            'account': fake.numerify('#######'),    
-
-            'shovi_mas': random_float(fake, 500, 1500),
-            'tashlum_total': random_float(fake, 1000, 30000),
-            
-            'mandatory_nikuy': random_float(fake, 1000, 3000),
-
-            'nikuyim_total': random_float(fake, -1000, 3000),
-
-            'salary_neto': random_float(fake, 1000, 30000),
-            'tashlum': random_float(fake, 500, 30000),
+            'account': fake.numerify('#######'),
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
         first_date = datetime.date(first_year, first_month, 1)
         for salary_date_num, salary_date in enumerate([
             first_date,
-            first_date + relativedelta(months=1),
-            first_date + relativedelta(months=2),
+            # first_date + relativedelta(months=1),
+            # first_date + relativedelta(months=2),
         ]):
             printer_at_date = salary_date + relativedelta(months=1)
+            num_nikuyim_optional_rows = fake.random_int(0, 3)
             common_draw.save_render_html(
                 output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}.png'),
                 pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}.pdf') if self.item_context.pdf_output_path else None,
@@ -229,7 +220,11 @@ class SalaryWest(Salary):
                     **fixed_context,
                     'salary_month': f'{salary_date.month}/{salary_date.year}',
                     'printed_at': f'10/{printer_at_date.month}/{printer_at_date.year}',
-
+                    'shovi_mas': random_float(fake, 500, 1500),
+                    'tashlum_total': random_float(fake, 1000, 30000),
+                    'mandatory_nikuy': random_float(fake, 1000, 3000),
+                    'salary_neto': random_float(fake, 1000, 30000),
+                    'tashlum': random_float(fake, 500, 30000),
                     'tashlumim_table': {
                         'div_trs_td_div': get_tashlumim_table(fake)
                     },
@@ -237,8 +232,9 @@ class SalaryWest(Salary):
                         'div_trs_td_div': get_nikuyim_table(fake)
                     },
                     'nikuyim_optional_table': {
-                        'div_trs_td_div': get_nikuyim_optional_table(fake)
+                        'div_trs_td_div': get_nikuyim_optional_table(fake, num_nikuyim_optional_rows)
                     },
+                    'nikuyim_total': random_float(fake, -1000, 3000) if num_nikuyim_optional_rows > 0 else '',
                     'aggregate_table': {
                         'div_trs_td_div': get_aggregate_table(fake)
                     },
