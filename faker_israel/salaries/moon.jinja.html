@@ -4,6 +4,7 @@
     body {
         font-family: tahoma;
         font-size: 30px;
+        color: #3a3b3c;
     }
     div {
         position: absolute;
@@ -33,19 +34,19 @@
 {% block body %}
 <div style="background-image: url('moon.png'); width: 2705px; height: 3600px;">
     <div class="gradient-backgrounds">
-        <div style="width: 835px;height: 3156px;right: 65px;top: 162px;background-image: url('moon_personal_details_gradient.png');"></div>
+        <div style="width: 835px;height: 573px;right: 65px;top: 162px;background-image: url('moon_personal_details_gradient.png');"></div>
         <div style="width: 145px;height: 1201px;right: 2372px;top: 626px;background-image: url('moon_left_gradient.png');"></div>
         <div style="width: 1365px;height: 96px;right: 945px;top: 1872px;background-image: url('moon_netuney_mas_miztabrim_gradient.png');"></div>
         <div style="width: 1385px;height: 141px;right: 948px;top: 1042px;background-image: url('moon_nikuy_hova_gradient.png');"></div>
         <div style="width: 1395px;height: 134px;right: 935px;top: 1388px;background-image: url('moon_nikuy_mutavim_gradient.png');"></div>
     </div>
     <div style="top: 162px; right: 80px; width: 828px; height: 200px;">
-        <div id="full_name" style="top: 20px; right: 10px;"><p>ד"ר גבי גזית</p></div>
+        <div id="full_name" style="top: 20px;right: 10px;width: 400px;height: 39px;"><p>ד"ר גבי גזית</p></div>
         <div style="top: 20px; right: 438px;"><p>מספר זהות:</p></div>
         <div id="personal_id" style="top: 20px; right: 632px;"><p>123456789</p></div>
         <div style="top: 59px; right: 419px;"><p>משרה נוספת: 1</p></div>
     </div>
-    <div style="top: 177px; right: 1113px; width: 300px; height: 50px; background-color: #D7EDF8;"><p id="month_year">אוגוסט 2020</p></div>
+    <div style="top: 177px;right: 1104px;width: 300px;height: 50px;background-color: #D7EDF8;"><p id="month_year">אוגוסט 2020</p></div>
     <div style="top: 173px; right: 2274px; width: 135px; height: 50px; background-color: #D7EDF8;"><p id="tlush">בדיקה</p></div>
     <div style="top: 294px;right: 80px;width: 828px;height: 420px;"><p>
         משרד :
@@ -80,19 +81,19 @@
         סניף:
         <span id="personal_details_branch">700 - סניף נווה חמציצים מערב החדש</span>
     </p></div>
-    <div style="top: 294px;right: 434px;width: 474px;height: 80px;"><p>
+    <div style="top: 294px;right: 434px;width: 474px;height: 80px;"><p id="company_name">
         אוניברסיטת נווח חמציצים מערב החדש מאודואודואוד!
     </p></div>
     <div style="top: 620px;right: 596px;width: 312px;height: 42px;"><p>
-        חשבון: 1234567
+        חשבון: <span id="bank_account_number">1234567</span>
     </p></div>
-    <div style="top: 742px;right: 300px;width: 500px;height: 42px;">
+    <!--<div style="top: 742px;right: 300px;width: 500px;height: 42px;">
         <p style="font-size: 67px;">- נתוני עזר -</p>
     </div>
     <div style="top: 814px; right: 66px; width: 870px; height: 500px;">
         <p>מ.נ._דרוג__דרגת__חלקיות_וותק___ע.ש.___משולב___</p>
-        <p style="padding-right: 30px;">3   178   178001  40.00   27.00</p>
-        <p style="padding-right: 30px;">4   140   140010</p>
+        <p style="padding-right: 30px;">3&nbsp;&nbsp;&nbsp;178&nbsp;&nbsp;&nbsp;178001&nbsp;&nbsp;40.00&nbsp;&nbsp;&nbsp;27.00</p>
+        <p style="padding-right: 30px;">4&nbsp;&nbsp;&nbsp;140&nbsp;&nbsp;&nbsp;140010</p>
     </div>
     <div style="top: 980px; right: 86px; width: 870px; height: 670px;">
         <p>247<br>437<br>0008<br>0001<br>0103<br>0271<br>0141<br>0147<br>0021<br>0080<br>0473<br>1811<br>1812<br>0452</p>
@@ -106,8 +107,8 @@
         <p style="position: absolute; top: 580px; right: 405px;">19.00</p>
         <p style="position: absolute; top: 580px; right: 534px;">46750.00</p>
         <p style="position: absolute; top: 580px; right: 683px;">35.00</p>
-    </div>
-            <style>
+    </div>-->
+    <style>
         #nikuy_mutavim_table div {position: unset;direction: ltr;text-align:right;width: max-content;}
         #nikuy_mutavim_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
         #nikuy_mutavim_table td {height: 44px;}
@@ -168,6 +169,7 @@
         #nikuy_hova_table div {position: unset;direction: ltr;text-align:right;width: max-content;}
         #nikuy_hova_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
         #nikuy_hova_table td {height: 44px;}
+        #nikuy_hova_table p {direction:ltr;text-align:right;}
         #nikuy_hova_table tr td:nth-child(2) div, #nikuy_mutavim_table tr td:nth-child(4) div {direction:ltr;}
         #nikuy_hova_table tr td:nth-child(1) {width: 270px;}
         #nikuy_hova_table tr td:nth-child(1) div {padding-right: 15px;}
@@ -182,28 +184,28 @@
         <table>
             <tbody><tr>
                 <td><div><p>מס הכנסה</p></div></td>
-                <td><div><p>975.00</p></div></td>
+                <td><div><p id="nikuy_hova_1">975.00</p></div></td>
                 <td><div><p>סה"כ</p></div></td>
-                <td><div><p>975.00</p></div></td>
+                <td><div><p id="nikuy_hova_2">975.00</p></div></td>
             </tr>
             <tr>
                 <td><div><p>ביטוח לאומי</p></div></td>
-                <td><div><p>359.00</p></div></td>
+                <td><div><p id="nikuy_hova_3">359.00</p></div></td>
                 <td><div><p>סה"כ</p></div></td>
-                <td><div><p>359.00</p></div></td>
+                <td><div><p id="nikuy_hova_4">359.00</p></div></td>
             </tr>
             <tr>
                 <td><div><p>ביטוח בריאות</p></div></td>
-                <td><div><p>257.00</p></div></td>
+                <td><div><p id="nikuy_hova_5">257.00</p></div></td>
                 <td><div><p>סה"כ</p></div></td>
-                <td><div><p>257.00</p></div></td>
+                <td><div><p id="nikuy_hova_6">257.00</p></div></td>
             </tr>
         </tbody></table>
     </div>
-    <div style="top: 664px; right: 2370px; width: 200px; height: 47px;"><p>5133.00</p></div>
-    <div style="top: 744px; right: 2370px; width: 200px; height: 47px;"><p>5133.00</p></div>
+    <div style="top: 664px; right: 2370px; width: 200px; height: 47px;"><p id="sahah_avur_tosafot">5133.43</p></div>
+    <div style="top: 744px; right: 2370px; width: 200px; height: 47px;"><p id="sahah_lemisra">5133.43</p></div>
     <div style="top: 866px; right: 2370px; width: 200px; height: 47px;"><p id="bruto_shotef">5133.00</p></div>
-    <div style="top: 1189px; right: 2370px; width: 180px; height: 47px:"><p id="total_nikuy_hova">1591.00</p></div>
+    <div style="top: 1189px; right: 2370px; width: 233px; height: 47px;direction:ltr;text-align:right;"><p id="total_nikuy_hova">-10591.00</p></div>
     <div style="top: 1512px; right: 2370px; width: 180px; height: 47px;"><p id="sum_nikuy_mutav">508.21</p></div>
     <div style="top: 1595px; right: 2370px; width: 180px; height: 47px;"><p id="total_nikuy_mutav">2099.21</p></div>
     <div style="top: 1713px; right: 2370px; width: 180px; height: 47px;"><p id="total_bank_shekel">3034.22</p></div>
@@ -224,75 +226,63 @@
             <tbody>
             <tr>
                 <td><div><p>ברוטו ק.השתלמות</p></div></td>
-                <td><div><p>30417.82</p></div></td>
+                <td><div><p id="aggregate_tax_1">30417.82</p></div></td>
                 <td><div><p>ברוטו מבוטח</p></div></td>
-                <td><div><p>30417.82</p></div></td>
+                <td><div><p id="aggregate_tax_2">30417.82</p></div></td>
                 <td><div><p>מגמולים הפרשה</p></div></td>
             </tr>
             <tr>
                 <td><div><p>ק.השתלמות הפרשה</p></div></td>
-                <td><div><p>2281.35</p></div></td>
+                <td><div><p id="aggregate_tax_3">2281.35</p></div></td>
                 <td><div><p>הפ.פנס מקיפה</p></div></td>
-                <td><div><p>2129.25</p></div></td>
+                <td><div><p id="aggregate_tax_4">2129.25</p></div></td>
                 <td><div><p>ב.מנהלים הפרשה</p></div></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div style="top: 2761px; right: 248px"><p>סכומים מצטברים שנתיים</p></div>
-
     <style>
         #work_months_table div {position: unset;width: max-content;}
+        #work_months_table p {transform-origin:left;}
         #work_months_table table {border-collapse: collapse;table-layout: fixed;width: 100%;}
-        #work_months_table td {height: 44px;}
+        #work_months_table td {height: 44px;direction:ltr;width:48px;}
         #work_months_table tr td:nth-child(1) {width: 230px;}
-        #work_months_table tr td:nth-child(2) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(3) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(4) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(5) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(6) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(7) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(8) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(9) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(10) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(11) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(12) {width: 50px; direction: ltr;}
-        #work_months_table tr td:nth-child(13) {width: 50px; direction: ltr;}
-        #work_months_table tr(1) td:nth-child(13) p {padding-left: 5px;}
+        #work_months_table tr td:nth-child(13) {width: 100%; direction: ltr;}
     </style>
+    <div style="width: 825px;height: 467px;top:2836px;right:80px;background-color:white;"></div>
     <div id="work_months_table" style="width: 815px; height: 85px; top: 2850px; right: 80px;">
         <table>
             <tbody>
             <tr>
-                <td><div><p>חודשי עבודה</p></div></td>
-                <td><div><p>12</p></div></td>
-                <td><div><p>11</p></div></td>
-                <td><div><p>10</p></div></td>
-                <td><div><p>9</p></div></td>
-                <td><div><p>8</p></div></td>
-                <td><div><p>7</p></div></td>
-                <td><div><p>6</p></div></td>
-                <td><div><p>5</p></div></td>
-                <td><div><p>4</p></div></td>
-                <td><div><p>3</p></div></td>
-                <td><div><p>2</p></div></td>
-                <td><div><p>1</p></div></td>
+                <td><div style="padding-left: 27px;"><p>חודשי עבודה</p></div></td>
+                <td><div><p id="work_months_12">12</p></div></td>
+                <td><div><p id="work_months_11">11</p></div></td>
+                <td><div><p id="work_months_10">10</p></div></td>
+                <td><div><p id="work_months_9">9</p></div></td>
+                <td><div><p id="work_months_8">8</p></div></td>
+                <td><div><p id="work_months_7">7</p></div></td>
+                <td><div><p id="work_months_6">6</p></div></td>
+                <td><div><p id="work_months_5">5</p></div></td>
+                <td><div><p id="work_months_4">4</p></div></td>
+                <td><div><p id="work_months_3">3</p></div></td>
+                <td><div><p id="work_months_2">2</p></div></td>
+                <td><div><p id="work_months_1">1</p></div></td>
             </tr>
             <tr>
-                <td><div><p>יחידות מס</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
-                <td><div><p>25</p></div></td>
+                <td><div><p style="padding-left:98px;">יחידות מס</p></div></td>
+                <td><div><p id="work_months_val_12">25</p></div></td>
+                <td><div><p id="work_months_val_11">25</p></div></td>
+                <td><div><p id="work_months_val_10">25</p></div></td>
+                <td><div><p id="work_months_val_9">25</p></div></td>
+                <td><div><p id="work_months_val_8">25</p></div></td>
+                <td><div><p id="work_months_val_7">25</p></div></td>
+                <td><div><p id="work_months_val_6">25</p></div></td>
+                <td><div><p id="work_months_val_5">25</p></div></td>
+                <td><div><p id="work_months_val_4">25</p></div></td>
+                <td><div><p id="work_months_val_3">25</p></div></td>
+                <td><div><p id="work_months_val_2">25</p></div></td>
+                <td><div><p id="work_months_val_1">25</p></div></td>
             </tr>
             </tbody>
         </table>
@@ -314,7 +304,7 @@
     <div style="top: 3013px; right: 80px; width: 815px;">
         <p>
             ברוטו למס
-            <span id="bruto_mas" style="width: 150px; height: 47px; display: inline-block">30417.84</span>
+            <span id="bruto_mas" style="width: 230px;height: 47px;display: inline-block">30417.84</span>
             ניכוי ב.ב
             <span id="nikuy_bb">1522.00</span>
         </p>
