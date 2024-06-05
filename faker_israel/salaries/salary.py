@@ -12,11 +12,12 @@ class SalaryRootContext:
 
 class SalarySubtypeContext:
 
-    def __init__(self, root_context, subtype, subtype_class, test=False, html_page=None, http_server_get_port=None, **kwargs):
+    def __init__(self, root_context, subtype, subtype_class, test=False, html_page=None, http_server_get_port=None, test_pdf=False, **kwargs):
         self.root_context = root_context
         self.subtype = subtype
         self.subtype_class = subtype_class
         self.test = test
+        self.test_pdf = test_pdf
         self.html_page = html_page
         self.http_server_get_port = http_server_get_port
         self._http_server_port = None
@@ -36,7 +37,7 @@ class SalaryItemContext:
         if self.subtype_context.test:
             self.i = 0
             self.png_output_path = 'test.png'
-            self.pdf_output_path = None
+            self.pdf_output_path = 'test.pdf' if self.subtype_context.test_pdf else None
         else:
             self.i = i
             self.png_output_path = png_output_path

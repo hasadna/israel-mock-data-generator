@@ -25,6 +25,7 @@ def generate_pdf_multi_config(**kwargs):
 @click.argument('SUBTYPE')
 @click.argument('NUM', type=int, default=1)
 @click.option('--test', is_flag=True)
+@click.option('--test-pdf', is_flag=True)
 @click.option('--no-bg', is_flag=True)
 @click.option('--mock', is_flag=True)
 @click.option('--no-pdf', is_flag=True)

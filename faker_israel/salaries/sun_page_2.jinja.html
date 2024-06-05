@@ -1,0 +1,20 @@
+{% extends '_base.jinja.html' %}
+{% block style %}
+    {{ super() }}
+    body {
+        font-family: 'klr';
+        font-size: 32px;
+    }
+    div {
+        position: absolute;
+        overflow: hidden;
+    }
+    .hidebg {
+        background-color: white;
+    }
+{% endblock %}
+{% block body %}
+<div style="background-image: url('sun_page_2.png'); width: 2178px; height: 2922px;">
+    <div id="shum_haavara_labank" style="width: 130px;font-weight:bold;right: 1677px;top: 1783px;">30000.00</div>
+</div>
+{% endblock %}

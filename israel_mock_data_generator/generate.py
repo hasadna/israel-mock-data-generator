@@ -48,7 +48,7 @@ TYPES = {
 }
 
 
-def main(type_, subtype, num, test=False, **kwargs):
+def main(type_, subtype, num, test=False, test_pdf=False, **kwargs):
     fake = Faker('he_IL')
     fake.add_provider(IsraelProvider)
     type_config = TYPES.get(type_)
@@ -66,12 +66,12 @@ def main(type_, subtype, num, test=False, **kwargs):
     else:
         continue_pathdate, continue_num = None, None
     with type_config.get('all_subtypes_context', default_all_subtypes_context)(fake=fake) as all_subtypes_context:
-        if test:
+        if test or test_pdf:
             assert len(selected_subtypes) == 1, 'Only one subtype can be specified for test mode'
             subtype = selected_subtypes[0]
             subtype_class = type_config['subtypes'][subtype]
-            with type_config.get('subtype_context', default_subtype_context)(all_subtypes_context, subtype=selected_subtypes[0], subtype_class=subtype_class, test=True) as subtype_context:
-                print(f'Generating 1 test {selected_subtypes[0]} {type_} to test.png')
+            with type_config.get('subtype_context', default_subtype_context)(all_subtypes_context, subtype=selected_subtypes[0], subtype_class=subtype_class, test=True, test_pdf=test_pdf) as subtype_context:
+                print(f'Generating 1 test {selected_subtypes[0]} {type_} to test.' + ('pdf' if test_pdf else 'png'))
                 if kwargs:
                     print(kwargs)
                 with type_config.get('item_context', default_item_context)(subtype_context, **kwargs) as item_context:

@@ -171,12 +171,12 @@ class SalarySun(Salary):
         first_date = datetime.date(first_year, first_month, 1)
         for salary_date_num, salary_date in enumerate([
             first_date,
-            first_date + relativedelta(months=1),
-            first_date + relativedelta(months=2),
+            # first_date + relativedelta(months=1),
+            # first_date + relativedelta(months=2),
         ]):
             common_draw.save_render_html(
-                output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}.png'),
-                pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}.pdf') if self.item_context.pdf_output_path else None,
+                output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}-p1.png'),
+                pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}-p1.pdf') if self.item_context.pdf_output_path else None,
                 render_path='salaries/sun.html',
                 page=self.html_page,
                 http_server_port=self.subtype_context.http_server_port,
@@ -215,5 +215,16 @@ class SalarySun(Salary):
                         'div_trs_td_div': get_nikuyim_shotfim_table(fake),
                         '_empty_value': '',
                     },
+                },
+            )
+            common_draw.save_render_html(
+                output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}-p2.png'),
+                pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}-p2.pdf') if self.item_context.pdf_output_path else None,
+                render_path='salaries/sun_page_2.html',
+                page=self.html_page,
+                http_server_port=self.subtype_context.http_server_port,
+                width=2178, height=2922,
+                context={
+                    'shum_haavara_labank': f'{fake.random_int(1, 3000000)/100:.2f}',
                 },
             )
