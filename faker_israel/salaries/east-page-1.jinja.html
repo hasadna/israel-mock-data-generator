@@ -12,6 +12,9 @@
     .hidebg {
         background-color: white;
     }
+    .hidebg-gray {
+        background-color: lightgray
+    }
     .miriam {
         font-family: Miriam,serif;
         font-size: 47px;
@@ -20,547 +23,358 @@
         font-family: David,serif;
         font-size: 45px;
     }
-    #place {
-        font-weight: 900;
-        top: 179px;
-        right: 101px;
-        font-size: 54px
-    }
-    #address {
-        top: 179px;
-        right: 700px;
-        font-size: 54px
-    }
-    #tik_nikuyim {
-        top: 231px;
-        right: 364px;
-        font-size: 54px
-    }
-    #organization {
-        top: 230px;
-        right: 782px;
-        font-size: 54px
-    }
-    #department {
-        top: 273px;
-        right: 279px;
-        font-size: 54px
-    }
-    #month_year {
-        top: 321px;
-        right: 485px;
-        font-size: 54px;
-        font-weight: 900;
-    }
-    #full_name_number {
-        font-size: 54px;
-        top: 525px;
-        right: 264px;
-        font-weight: 900;
-    }
-    #address1 {
-        font-size: 54px;
-        top: 575px;
-        right: 264px;
-        font-weight: 900;
-    }
-    #city_zip {
-        font-size: 54px;
-        top: 620px;
-        right: 264px;
-        font-weight: 900;
-    }
-    #number_number_department {
-        font-size: 54px;
-        top: 714px;
-        right: 266px;
-    }
-    #sum_talshlumim {
-        top: 303px;
-        right: 2199px;
-        font-size: 42px;
-        width: 251px;
-    }
-    #tax_mandatory_nikuy {
-        top: 349px;
-        right: 2199px;
-        font-size: 37px;
-        width: 251px;
-        background-color: lightgray;
-        height: 31px;
-    }
-    #kupot_gemel_agreed {
-        top: 386px;
-        right: 2199px;
-        font-size: 42px;
-        width: 251px;
-    }
-    #neto_salary {
-        top: 432px;
-        right: 2199px;
-        font-size: 37px;
-        width: 240px;
-        background-color: lightgray;
-        height: 31px;
-    }
-    #neto {
-        top: 484px;
-        right: 2200px;
-        font-size: 42px;
-        color: blue;
-        font-weight: 900;
-        width: 240px;
-    }
 
 {% endblock %}
 {% block body %}
 <div class="david" style="background-image: url('east-page-1-empty.png'); width: 2480px; height: 3507px;">
-    <div id="place" style="background-color: white;width: 574px;height: 57px;">אוניברסיטת אריאל בשומרון</div>
-    <div id="address" style="background-color: white;width: 1009px;height: 57px;">קריית המדע אריאל ת.ד. 3 40700</div>
-    <div id="tik_nikuyim" style="background-color: white;width: 233px;height: 53px;">934578903</div>
-    <div id="organization" style="background-color: white;width: 574px;height: 57px;">580367290</div>
-    <div id="department" style="background-color: white;width: 1104px;height: 57px;">15678909 עו"ס-תוא"ר-אחר</div>
-    <div id="month_year" style="background-color: white;width: 574px;height: 57px;">מאי 2018</div>
-    <div id="full_name_number" style="background-color: white;width: 1214px;height: 51px;">שם פרטי שם משפחה מספר</div>
-    <div id="address1" style="background-color: white;width: 1134px;height: 57px;">רחוב 111 דירה 222</div>
-    <div id="city_zip" style="background-color: white;width: 1084px;height: 57px;">עיר מיקוד</div>
-    <div id="number_number_department" style="background-color: white;width: 1324px;height: 57px;">2007 15020419 עו"ס-תוא"ר-אחר</div>
-    <div class="hidebg" id="sum_talshlumim" style="background-color: white;width: 244px;height: 43px;">1,146.59</div>
-    <div class="hidebg" id="tax_mandatory_nikuy" style="background-color: #dddddd;width: 244px;height: 32px;">398.59</div>
-    <div class="hidebg" id="kupot_gemel_agreed" style="background-color: white;width: 234px;height: 42px;">66.00</div>
-    <div class="hidebg" id="neto_salary" style="background-color: #dddddd;width: 231px;height: 30px;">682.00</div>
-    <div class="hidebg" id="neto" style="background-color: white;width: 224px;height: 45px;">682.00</div>
+    <div class="hidebg" style="top: 183px; right: 94px; font-size: 54px; width: 1400px; height: 54px;">
+        <span id="company" style="font-weight: 900;">מטריקס אי.טי מערכות מידע מתקדם</span>
+        <span id="address_company">, אבא אבן 3 הרצליה 46120</span>
+    </div>
+    <div id="tik_nikuyim" class="hidebg" style="top: 233px; right: 358px; font-size: 54px; width: 230px; height: 54px;">943049882</div>
+    <div id="company_number" class="hidebg" style="top: 233px; right: 752px; font-size: 54px; width: 230px; height: 54px;">511171662</div>
+    <div id="department" class="hidebg" style="top: 280px; right: 275px; font-size: 54px; width: 700px; height: 54px;">4015300 פיתוח ממשלה</div>
+    <div id="tlush_date" class="hidebg" style="font-weight: 900; top: 327px; right: 481px; font-size: 54px; width: 500px; height: 54px;">אפריל 2024</div>
+    <div id="full_name" class="hidebg" style="top: 526px; right: 259px; font-size: 54px; width: 500px; height: 54px;">פלוני אלמוני</div>
+    <div id="address_person" class="hidebg" style="top: 580px; right: 239px; font-size: 54px; width: 500px; height: 54px;">שפרינצק 25</div>
+    <div id="city_zip" class="hidebg" style="top: 628px; right: 259px; font-size: 54px; width: 600px; height: 54px;">מודיעין-מכבים 7170143</div>
 
-    <div class="hidebg" style="width: 935px;top: 672px;right: 263px;font-size: 54px;border-top: 1px solid black;">
-        במקרה של אי מסירה נא להחזיר לכתובת/ת"ד :
-        <br>
-        פתחיה - מוסדות לחינוך מיוחד
-        <br>
-        ת.ד 720 ירושלים
+    <div id="total_tashlumim" style="top: 304px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+    <div id="nikuy_hova_tax" style="top: 350px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+    <div id="kipot_gemel" style="top: 391px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+    <div id="neto_salary" style="top: 432px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+    <div id="nikuy_hithayvut" style="top: 473px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+    <div id="neto_tashlum" style="top: 523px; right: 2156px; font-size: 41px; width: 200px; height: 39px;">123</div>
+
+    <div id="acount_number" class="hidebg" style="top: 738px; right: 1771px; font-size: 41px; width: 200px; height: 39px;">123456</div>
+    <div id="branch_number" class="hidebg" style="top: 738px; right: 2071px; font-size: 41px; width: 130px; height: 39px;">905</div>
+    <div id="bank_number" class="hidebg" style="top: 738px; right: 2235px; font-size: 41px; width: 150px; height: 39px;">10</div>
+
+    <div style="top: 1091px; right: 91px; font-size: 41px; font-weight: 900; width: 200px; height: 40px;">שכר עבודה</div>
+    <div id="semel_salary" style="top: 1130px; right: 91px; font-size: 41px; width: 200px; height: 40px;">001</div>
+    <div id="salary" style="top: 1130px; right: 170px; font-size: 41px; width: 200px; height: 40px;">שכר בסיס</div> <!-- not sure if should be changed -->
+    <div id="salary_kamut" style="top: 1130px; right: 1304px; font-size: 41px; width: 160px; height: 40px;">100.00</div>
+    <div id="salary_payment" style="top: 1130px; right: 1506px; font-size: 41px; width: 220px; height: 40px;">123456</div>
+    <div style="top: 1175px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ שכר עבודה</div>
+
+    <div id="total_salary" style="top: 1175px; right: 1506px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">123456</div>
+    <div style="top: 1216px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">תשלומים בגין שעות נוספות ומאמץ מיוחד</div>
+    <div id="semel_extra_hours" style="top: 1260px; right: 91px; font-size: 41px; width: 120px; height: 40px;">114</div>
+    <div id="extra_hours" style="top: 1260px; right: 170px; font-size: 41px; width: 270px; height: 40px;">שע.נוספות 125%</div>
+    <div id="extra_hours_rate" style="top: 1260px; right: 995px; font-size: 41px; width: 270px; height: 40px;">12345</div>
+    <div id="extra_hours_percentage" style="top: 1260px; right: 1170px; font-size: 41px; width: 270px; height: 40px;">125</div>
+    <div id="extra_hours_kamut" style="top: 1260px; right: 1304px; font-size: 41px; width: 270px; height: 40px;">4.92</div>
+    <div id="extra_hours_payment" style="top: 1260px; right: 1506px; font-size: 41px; width: 270px; height: 40px;">4.92</div>
+    <div style="top: 1298px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ תשלומים בגין שעות נוספות ומאמץ מיוחד</div>
+    <div style="top: 1337px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">תשלומים בגין הוצאות</div>
+    <div id="semel_first_expanses" style="top: 1380px; right: 91px; font-size: 41px; width: 120px; height: 40px;">113</div>
+    <div id="first_expanses" style="top: 1380px; right: 170px; font-size: 41px; width: 270px; height: 40px;">טלפון</div>
+    <div id="first_expanses_total" style="top: 1380px; right: 1506px; font-size: 41px; width: 270px; height: 40px;">12345</div>
+    <div id="semel_second_expanses" style="top: 1423px; right: 91px; font-size: 41px; width: 120px; height: 40px;">048</div>
+    <div id="second_expanses" style="top: 1423px; right: 170px; font-size: 41px; width: 270px; height: 40px;">הבראה</div>
+    <div id="second_expanses_total" style="top: 1423px; right: 1506px; font-size: 41px; width: 270px; height: 40px;">12345</div>
+    <div id="semel_third_expanses" style="top: 1464px; right: 91px; font-size: 41px; width: 120px; height: 40px;">051</div>
+    <div id="third_expanses" style="top: 1464px; right: 170px; font-size: 41px; width: 270px; height: 40px;">חוצה ישראל</div>
+    <div id="third_expanses_total" style="top: 1464px; right: 1506px; font-size: 41px; width: 270px; height: 40px;">12345</div>
+    <div style="top: 1508px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ תשלומים בגין הוצאות</div>
+    <div style="top: 1508px; right: 1506px; font-size: 41px; width: 500px; height: 40px;">123456</div>
+
+    <div style="top: 1547px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">תשלומים אחרים</div>
+    <div id="semel_first_other_expanses" style="top: 1590px; right: 91px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="description_first_other_expanses" style="top: 1590px; right: 170px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="info_first_other_expanses" style="top: 1590px; right: 485px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="pay_sum_first_other_expanses" style="top: 1590px; right: 1325px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="semel_second_other_expanses" style="top: 1630px; right: 91px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="description_second_other_expanses" style="top: 1630px; right: 170px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="info_second_other_expanses" style="top: 1630px; right: 485px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="pay_sum_second_other_expanses" style="top: 1630px; right: 1325px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="semel_third_other_expanses" style="top: 1670px; right: 91px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="description_third_other_expanses" style="top: 1670px; right: 170px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="info_third_other_expanses" style="top: 1670px; right: 485px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="pay_sum_third_other_expanses" style="top: 1670px; right: 1325px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="semel_four_other_expanses" style="top: 1711px; right: 91px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="description_four_other_expanses" style="top: 1711px; right: 170px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="info_four_other_expanses" style="top: 1711px; right: 485px; font-size: 41px; width: 120px; height: 40px;">123</div>
+    <div id="pay_sum_four_other_expanses" style="top: 1711px; right: 1325px; font-size: 41px; width: 120px; height: 40px;">123</div>
+
+    <div style="top: 1756px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ תשלומים אחרים</div>
+    <div style="top: 1790px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">מידע נוסף</div>
+    <div id="semel_work_hours" style="top: 1833px; right: 91px; font-size: 41px; width: 120px; height: 40px;">1436</div>
+    <div id="work_hours" style="top: 1833px; right: 170px; font-size: 41px; width: 280px; height: 40px;">שעות עבודה</div>
+    <div id="work_hours_float" style="top: 1833px; right: 1304px; font-size: 41px; width: 160px; height: 40px;">191.92</div>
+    <div id="semel_hours_employer_allowance" style="top: 1876px; right: 91px; font-size: 41px; width: 500px; height: 40px;">1439</div>
+    <div id="hours_employer_allowance" style="top: 1876px; right: 170px; font-size: 41px; width: 280px; height: 40px;">שע אישור מעסיקי</div>
+    <div id="hours_employer_allowance_float" style="top: 1876px; right: 1304px; font-size: 41px; width: 160px; height: 40px;">191.92</div>
+    <div style="top: 1915px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ מידע נוסף</div>
+    <div style="top: 1960px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">זקיפות שכר</div>
+    <div id="semel_first" style="top: 2059px; right: 91px; font-size: 41px; width: 120px; height: 40px;">150</div>
+    <div id="description_first" style="top: 2059px; right: 170px; font-size: 41px; width: 280px; height: 40px;">שווי רכב</div>
+    <div id="untitled_first" style="top: 2059px; right: 470px; font-size: 41px; width: 400px; height: 40px;">קבוע</div>
+    <div id="kamut_first" style="top: 2059px; right: 1060px; font-size: 41px; width: 200px; height: 40px;">1.00</div>
+    <div id="sum_tkina_first" style="top: 2059px; right: 1275px; font-size: 41px; width: 200px; height: 40px;">123456</div>
+    <div id="semel_second" style="top: 2103px; right: 91px; font-size: 41px; width: 120px; height: 40px;">150</div>
+    <div id="description_second" style="top: 2103px; right: 170px; font-size: 41px; width: 280px; height: 40px;">שווי רכב</div>
+    <div id="untitled_second" style="top: 2103px; right: 470px; font-size: 41px; width: 400px; height: 40px;">קבוע</div>
+    <div id="kamut_second" style="top: 2103px; right: 1060px; font-size: 41px; width: 200px; height: 40px;">1.00</div>
+    <div id="sum_tkina_second" style="top: 2103px; right: 1275px; font-size: 41px; width: 200px; height: 40px;">123456</div>
+    <div id="semel_third" style="top: 2142px; right: 91px; font-size: 41px; width: 120px; height: 40px;">150</div>
+    <div id="description_third" style="top: 2142px; right: 170px; font-size: 41px; width: 280px; height: 40px;">שווי רכב</div>
+    <div id="untitled_third" style="top: 2142px; right: 470px; font-size: 41px; width: 400px; height: 40px;">קבוע</div>
+    <div id="kamut_third" style="top: 2142px; right: 1060px; font-size: 41px; width: 200px; height: 40px;">1.00</div>
+    <div id="sum_tkina_third" style="top: 2142px; right: 1275px; font-size: 41px; width: 200px; height: 40px;">123456</div>
+    <div style="top: 2188px; right: 485px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">סה"כ זקיפות שכר</div>
+    <div id="total_sum_zkifut" style="top: 2188px; right: 1275px; font-size: 41px; width: 200px; height: 40px;">123456</div>
+    <div id="total_sum_tashlumim" class="hidebg" style="top: 2241px; right: 1492px; font-size: 41px; width: 200px; height: 40px;">1234</div>
+
+    <div id="markiv_sahar_base_salary" class="hidebg" style="top: 1086px; right: 2219px; font-size: 41px; width: 160px; height: 40px">123</div>
+    <div id="markiv_sahar_total" class="hidebg" style="top: 1143px; right: 2219px; font-size: 41px; width: 160px; height: 40px">123</div>
+
+    <div id="rate_description_first_line" class="hidebg" style="top: 1358px; right: 1772px; font-size: 41px; width: 200px; height: 40px;">משכורת</div>
+    <div id="rate_sum_first_line" class="hidebg" style="top: 1358px; right: 2212px; font-size: 41px; width: 170px; height: 40px;">123</div>
+    <div id="rate_description_second_line" class="hidebg-gray" style="top: 1400px; right: 1772px; font-size: 41px; width: 200px; height: 40px;">שעה</div>
+    <div id="rate_sum_second_line" class="hidebg-gray" style="top: 1400px; right: 2212px; font-size: 41px; width: 170px; height: 40px;">123</div>
+
+    <div id="income_tax" class="hidebg" style="top: 2490px; right: 91px; font-size: 41px; width: 200px; height: 40px;">123</div>
+    <div id="bituah_leumi" class="hidebg" style="top: 2490px; right: 333px; font-size: 41px; width: 170px; height: 40px;">123</div>
+    <div id="hefresh_bituah_leumi" style="top: 2490px; right: 535px; font-size: 41px; width: 170px; height: 40px;">123</div>
+    <div id="bituah_briut" class="hidebg" style="top: 2487px; right: 736px; font-size: 41px; width: 170px; height: 40px;">123</div>
+    <div id="hefresh_bituah_briut" style="top: 2490px; right: 945px; font-size: 41px; width: 170px; height: 40px;">123</div>
+    <div id="total_nikuy_hova" class="hidebg" style="top: 2490px; right: 1489px; font-size: 41px; width: 170px; height: 40px;">123</div>
+
+    <div style="top: 2730px; right: 91px; font-size: 41px; font-weight: 900; width: 500px; height: 40px;">קופות גמל בהסכם</div>
+
+    <style>
+        #nikuy_hafrasha_kupot_gemel table { width: 100%; table-layout: fixed; }
+        #nikuy_hafrasha_kupot_gemel td { font-size: 41px; }
+        #nikuy_hafrasha_kupot_gemel tr { height: 41px; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(1) { width: 54px; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(2) { width: 320px; text-align: right; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(3) { width: 660px; text-align: right; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(4) { width: 230px; text-align: right; direction: ltr; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(5) { width: 200px; text-align: right; right; direction: ltr; }
+        #nikuy_hafrasha_kupot_gemel tr td:nth-child(6) { width: 100%; text-align: right; right; direction: ltr; }
+    </style>
+
+    <div id="nikuy_hafrasha_kupot_gemel" style="top: 2774px; right: 91px; width: 1640px; height: 286px;">
+    <table>
+        <tbody>
+        {% for _ in range(7) %}
+        <tr>
+            <td>104</td>
+            <td>מנורה מבט פנסיה</td>
+            <td>קצבה שכיר-תג</td>
+            <td>-123</td>
+            <td>-123</td>
+            <td>-123</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     </div>
 
-    <div style="width: 935px;top: 672px;right: 263px;font-size: 54px;">
-        פירוט התשלומים
+    <div id="total_nikuy_hafrasha_maasik" class="hidebg" style="top: 3110px; right: 1357px; font-size: 41px; width: 150px; height: 50px;">123</div>
+    <div id="total_sum_nikuy" class="hidebg" style="top: 3110px; right: 1550px; font-size: 41px; width: 150px; height: 50px;">123</div>
+
+    <div style="top: 1573px; right: 1775px; font-size: 41px; font-weight: 900; width: 500px; height: 40px">נתונים אישיים</div>
+
+    <style>
+        #netunim_nosafim_private table { width: 100%; table-layout: fixed; }
+        #netunim_nosafim_private td { font-size: 41px; }
+        #netunim_nosafim_private tr { height: 42px; }
+        #netunim_nosafim_private table tr td:nth-child(1) { width: 316px; }
+        #netunim_nosafim_private table tr td:nth-child(2) { width: 100%; }
+    </style>
+
+    <div id="netunim_nosafim_private" style="top: 1616px; right: 1775px; font-size: 41px; width: 610px; height: 290px;">
+        <table>
+            <tbody>
+            <tr>
+                <td>מספר זהות</td>
+                <td>123456789</td>
+            </tr>
+            <tr>
+                <td>מצב משפחתי</td>
+                <td>רווק</td>
+            </tr>
+            <tr>
+                <td>ילדים עד גיל 19</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>ביטוח לאומי</td>
+                <td>רגיל</td>
+            </tr>
+            <tr>
+                <td>מס הכנסה</td>
+                <td>מס חודשי מצטבר</td>
+            </tr>
+            <tr>
+                <td>ארגוני עובדים</td>
+                <td>הסתדרות כללית</td>
+            </tr>
+            <tr>
+                <td>קופת חולים</td>
+                <td>מאוחדת</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="top: 1908px; right: 1775px; font-size: 41px; font-weight: 900; width: 500px; height: 40px">נתוני העסקה</div>
+
+    <style>
+        #netunim_nosafim_employment table { width: 100%; table-layout: fixed; }
+        #netunim_nosafim_employment td { font-size: 41px; }
+        #netunim_nosafim_employment tr { height: 42px; }
+        #netunim_nosafim_employment table tr td:nth-child(1) { width: 316px; }
+        #netunim_nosafim_employment table tr td:nth-child(2) { width: 100%; }
+    </style>
+
+    <div id="netunim_nosafim_employment" style="top: 1947px; right: 1775px; font-size: 41px; width: 610px; height: 208px;">
+        <table>
+            <tbody>
+            <tr>
+                <td>התחלת עבודה</td>
+                <td>1/1/24</td>
+            </tr>
+            <tr>
+                <td>הסכם</td>
+                <td>חודשי</td>
+            </tr>
+            <tr>
+                <td>אחוז משרה</td>
+                <td>10%</td>
+            </tr>
+            <tr>
+                <td>שעות עבודה</td>
+                <td>1.5 שע. שבועי 20</td>
+            </tr>
+            <tr>
+                <td>בסיס משרה</td>
+                <td>5.5 שעות שבועי</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
+    <div style="top: 2153px; right: 1775px; font-size: 41px; font-weight: 900; width: 500px; height: 40px">נתונם חודשיים</div>
 
-<!--        <section class="end-table">-->
-<!--            <span>נטו לתשלום</span><span class="box-neto" id="neto">682.00</span>-->
-<!--        </section>-->
-<!--    </section>-->
-<!--    <section class="receiver">-->
-<!--    </section>-->
-<!--    <section class="bank-details">-->
-<!--        <h3>פרטי חשבון הבנק</h3>-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <th>מספר חשבון</th>-->
-<!--                <th>סניף</th>-->
-<!--                <th>בנק</th>-->
-<!--            </tr>-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td>203489</td>-->
-<!--                <td>303</td>-->
-<!--                <td>12</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </section>-->
-<!--    <section class="row">-->
-<!--        <section class="column-right">-->
-<!--            <section class="perut_tashlumim">-->
-<!--                <h5>פרוט התשלומים</h5>-->
-<!--                <table>-->
-<!--                    <tr>-->
-<!--                        <th>סמל</th>-->
-<!--                        <th>תיאור</th>-->
-<!--                        <th></th>-->
-<!--                        <th>למידע</th>-->
-<!--                        <th>תעריף</th>-->
-<!--                        <th>אחוז</th>-->
-<!--                        <th>כמות</th>-->
-<!--                        <th>סכום לתשלום</th>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>תשלומים אחרים</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td id="other_tashlumim_semel">255</td>-->
-<!--                        <td id="other_tashlumim_description">'שכ"ע הדרכה בעב</td>-->
-<!--                        <td></td>-->
-<!--                        <td id="other_tashlumim_info">06/18</td>-->
-<!--                        <td id="other_tashlumim_taarif">1,100.00</td>-->
-<!--                        <td></td>-->
-<!--                        <td id="other_tashlumim_kamut">1.00</td>-->
-<!--                        <td id="other_tashlumim_sum">1,100.00</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td>סה"כ תשלומים אחרים בשוטף</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td id="other_tashlumim_sum2">1,100.00</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>זקיפות שכר</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>סמל</td>-->
-<!--                        <td>תיאור</td>-->
-<!--                        <td></td>-->
-<!--                        <td>תעריף</td>-->
-<!--                        <td>אחוז</td>-->
-<!--                        <td>כמות</td>-->
-<!--                        <td>סכום הזקיפה</td>-->
-<!--                        <td>סכיום הגילום</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td id="zkifut_semel">333</td>-->
-<!--                        <td id="zkifut_description">שווי מתנות נטו</td>-->
-<!--                        <td>גילום</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td id="sum_zkifut">100.00</td>-->
-<!--                        <td id="sum_zkifut_gilum">46.59</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td>סה"כ זקיפות שכר שוטף</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td>100.00</td>-->
-<!--                        <td>46.59</td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-<!--                <section class="end-table">-->
-<!--                    <span>סה"כ תשלומים שוטף</span><span class="box" id="shotef">1,146.59</span>-->
-<!--                </section>-->
-<!--            </section>-->
-<!--            <section class="nekuyey_hova_misim">-->
-<!--                <h5>ניכויי חובה - מיסים</h5>-->
-<!--                <table>-->
-<!--                    <tr>-->
-<!--                        <th>מס הכנסה</th>-->
-<!--                        <th>ביטוח לאומי</th>-->
-<!--                        <th>הפרשי ב. לאומי</th>-->
-<!--                        <th>ביטוח בריאות</th>-->
-<!--                        <th>הפרשי בריאות</th>-->
-<!--                        <th></th>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>249.00</td>-->
-<!--                        <td>87.26</td>-->
-<!--                        <td></td>-->
-<!--                        <td>62.33</td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-<!--                <table>-->
-<!--                    <tr>-->
-<!--                        <td>סה"כ ניכויי חובה</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td id="sum_tax">398.59</td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-<!--            </section>-->
-<!--        </section>-->
-<!--        <section class="column-left">-->
-<!--            <h5>נתונים נוספים</h5>-->
-<!--            <table>-->
-<!--                <tr></tr>-->
-<!--                <tr>-->
-<!--                    <th>נתונים אישיים</th>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מספר זהות</td>-->
-<!--                    <td>30479031</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מצב משפחתי</td>-->
-<!--                    <td>נשואה</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>הכנסה לבן זוג</td>-->
-<!--                    <td>כן</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>תאריך לידה</td>-->
-<!--                    <td>06/11/1965</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>ביטוח לאומי</td>-->
-<!--                    <td>רגיל</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מס הכנסה</td>-->
-<!--                    <td>מתואם פקיד שומה</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>נתוני העסקה</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>התחלת עבודה</td>-->
-<!--                    <td>01/11/2017</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>הסכם</td>-->
-<!--                    <td>999</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מעמד</td>-->
-<!--                    <td>שעתיים</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>דרוג</td>-->
-<!--                    <td>98</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>נתונים חודשיים</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>ברוטו למס הכנסה</td>-->
-<!--                    <td>1,247</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>אחוז מס שולי</td>-->
-<!--                    <td>20%</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>ברוטו לביטוח לאומי</td>-->
-<!--                    <td>1,247</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--    </section>-->
-<!--    <section class="column-right">-->
-<!--        <h5>ניכויים והפרשות לקופות גמל</h5>-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <th>קופה</th>-->
-<!--                <th>שם</th>-->
-<!--                <th>סוג הקופה</th>-->
-<!--                <th></th>-->
-<!--                <th>מספר חשבון</th>-->
-<!--                <th>סכום בסיס</th>-->
-<!--                <th>אחוז הפרשה</th>-->
-<!--                <th>הפרשת מעסיק</th>-->
-<!--                <th>אחוז הניכוי</th>-->
-<!--                <th>סכום הניכוי</th>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>קופות גמל בהסכם</td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>075</td>-->
-<!--                <td>הלמן אלד' פנסיה</td>-->
-<!--                <td>קצבה שכיר-תג.</td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td>1,100.00</td>-->
-<!--                <td>6.50</td>-->
-<!--                <td>71.50</td>-->
-<!--                <td>6.00</td>-->
-<!--                <td>66.00</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>075</td>-->
-<!--                <td>הלמן אלד' פנסיה</td>-->
-<!--                <td>פיצויים</td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td>1,100.00</td>-->
-<!--                <td>8.33</td>-->
-<!--                <td>91.63</td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--        <section class="table-end">-->
-<!--            <span>סה"כ ניכויים והפרשות לקופות גמל</span><span id="nikui_maasik_gemel">163.13</span><span id="sum_nikui_gemel">66.00</span>-->
-<!--        </section>-->
-<!--        <section class="aggregate_data_gemel">-->
-<!--            <h5>נתונים מצטברים של קופות גמל וקרן השתלמות</h5>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <th>פרטים</th>-->
-<!--                    <th>שכר בסיס</th>-->
-<!--                    <th>הפרשה</th>-->
-<!--                    <th>שווי</th>-->
-<!--                    <th>אחוז הפרשה</th>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>תגמולים לקצבה</td>-->
-<!--                    <td>5,500.00</td>-->
-<!--                    <td>357.50</td>-->
-<!--                    <td></td>-->
-<!--                    <td>6.50</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--        <section class="missing">-->
-<!--            <h5></h5>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <th>פרטים</th>-->
-<!--                    <th>מכסה שנתית</th>-->
-<!--                    <th>יתרה קודמת</th>-->
-<!--                    <th>זיכוי החודש</th>-->
-<!--                    <th>ניצול החודש</th>-->
-<!--                    <th>זיכוי מצטבר</th>-->
-<!--                    <th>ניצול מצטבר</th>-->
-<!--                    <th>יתרה חדשה</th>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מחלה</td>-->
-<!--                    <td>18.00</td>-->
-<!--                    <td>9.00</td>-->
-<!--                    <td>1.50</td>-->
-<!--                    <td></td>-->
-<!--                    <td></td>-->
-<!--                    <td></td>-->
-<!--                    <td>10.50</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--        <section class="shuma_ishur">-->
-<!--            <h5>אישורי פקיד שומה</h5>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <th>מ-</th>-->
-<!--                    <th>עד</th>-->
-<!--                    <th>תיאור</th>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>01/2018</td>-->
-<!--                    <td>12/2018</td>-->
-<!--                    <td>שיעור מס נתון 20% עד ל-14,520 ש"ח ושיעור מס 31% מעליו</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>01/2018</td>-->
-<!--                    <td>12/2018</td>-->
-<!--                    <td>זכאי לתקרות לקופות גמל על פי חוק</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--        <section class="extra_data_law_salary_protection">-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>ותק אצל המעביד <span id="time_at_employer">7 חודשים</span></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>שכר לקצבה <span id="kizva_salary">1,100</span></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>סך כל הניכויים: <span id="sum_all_nikuyim">464.59</span></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>שכר מינימום: לחודש <span id="minimal_wage">5300.00</span> לשעה <span id="minimal_wage_hour">28.49</span></td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--    </section>-->
-<!--    <section class="column-left">-->
-<!--        <section class="mas_year">-->
-<!--            <h5>סכומים מצטברים לשנת המס</h5>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>ברוטו רגיל</td>-->
-<!--                    <td>5,500</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>שווי כסף נטו</td>-->
-<!--                    <td>100</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>גילום מס</td>-->
-<!--                    <td>29</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>גילום ב.ל.</td>-->
-<!--                    <td>18</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מס רגיל</td>-->
-<!--                    <td>1,100</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>הכנסה לא מבוטחת</td>-->
-<!--                    <td>147</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>ניכוי לסעיף 45א 35%</td>-->
-<!--                    <td>330</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>משכורת (סה"כ שנתי)</td>-->
-<!--                    <td>5,647</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>מס הכנסה (סה"כ שנתי)</td>-->
-<!--                    <td>1,129</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>הכנסה חייבת במס</td>-->
-<!--                    <td>5,647</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>שכר חייב ב.ל.</td>-->
-<!--                    <td>5,647</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--        <section class="yehidot_mas">-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>01</td>-->
-<!--                    <td>02</td>-->
-<!--                    <td>03</td>-->
-<!--                    <td>04</td>-->
-<!--                    <td>05</td>-->
-<!--                    <td>סה"כ</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>25</td>-->
-<!--                    <td>25</td>-->
-<!--                    <td>25</td>-->
-<!--                    <td>25</td>-->
-<!--                    <td>25</td>-->
-<!--                    <td>125</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </section>-->
-<!--    </section>-->
+    <style>
+        #netunim_nosafim_monthly table { width: 100%; table-layout: fixed; }
+        #netunim_nosafim_monthly td { font-size: 41px; }
+        #netunim_nosafim_monthly tr { height: 43px; }
+        #netunim_nosafim_monthly table tr td:nth-child(1) { width: 316px; }
+        #netunim_nosafim_monthly table tr td:nth-child(2) { width: 100%; }
+    </style>
+
+    <div id="netunim_nosafim_monthly" style="top: 2190px; right: 1775px; font-size: 41px; width: 610px; height: 298px">
+        <table>
+            <tbody>
+            <tr>
+                <td>ברוטו למס הכנסה</td>
+                <td>99999</td>
+            </tr>
+            <tr>
+                <td>ית.זכאות ל-47</td>
+                <td>99999</td>
+            </tr>
+            <tr>
+                <td>אחוז מס שולי</td>
+                <td>45</td>
+            </tr>
+            <tr>
+                <td>נקודות זיכוי</td>
+                <td>2.25</td>
+            </tr>
+            <tr>
+                <td>ברוטו לביטוח לאומי</td>
+                <td>99999</td>
+            </tr>
+            <tr>
+                <td>הפ.ביטוח לאומי</td>
+                <td>99999</td>
+            </tr>
+            <tr>
+                <td>יתרת זכאות ל-47א</td>
+                <td>99999</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        #agregate_sums_tax_year table { width: 100%; table-layout: fixed; }
+        #agregate_sums_tax_year td { font-size: 41px; }
+        #agregate_sums_tax_year tr { height: 41px; }
+        #agregate_sums_tax_year table tr td:nth-child(1) { width: 380px; }
+        #agregate_sums_tax_year table tr td:nth-child(2) { width: 100%; }
+    </style>
+
+    <div id="agregate_sums_tax_year" style="top: 2624px; right: 1775px; font-size: 41px; width: 610px; height: 610px;">
+        <table>
+            <tbody>
+            <tr>
+                <td>ברוטו רגיל</td>
+                <td>999999.99</td>
+            </tr>
+            <tr>
+                <td>ברוטו לא קבוע</td>
+                <td>4654</td>
+            </tr>
+            <tr>
+                <td>ברוטו שנים קודמות</td>
+                <td>4556</td>
+            </tr>
+            <tr>
+                <td>שווי מס</td>
+                <td>545</td>
+            </tr>
+            <tr>
+                <td>נטו לגילום</td>
+                <td>282</td>
+            </tr>
+            <tr>
+                <td>גילום מס</td>
+                <td>5454</td>
+            </tr>
+            <tr>
+                <td>גילום ב.ל.</td>
+                <td>541</td>
+            </tr>
+            <tr>
+                <td>מס רגיל</td>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>מס על ברוטו לא קבוע</td>
+                <td>545</td>
+            </tr>
+            <tr>
+                <td>מס שנים קודמות</td>
+                <td>8420</td>
+            </tr>
+            <tr>
+                <td>הכנסה לא מבוטחת</td>
+                <td>4654</td>
+            </tr>
+            <tr>
+                <td>ניכוי לסעיף 45א 35%</td>
+                <td>654</td>
+            </tr>
+            <tr>
+                <td>ערך נקודות זיכוי</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>הכנסה חייבת במס</td>
+                <td>540</td>
+            </tr>
+            <tr>
+                <td>שכר חייב ב.ל.</td>
+                <td>6546</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 {% endblock %}
