@@ -373,7 +373,7 @@ def save_render_html(output_path, render_path, page, http_server_port, context, 
                 value = f'{value:.2f}'
             try:
                 if isinstance(value, str):
-                    inner_html = str(value).replace("'", "\\'")
+                    inner_html = str(value).replace("'", "\\'").replace("\n", "\\n")
                     if not inner_html:
                         inner_html = '&nbsp;'
                     page.evaluate(f"document.getElementById('{key}').innerHTML = '{inner_html}'")

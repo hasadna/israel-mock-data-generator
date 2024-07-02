@@ -6,7 +6,6 @@ from .salary import Salary
 from .. import common_draw, common
 
 
-
 def get_rikuz_netunim_table(fake):
     res = []
     res.append([random_float(fake, 1, 99999)])   # סך כל התשלומים
@@ -18,6 +17,7 @@ def get_rikuz_netunim_table(fake):
     res.append([random_float(fake, 1, 99999)])   # נטו לתשלום
     return res
 
+
 def get_pirtei_cheshbon_bank_table(fake):
     res = []
     mispar_cheshbon = fake.numerify('########')
@@ -25,6 +25,7 @@ def get_pirtei_cheshbon_bank_table(fake):
     mispar_bank = fake.random_int(10, 19)
     res.append([mispar_cheshbon, mispar_snif, mispar_bank])   
     return res
+
 
 def get_netunim_miztabrim_table(fake):
     res = []
@@ -44,6 +45,7 @@ def get_netunim_miztabrim_table(fake):
     res.append([random_float(fake, 1, 999999)])      # הכנסה חייבת במס   
     res.append([random_float(fake, 1, 999999)])      # שכר חייב ב.ל   
     return res
+
 
 def get_yechidot_mas_table(fake):
     res = []
@@ -83,6 +85,7 @@ def get_netunim_nosafim_haganat_hasachar_table(fake):
     res.append(['סך כל הניכויים ' + f'{random_float(fake, 1, 99999)}' + 'ש"ח'])
     res.append(['שכר מינימום לחודש 5880.02 לשעה 31.62'])
     return res
+
 
 def get_netunim_nosafim_table(fake, tz_number):
     res = []
@@ -204,103 +207,6 @@ def get_another_block(fake, block_name):
     return res
 
 
-def get_block_meida_nosaf(fake):
-    res = []
-
-    # block header - Todo - should it be part of the returned array??
-    block_header = 'מידע נוסף'
-    res.append(block_header)    # ???
-
-    # always 2 lines
-    res.append([
-        fake.numerify("####"),  # סמל
-        'שעות עבודה',
-        '', # למידע
-        '',  # תעריף
-        '',  # אחוז
-        fake.random_int(1, 300),  # כמות
-        '',    # סכום לתשלום
-    ])
-    res.append([
-        fake.numerify("####"),  # סמל
-        'שע אישור מעסיקי',
-        '', # למידע
-        '',  # תעריף
-        '',  # אחוז
-        fake.random_int(1, 300),  # כמות
-        '',    # סכום לתשלום
-    ])
-    return res
-
-
-def get_block_zkifot_sachar(fake):
-    # 1-3 lines
-    number_of_lines = fake.random_int(1, 3)
-
-    DESCS = [
-            'שווי רכב',
-            'שווי ארוחות',
-            'קה"ש מעל התקרה',
-            'שווי מתנה נטו',
-            'שווי שי לחג',
-            'שווי בונוס נטו'
-    ]
-
-    descs = set(DESCS)
-
-    res = []
-
-    # block header - Todo - should it be part of the returned array??
-    block_header = 'זקיפות שכר'
-    res.append(block_header)    # ???
-
-    for i in range(1, number_of_lines):
-        desc = fake.random_element(list(descs))
-        descs.remove(desc)
-
-        res.append([
-            fake.numerify("####"),  # סמל
-            desc,
-            fake.random_element(['קבוע','גילום','']),    # שדה ללא כותרת
-            '', #fake.random_element(['', random_float(fake, 1, 300)]),  # תעריף
-            '', #fake.random_element(['', random_float(fake, 1, 200)]),  # אחוז
-            fake.random_element(['', '1.0']),  # כמות
-            random_float(fake, 1, 999),    # סכום הזקיפה
-            fake.random_element(['', random_float(fake, 1, 999)]),    # סכום הגילום
-        ])
-        
-    # ToDo - line of sach-hakol should be part of array?
-    res.append([
-        # IFYUN does not specify range for this field. I made up
-        fake.random_element(['', fake.random_int(1, 1000)]),    # סה"כ
-    ])
-    
-    return res
-def get_peirut_hatashlumim_table(fake):
-    # this is a complicated table - it has X blocks, each block is a sub-table
-
-    # fixed blocks - always appear
-    block_meida_nosaf = get_block_meida_nosaf(fake)
-    block_zkifot_sachar = get_block_zkifot_sachar(fake)
-
-    # now 1-4 blocks out of the following
-    number_of_other_blocks = fake.random_int(1, 4)
-    other_block_names = ['שכר עבודה', 'תשלומים בגין שעות נוספות ומאמץ מיוחד', 'תשלומים בגין הוצאות', 'תשלומים אחרים', 'החזר הוצאות נטו']
-    other_blocks = []
-    for i in range(1, number_of_other_blocks):
-        block_name = fake.random_element(list(other_block_names))
-        other_block_names.remove(block_name)
-        block = get_another_block(fake, block_name)
-        other_blocks.append(block)
-
-    ## ToDo !!!
-    # now insert to table the following blocks: block_meida_nosaf, block_zkifot_sachar, other_blocks[]
-
-    # ToDo - how to insert the blocks in the super-table?
-    res = []
-    return res
-
-
 def get_nikuyim_vehafrashot_table(fake):
     # number of lines: 1-7
     number_of_lines = fake.random_int(1, 7)
@@ -373,6 +279,7 @@ def get_nikuyei_chova_misim_table(fake):
                 ])
     return res
 
+
 def get_nikuyei_hitchayvut_table(fake):
     descs = set([
         'קו הבריאות',
@@ -410,6 +317,7 @@ def get_nikuyei_hitchayvut_table(fake):
 
     return res
 
+
 def get_netunim_miztabrim_kupot_gemel_table(fake):
     res = []
     res.append(['קרן השתלמות', 
@@ -421,6 +329,7 @@ def get_netunim_miztabrim_kupot_gemel_table(fake):
                 f'{fake.random_int(0, 1250, step=25) / 100:,.2f}'  # 0-12.5 step 0.25
                 ])
     return res
+
 
 def get_heiadruyot_table(fake):
     res = []
@@ -447,123 +356,174 @@ def fake_date(fake):
     return fake.date_between(start_date='-3y', end_date='-1y').strftime('%d/%m/%y')
 
 
-class SalaryEast(Salary):
+def get_perut_tashlumim_table_html(fake):
+    shar_avoda_block_title = 'שכר עבודה'
+    block_titles = {
+        shar_avoda_block_title,
+        'תשלומים בגין שעות נוספות ומאמץ מיוחד',
+        'תשלומים בגין הוצאות',
+        'תשלומים אחרים',
+        'החזר הוצאות נטו',
+    }
+    teurs = {
+        'שעות נוספות 125%',
+        'שעות חסר',
+        'נסיעות מדווח',
+        'נסיעות החזר חודשי',
+        'טלפון',
+        'תשלום שיחות טלפון',
+        'תן ביס',
+        'קורס/לימודים',
+        'השתלמות',
+        'נופש',
+        'מקדמות שכר',
+        'החזר נסיעות חול',
+        'החזר נסיעות דלק',
+        'מוניות',
+        'הוצאות אחרות',
+        'ביגוד',
+    }
+    html = '<table><tbody>'
+    html += '''<tr style="height: 9px;">
+        <td style="width: 85px;"></td>
+        <td style="width: 299px;"></td>
+        <td style="width: 263px;"></td>
+        <td style="width: 228px;"></td>
+        <td style="width: 201px;"></td>
+        <td style="width: 144px;"></td>
+        <td style="width: 198px;"></td>
+        <td style="width: 100%;"></td>
+    </tr>'''
+    num_blocks = fake.random_int(1, 4)
+    block_num_rows = [fake.random_int(1, 3) for _ in range(num_blocks)]
+    if num_blocks == 4:
+        while sum(block_num_rows) > 9:
+            block_num_rows[fake.random_int(0, 3)] -= 1
+    for i in range(num_blocks):
+        block_title = fake.random_element(list(block_titles))
+        block_titles.remove(block_title)
+        html += f'''<tr class="pt">
+            <td colspan="8"><div>{block_title}</div></td>
+        </tr>'''
+        num_rows = block_num_rows[i]
+        for _ in range(num_rows):
+            semel = f'{fake.random_int(1, 9999):03d}'
+            if block_title == shar_avoda_block_title:
+                teur = fake.random_element(['שכר בסיס', 'שכר חודשי'])
+            else:
+                teur = fake.random_element(list(teurs))
+                teurs.remove(teur)
+            lemeida_type = fake.random_element(['empty', 'number', 'text'])
+            if lemeida_type == 'empty':
+                lemeida = ''
+            elif lemeida_type == 'number':
+                lemeida = fake.random_int(1, 1000)
+            else:
+                lemeida = fake.random_element(['קבוע', 'זמני'])
+            taarif = random_float(fake, 1, 300) if fake.random_int(1, 2) == 1 else ''
+            ahuz = random_float(fake, 1, 200) if fake.random_int(1, 2) == 1 else ''
+            kamut = random_float(fake, 1, 200) if fake.random_int(1, 2) == 1 else ''
+            if kamut and fake.random_int(1, 4) == 1:
+                kamut = '-' + kamut
+            shum = random_float(fake, 1, 9999) if fake.random_int(1, 2) == 1 else ''
+            if shum and fake.random_int(1, 4) == 1:
+                shum = '-' + shum
+            html += f'''<tr class="pr">
+                <td><div>{semel}</div></td>
+                <td colspan="2"><div>{teur}</div></td>
+                <td><div>{lemeida}</div></td>
+                <td><div>{taarif}</div></td>
+                <td><div>{ahuz}</div></td>
+                <td><div>{kamut}</div></td>
+                <td><div>{shum}</div></td>
+            </tr>'''
+        sahah = random_float(fake, 1, 9999)
+        html += f'''<tr class="ps">
+            <td colspan="2"><div></div></td>
+            <td colspan="5"><div>סה"כ {block_title}</div></td>
+            <td><div>{sahah}</div></td>
+        </tr>'''
+    return html
 
+
+def get_zkifot_sahar_items(fake):
+    descriptions = {
+        'שווי רכב',
+        'שווי ארוחות',
+        'קה"ש מעל התקרה',
+        'שווי מתנה נטו',
+        'שווי שי לחג',
+        'שווי בונוס נטו',
+    }
+    res = {}
+    num_rows = fake.random_int(1, 3)
+    for i in range(3):
+        istr = {
+            0: 'first',
+            1: 'second',
+            2: 'third'
+        }
+        if i < num_rows:
+            res[f'semel_{istr[i]}'] = f'{fake.random_int(1, 9999):03d}'
+            description = fake.random_element(list(descriptions))
+            descriptions.remove(description)
+            res[f'description_{istr[i]}'] = description
+            res[f'untitled_{istr[i]}'] = fake.random_element(['', 'קבוע', 'גילום'])
+            res[f'kamut_{istr[i]}'] = fake.random_element(['', '1.0'])
+            res[f'sum_tkina_{istr[i]}'] = random_float(fake, 1, 999)
+            res[f'sum_gilum_{istr[i]}'] = random_float(fake, 1, 999) if fake.random_int(1, 2) == 1 else ''
+        else:
+            res[f'semel_{istr[i]}'] = ''
+            res[f'description_{istr[i]}'] = ''
+            res[f'untitled_{istr[i]}'] = ''
+            res[f'kamut_{istr[i]}'] = ''
+            res[f'sum_tkina_{istr[i]}'] = ''
+            res[f'sum_gilum_{istr[i]}'] = ''
+    return res
+
+
+class SalaryEast(Salary):
 
     def generate(self):
         fake = self.fake
         machlaka_number = fake.random_int(50, 99999)
         tz_number = fake.teudat_zehut()
-        fixed_context = {
-            'teudat_zehut': tz_number,
-            'company_name': fake.company(),
-            'company_address': f'{fake.street_address()}, {fake.city()}, {fake.postcode()}',
-            'tik_nikuyim_number': fake.numerify("#########"),
-            'company_number': fake.numerify("#########"),
-            'machlaka_number': machlaka_number,
-            # machlaka_name not described in IFYUN 
-            'employee_name': fake.first_name() + ' ' + fake.last_name(),
-            'employee_address': f'{fake.street_address()}',   
-            'employee_address_city': f'{fake.city()}, {fake.postcode()}',
-            'machlaka_number_employee': machlaka_number,
-
-            'pirtey_cheshbon_table': {
-                'div_trs_td_div': get_pirtei_cheshbon_bank_table(fake)
-            },
-
-            # not specified in IFYUN but I think this table must be in fixed_context
-            # (except 3 fields)
-            'netunim_nosafim_table': {
-                'div_trs_td_div': get_netunim_nosafim_table(fake, tz_number)
-            },
-            # not specified in IFYUN but I think this table must be in fixed_context
-            'hodaa_laoved_table': {
-                'div_trs_td_div': get_hodaa_laoved_table(fake)
-            }
+        fixed_context_page_1 = {
+            'company': fake.company(),
+            'address_company': f', {fake.street_address()}, {fake.city()}, {fake.postcode()}',
+            'tik_nikuyim': fake.numerify("#########"),
+            'company_number': 'חברה : ' + fake.numerify("#########"),
+            'department': f'{machlaka_number} פיתוח ממשלה',
+            'full_name': fake.first_name() + ' ' + fake.last_name(),
+            'address_person': fake.street_address(),
+            'city_zip': f'{fake.city()}, {fake.postcode()}',
         }
         first_year = fake.random_int(2012, 2022)
         first_month = fake.random_int(1, 10)
         first_date = datetime.date(first_year, first_month, 1)
         for salary_date_num, salary_date in enumerate([
             first_date,
-            first_date + relativedelta(months=1),
-            first_date + relativedelta(months=2),
+            # first_date + relativedelta(months=1),
+            # first_date + relativedelta(months=2),
         ]):
+            month_name_he = fake.month_name_he(salary_date.month)
             common_draw.save_render_html(
                 output_path=self.item_context.png_output_path.replace('.png', f'-m{salary_date_num+1}.png'),
                 pdf_output_path=self.item_context.pdf_output_path.replace('.pdf', f'-m{salary_date_num+1}.pdf') if self.item_context.pdf_output_path else None,
-                render_path='salaries/east.html',
+                render_path='salaries/east-page-1.html',
                 page=self.html_page,
                 http_server_port=self.subtype_context.http_server_port,
                 width=2480, height=3507,
                 context={
-                    **fixed_context,
-                    'salary_date': f'{salary_date.month} / {salary_date.year}',
-
-                    #'zakaut_shnatit': fake.random_int(1, 30),
-
-                    'rikuz_netunim_table': {
-                        'div_trs_td_div': get_rikuz_netunim_table(fake)
-                    },
-
-                    'peirut_hatashlumim_table': {
-                        'div_trs_td_div': get_peirut_hatashlumim_table(fake)
-                    },
-
-
-                    'nikuyim_vehafrashot_table': {
-                        'div_trs_td_div': get_nikuyim_vehafrashot_table(fake)
-                    },
-                    # sach kupot gemel beheskem - not sure if it is in the table or outside!! - currently outside
-                    # it does not appear in IFYUN so I made up
-                    'sach_kupot_gemel_beheskem_hafrashat_maasik': random_float(fake, 1, 9999),
-                    'sach_kupot_gemel_beheskem_schum_hanikuy': random_float(fake, 1, 9999),
-                    # sach nikuyim vehafrashot
-                    'sach_nikuyim_vehafrashot_hafrashat_maasik': random_float(fake, 1, 9999),
-                    'sach_nikuyim_vehafrashot_schum_hanikuy': random_float(fake, 1, 9999),
-
-
-                    'taarifim_table': {
-                        'div_trs_td_div': get_taarifim_table(fake)
-                    },
-
-                    'nikuyei_chova_misim_table': {
-                        'div_trs_td_div': get_nikuyei_chova_misim_table(fake)
-                    },
-                    'sach_nikuyei_chova': random_float(fake, 1, 99999),
-
-
-                    'nikuyei_hitchayvut_table': {
-                        'div_trs_td_div': get_nikuyei_hitchayvut_table(fake)
-                    },
-
-                    'sach_nikuyei_hitchayvut': random_float(fake, 0, 9999),
-
-
-                    'netunim_miztabrim_kupot_gemel_table': {
-                        'div_trs_td_div': get_netunim_miztabrim_kupot_gemel_table(fake)
-                    },
-
-                    # schumim_miztabrim_table
-                    'netunim_miztabrim_table': {
-                        'div_trs_td_div': get_netunim_miztabrim_table(fake)
-                    },
-                    'yechidot_mas_table': { # need to make sure. possibly this table not the usual div tr td div??
-                        'div_trs_td_div': get_yechidot_mas_table(fake)
-                    },
-                    'peirut_nekudot_zikuy_table': {
-                        'div_trs_td_div': get_peirut_nekudot_zikuy_table(fake)
-                    },
-                    'netunim_nosafim_haganat_hasachar_table': {
-                        'div_trs_td_div': get_netunim_nosafim_haganat_hasachar_table(fake)
-                    },
-                    'ishurei_pkid_shuma_table': {
-                        'div_trs_td_div': get_ishurei_pkid_shuma_table(fake)
-                    },
-
-                    'heiadruyot_table': {
-                        'div_trs_td_div': get_heiadruyot_table(fake)
-                    }
-
+                    **fixed_context_page_1,
+                    'tlush_date': f'{month_name_he} {salary_date.year}',
+                    'perut_tashlumim_table': get_perut_tashlumim_table_html(fake),
+                    'semel_work_hours': f'{fake.random_int(1, 9999):03d}',
+                    'work_hours_float': fake.random_int(1, 300),
+                    'semel_hours_employer_allowance': f'{fake.random_int(1, 9999):03d}',
+                    'hours_employer_allowance_float': fake.random_int(1, 300),
+                    **get_zkifot_sahar_items(fake),
+                    'total_sum_zkifut': random_float(fake, 1, 9999),
+                    'total_sum_tashlumim': random_float(fake, 1, 9999),
                 }
             )
